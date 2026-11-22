@@ -7,222 +7,300 @@
 <meta name="description" content="Election reminders and a plain-language news top 10 for young adults in Tempe, Phoenix, and Mesa.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #fbf8f3;
-    --surface: #ffffff;
-    --ink: #1d1b19;
-    --muted: #5f5a54;
-    --line: #e6e0d6;
-    --accent: #b5441b;
-    --accent-ink: #ffffff;
-    --accent-soft: #f7e6dc;
-    --ok: #2f6b4f;
-    --ok-soft: #e1efe7;
-    --warn: #8a5a00;
-    --warn-soft: #fbefd5;
-    --radius: 14px;
+    --bg: #ffffff;
+    --ink: #000c1f;
+    --muted: #4f5866;
+    --line: #dfe1e5;
+    --hero-top: #f4f2f0;
+    --hero-bottom: #e2dfdc;
+    --navy: #002664;
+    --navy-ink: #ffffff;
+    --chip: rgba(0, 12, 31, 0.06);
+    --card: #f6f6f7;
+    --ok: #1f6a45;
+    --ok-soft: #e2f1e8;
+    --warn: #7a4f00;
+    --warn-soft: #fbf0d9;
+    --shadow: 0 10px 40px rgba(0, 12, 31, 0.10);
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #161412;
-      --surface: #201d1a;
-      --ink: #f2ede6;
-      --muted: #b3aba1;
-      --line: #36312b;
-      --accent: #ef8a5c;
-      --accent-ink: #1d1b19;
-      --accent-soft: #3a2519;
-      --ok: #8fd1ae;
-      --ok-soft: #1e3329;
-      --warn: #f0c46b;
-      --warn-soft: #3a2f17;
+      --bg: #0b1220; --ink: #eef1f6; --muted: #a9b2c1; --line: #263042;
+      --hero-top: #141d2e; --hero-bottom: #0f1726; --navy: #8fb2ff; --navy-ink: #06132b;
+      --chip: rgba(255, 255, 255, 0.08); --card: #141d2e;
+      --ok: #8fd6b0; --ok-soft: #173326; --warn: #f2c66d; --warn-soft: #362a12;
+      --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #161412; --surface: #201d1a; --ink: #f2ede6; --muted: #b3aba1; --line: #36312b;
-    --accent: #ef8a5c; --accent-ink: #1d1b19; --accent-soft: #3a2519;
-    --ok: #8fd1ae; --ok-soft: #1e3329; --warn: #f0c46b; --warn-soft: #3a2f17;
+    --bg: #0b1220; --ink: #eef1f6; --muted: #a9b2c1; --line: #263042;
+    --hero-top: #141d2e; --hero-bottom: #0f1726; --navy: #8fb2ff; --navy-ink: #06132b;
+    --chip: rgba(255, 255, 255, 0.08); --card: #141d2e;
+    --ok: #8fd6b0; --ok-soft: #173326; --warn: #f2c66d; --warn-soft: #362a12;
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font: 16px/1.55 Inter, system-ui, -apple-system, sans-serif;
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.55 "Helvetica Neue", Helvetica, Inter, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
   }
-  a { color: var(--accent); }
-  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
-  header { padding: 56px 0 32px; }
-  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
-  h1, h2, h3 { font-family: Fraunces, Georgia, serif; line-height: 1.15; margin: 0; }
-  h1 { font-size: clamp(34px, 6vw, 52px); max-width: 16ch; }
-  .lede { font-size: 19px; color: var(--muted); max-width: 52ch; margin: 16px 0 0; }
-  h2 { font-size: 26px; margin-bottom: 6px; }
-  h3 { font-size: 19px; }
-  section { padding: 28px 0; border-top: 1px solid var(--line); }
-  .step-num { display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 14px; align-items: center; justify-content: center; margin-right: 10px; vertical-align: 3px; }
-  .hint { color: var(--muted); margin: 0 0 18px; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--navy); outline-offset: 3px; }
+  .skip { position: absolute; left: -999px; }
+  .skip:focus { left: 16px; top: 8px; background: var(--bg); padding: 8px 12px; z-index: 10; }
 
-  .cities { display: flex; gap: 8px; flex-wrap: wrap; }
-  .city {
-    appearance: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
-    font: inherit; font-weight: 600; padding: 10px 20px; border-radius: 999px; cursor: pointer;
+  .notice { text-align: center; font-size: 13px; color: var(--muted); padding: 10px 16px; }
+
+  .hero {
+    margin: 0 auto; max-width: 1240px;
+    background: linear-gradient(180deg, var(--hero-top), var(--hero-bottom));
+    border-radius: 40px 40px 40px 40px;
+    padding: 28px 40px 48px;
   }
-  .city[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-  .city:focus-visible, .btn:focus-visible, .cad:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-  .btn {
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .wordmark { font-family: Newsreader, "Times New Roman", serif; font-size: 26px; letter-spacing: -0.5px; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .mark { width: 30px; height: 30px; border-radius: 9px; background: var(--navy); display: inline-grid; place-items: center; }
+  .mark svg { width: 18px; height: 18px; }
+  .pill {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 12px 18px; border-radius: 10px; font-weight: 600; text-decoration: none;
-    background: var(--accent); color: var(--accent-ink); border: 0; font-size: 15px;
+    background: var(--navy); color: var(--navy-ink); text-decoration: none; border: 0;
+    font: 500 16px/1 inherit; font-family: inherit; padding: 15px 24px; border-radius: 40px; cursor: pointer;
   }
-  .btn.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
-  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
-  .small { font-size: 14px; color: var(--muted); }
+  .pill.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--line); }
 
-  .cadences { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 6px; }
-  .cad { appearance: none; font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 8px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
-  .cad[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+  .hero-copy { text-align: center; padding: 64px 0 36px; }
+  h1 {
+    font-family: Newsreader, "Times New Roman", serif; font-weight: 400;
+    font-size: clamp(42px, 7vw, 68px); letter-spacing: -0.045em; line-height: 1.02; margin: 0;
+  }
+  .sub { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); margin: 18px auto 0; max-width: 34ch; }
 
-  .election { padding: 18px 0; border-bottom: 1px solid var(--line); }
-  .election:last-child { border-bottom: 0; }
-  .el-head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
-  .el-date { font-weight: 600; min-width: 150px; }
-  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
+  .cities { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+  .city {
+    appearance: none; border: 0; background: var(--chip); color: var(--ink);
+    font: 500 15px/1 inherit; font-family: inherit; padding: 12px 20px; border-radius: 40px; cursor: pointer;
+  }
+  .city[aria-pressed="true"] { background: var(--navy); color: var(--navy-ink); }
+
+  .ask {
+    max-width: 760px; margin: 0 auto; background: var(--bg); border-radius: 28px;
+    box-shadow: var(--shadow); padding: 18px 18px 14px 26px;
+  }
+  .ask label { position: absolute; left: -999px; }
+  .ask textarea {
+    width: 100%; border: 0; outline: none; resize: none; background: transparent; color: var(--ink);
+    font: 18px/1.4 inherit; font-family: inherit; letter-spacing: -0.01em; min-height: 54px; padding: 6px 0;
+  }
+  .ask textarea::placeholder { color: var(--muted); }
+  .ask-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .ask-note { font-size: 13px; color: var(--muted); }
+  .go { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: var(--navy-ink); border: 0; display: grid; place-items: center; cursor: pointer; flex: none; margin-left: auto; }
+  .go svg { width: 20px; height: 20px; }
+  .examples { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 760px; margin: 18px auto 0; }
+  .ex { appearance: none; border: 0; background: var(--chip); color: var(--ink); font: 14px/1.2 inherit; font-family: inherit; padding: 9px 14px; border-radius: 40px; cursor: pointer; }
+
+  main { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+  .feature { max-width: 760px; margin: 0 auto; padding: 88px 0 0; }
+  h2 { font-weight: 500; font-size: clamp(30px, 4.4vw, 42px); letter-spacing: -0.035em; line-height: 1.08; margin: 0 0 16px; }
+  .lead { font-size: 18px; color: var(--muted); margin: 0 0 28px; max-width: 46ch; }
+  .text-link { font-weight: 600; font-size: 15px; text-decoration: none; border-bottom: 1.5px solid currentColor; }
+
+  .panel { background: var(--navy); color: var(--navy-ink); border-radius: 32px; padding: 32px; }
+  .panel h3 { font-weight: 500; font-size: 22px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .panel p { margin: 0; opacity: .85; font-size: 15px; }
+  .panel .pill { background: var(--navy-ink); color: var(--navy); }
+  .panel .pill.ghost { background: transparent; color: var(--navy-ink); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.45); }
+  .panel-grid { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  .cads { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 14px; }
+  .cad { appearance: none; border: 0; font: 500 14px/1 inherit; font-family: inherit; padding: 9px 14px; border-radius: 40px; cursor: pointer; background: rgba(255,255,255,.12); color: var(--navy-ink); }
+  .cad[aria-pressed="true"] { background: var(--navy-ink); color: var(--navy); }
+  .fine { font-size: 14px; color: var(--muted); margin-top: 14px; }
+
+  .cards { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+  .card { background: var(--card); border-radius: 24px; padding: 24px; }
+  .card h3 { font-weight: 500; font-size: 19px; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .card p { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+
+  .election { padding: 24px 0; border-top: 1px solid var(--line); }
+  .el-date { font-size: 14px; font-weight: 600; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .election h3 { font-weight: 500; font-size: 22px; letter-spacing: -0.02em; margin: 6px 0 0; }
+  .badge { font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 40px; background: var(--warn-soft); color: var(--warn); }
   .badge.ok { background: var(--ok-soft); color: var(--ok); }
-  .races { list-style: none; padding: 0; margin: 10px 0 0; }
-  .races li { display: flex; gap: 10px; padding: 3px 0; font-size: 15px; }
-  .lvl { flex: 0 0 112px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding-top: 3px; }
-  .deadlines { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+  .races { list-style: none; padding: 0; margin: 12px 0 0; }
+  .races li { display: flex; gap: 12px; padding: 4px 0; font-size: 15px; }
+  .lvl { flex: 0 0 116px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 3px; }
+  .deadlines { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
   .deadlines b { color: var(--ink); font-weight: 600; }
 
-  .promises { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
-  .promises li { padding-left: 26px; position: relative; }
-  .promises li::before { content: ""; position: absolute; left: 0; top: 7px; width: 12px; height: 12px; border-radius: 3px; background: var(--ok); }
-  footer { padding: 28px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
-  @media (max-width: 520px) {
-    .lvl { flex-basis: 84px; }
-    .el-date { min-width: 0; }
+  .promises { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .promises li { background: var(--card); border-radius: 18px; padding: 16px 20px; font-size: 16px; }
+
+  footer { max-width: 760px; margin: 96px auto 0; padding: 28px 16px 56px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .hero { border-radius: 0 0 32px 32px; padding: 18px 16px 32px; }
+    .hero-copy { padding: 44px 0 28px; }
+    .wordmark { font-size: 21px; }
+    .pill { padding: 12px 18px; font-size: 15px; }
+    .topbar .pill { padding: 11px 16px; }
+    .ask { padding: 14px 14px 12px 18px; border-radius: 22px; }
+    .ask-note { display: none; }
+    .feature { padding-top: 64px; }
+    .panel { padding: 24px; border-radius: 26px; }
+    .lvl { flex-basis: 86px; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <p class="eyebrow">Tempe · Phoenix · Mesa</p>
-    <h1>Never miss an election that affects you.</h1>
-    <p class="lede">Reminders before every deadline, a plan to vote in a few minutes, and a plain-language news top 10 on your schedule. Covers city, school district, county, state, and federal races, starting with the ones closest to home.</p>
-  </header>
+<a class="skip" href="#main">Skip to main content</a>
+<p class="notice">A student project. Not an official government website.</p>
 
-  <section aria-labelledby="s1">
-    <h2 id="s1"><span class="step-num">1</span>Pick your city</h2>
-    <p class="hint">Only your city. We never ask for your address.</p>
-    <div class="cities" role="group" aria-label="City">
+<div class="hero">
+  <div class="topbar">
+    <a class="wordmark" href="#">
+      <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      Local Ballot Buddy
+    </a>
+    <a class="pill" href="#reminders">Get reminders</a>
+  </div>
+
+  <div class="hero-copy">
+    <h1>Hello, <span class="city-name">Tempe</span></h1>
+    <p class="sub">Every election that affects you, starting close to home.</p>
+    <div class="cities" role="group" aria-label="Choose your city">
       <button class="city" data-city="tempe" aria-pressed="true">Tempe</button>
       <button class="city" data-city="phoenix" aria-pressed="false">Phoenix</button>
       <button class="city" data-city="mesa" aria-pressed="false">Mesa</button>
     </div>
-  </section>
+  </div>
 
-  <section aria-labelledby="s2">
-    <h2 id="s2"><span class="step-num">2</span>Add the reminders to your phone</h2>
-    <p class="hint">These are calendar subscriptions. When a date changes, your calendar updates on its own.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Election deadlines</h3>
-        <p class="small">Registration, mail ballot, early voting, and election day reminders for <span class="city-name">Tempe</span>.</p>
-        <div class="btn-row">
-          <a class="btn" id="el-apple" href="#">Apple or Outlook</a>
-          <a class="btn secondary" id="el-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+  <form class="ask" id="ask">
+    <label for="q">Ask a question about voting in your city</label>
+    <textarea id="q" rows="2" placeholder="Try 'What's on my ballot?'"></textarea>
+    <div class="ask-row">
+      <span class="ask-note">Opens in ChatGPT. Answers come only from trusted sources.</span>
+      <button class="go" type="submit" aria-label="Ask">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </form>
+  <div class="examples" id="examples"></div>
+</div>
+
+<main id="main">
+  <section class="feature" id="reminders" aria-labelledby="h-rem">
+    <h2 id="h-rem">Reminders that come to you.</h2>
+    <p class="lead">Subscribe once and your phone's calendar does the rest. When a date changes, your calendar updates automatically.</p>
+    <div class="panel">
+      <div class="panel-grid">
+        <div>
+          <h3>Election deadlines</h3>
+          <p>Registration, mail ballot, early voting, and election day for <span class="city-name">Tempe</span>.</p>
+          <div class="btns">
+            <a class="pill" id="el-apple" href="#">Apple or Outlook</a>
+            <a class="pill ghost" id="el-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+          </div>
         </div>
-      </div>
-      <div class="card">
-        <h3>Your news top 10</h3>
-        <p class="small">A reminder that opens your plain-language roundup.</p>
-        <div class="cadences" role="group" aria-label="How often">
-          <button class="cad" data-cad="weekly" aria-pressed="true">Weekly</button>
-          <button class="cad" data-cad="biweekly" aria-pressed="false">Every 2 weeks</button>
-          <button class="cad" data-cad="monthly" aria-pressed="false">Monthly</button>
-        </div>
-        <div class="btn-row">
-          <a class="btn" id="tt-apple" href="#">Apple or Outlook</a>
-          <a class="btn secondary" id="tt-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+        <div>
+          <h3>Your news top 10</h3>
+          <p>City, county, state, and national news in plain language.</p>
+          <div class="cads" role="group" aria-label="How often">
+            <button class="cad" data-cad="weekly" aria-pressed="true">Weekly</button>
+            <button class="cad" data-cad="biweekly" aria-pressed="false">Every 2 weeks</button>
+            <button class="cad" data-cad="monthly" aria-pressed="false">Monthly</button>
+          </div>
+          <div class="btns">
+            <a class="pill" id="tt-apple" href="#">Apple or Outlook</a>
+            <a class="pill ghost" id="tt-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+          </div>
         </div>
       </div>
     </div>
-    <p class="small" style="margin-top:14px">Using Google Calendar? Check that your default alerts are on, since Google uses your settings instead of ours.</p>
+    <p class="fine">Using Google Calendar? Check that your default alerts are on, since Google uses your settings instead of ours.</p>
   </section>
 
-  <section aria-labelledby="s3">
-    <h2 id="s3"><span class="step-num">3</span>Chat when you're ready</h2>
-    <p class="hint">Each reminder links here. Ask what's on your ballot, check your registration, or make your plan to vote.</p>
-    <div class="grid">
+  <section class="feature" aria-labelledby="h-up">
+    <h2 id="h-up">Coming up in <span class="city-name">Tempe</span>.</h2>
+    <p class="lead">Local races first. See your exact ballot at <a class="text-link" href="https://my.arizona.vote" target="_blank" rel="noopener">my.arizona.vote</a>.</p>
+    <div id="elections"><p class="fine">Loading elections…</p></div>
+  </section>
+
+  <section class="feature" aria-labelledby="h-chat">
+    <h2 id="h-chat">Use it where you already are.</h2>
+    <p class="lead">No app to download. Check your registration, see your ballot, and make a plan to vote in a few minutes.</p>
+    <div class="cards">
       <div class="card">
         <h3>ChatGPT</h3>
-        <p class="small">Works with a free account.</p>
-        <div class="btn-row"><a class="btn" id="gpt-link" href="#" target="_blank" rel="noopener">Open in ChatGPT</a></div>
+        <p>Works with a free account.</p>
+        <a class="pill" id="gpt-link" href="#" target="_blank" rel="noopener">Open in ChatGPT</a>
       </div>
       <div class="card">
         <h3>Claude</h3>
-        <p class="small">Create a Project, paste in the <a href="instructions.md">instructions</a>, and upload the <a href="trusted-sources.md">trusted sources</a> and <a href="election-calendar.json">election calendar</a> files.</p>
+        <p>Make a Project, paste in the <a class="text-link" href="instructions.md">instructions</a>, and add the <a class="text-link" href="trusted-sources.md">sources</a> and <a class="text-link" href="election-calendar.json">calendar</a> files.</p>
       </div>
       <div class="card">
         <h3>No AI? No problem.</h3>
-        <p class="small">The calendar reminders work on their own and link to official sites.</p>
-        <div class="btn-row"><a class="btn secondary" href="https://my.arizona.vote" target="_blank" rel="noopener">Check my registration</a></div>
+        <p>The calendar reminders work on their own and link to official sites.</p>
+        <a class="pill ghost" href="https://my.arizona.vote" target="_blank" rel="noopener">Check registration</a>
       </div>
     </div>
   </section>
 
-  <section aria-labelledby="s4">
-    <h2 id="s4">Coming up in <span class="city-name">Tempe</span></h2>
-    <p class="hint">Local races first. See your exact ballot at <a href="https://my.arizona.vote" target="_blank" rel="noopener">my.arizona.vote</a>.</p>
-    <div class="card" id="elections"><p class="small">Loading elections…</p></div>
-  </section>
-
-  <section aria-labelledby="s5">
-    <h2 id="s5">What it will never do</h2>
+  <section class="feature" aria-labelledby="h-priv">
+    <h2 id="h-priv">Your information stays yours.</h2>
+    <p class="lead">It only asks for your city. Anything that needs more goes to the official state site.</p>
     <ul class="promises">
-      <li>Tell you who or what to vote for.</li>
-      <li>Ask for your address, birth date, or ID. Anything that needs those goes to the official state site.</li>
-      <li>Ask how you voted, or remember it if you say.</li>
-      <li>Use sources outside its <a href="trusted-sources.md">trusted list</a>, or guess at a date or rule.</li>
-      <li>Send you anything you didn't subscribe to. Unsubscribe by removing the calendar.</li>
+      <li>It never tells you who or what to vote for.</li>
+      <li>It never asks for your address, birth date, or ID.</li>
+      <li>It never asks how you voted, and won't remember if you say.</li>
+      <li>It only uses sources on its <a class="text-link" href="trusted-sources.md">trusted list</a>, and never guesses at a date or rule.</li>
+      <li>It only sends what you subscribed to. Remove the calendar to stop.</li>
     </ul>
   </section>
+</main>
 
-  <footer>
-    A student project, version one. Dates come from official election offices, and dates marked "expected" haven't been published yet. Always confirm with the <a href="https://azsos.gov/elections" target="_blank" rel="noopener">Arizona Secretary of State</a> or <a href="https://elections.maricopa.gov" target="_blank" rel="noopener">Maricopa County Elections</a>.
-  </footer>
-</div>
+<footer>
+  Local Ballot Buddy is a student project, version one, and is not affiliated with any government agency. Dates come from official election offices. Dates marked "Expected" haven't been published yet. Always confirm with the <a class="text-link" href="https://azsos.gov/elections" target="_blank" rel="noopener">Arizona Secretary of State</a> or <a class="text-link" href="https://elections.maricopa.gov" target="_blank" rel="noopener">Maricopa County Elections</a>.
+</footer>
 
 <script>
   // Replace with your custom GPT's share link.
   const GPT_URL = "https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK";
 
+  const EXAMPLES = [
+    "What's on my ballot?",
+    "Am I registered at my new address?",
+    "When is the next election here?",
+    "What does the city council actually decide?",
+    "How do I get a mail ballot?",
+    "Help me make a plan to vote",
+  ];
   const LEVELS = ["city", "school", "county", "state", "federal"];
   const LEVEL_LABEL = { city: "City", school: "School district", county: "County", state: "State", federal: "Federal" };
+  const CITY_NAMES = { tempe: "Tempe", phoenix: "Phoenix", mesa: "Mesa" };
   const state = { city: "tempe", cad: "weekly", data: null };
 
   const base = new URL(".", location.href);
   const httpsUrl = (file) => new URL("calendars/" + file, base).href;
   const webcalUrl = (file) => httpsUrl(file).replace(/^https?:/, "webcal:");
   const googleUrl = (file) => "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcalUrl(file));
+  const cityName = () => CITY_NAMES[state.city];
+  const gptAsk = (q) => GPT_URL + "?q=" + encodeURIComponent(`${q} I live in ${cityName()}, Arizona.`);
 
   function applies(item, city) {
     const t = item.applies_to || "all";
     return t === "all" || t.includes(city);
   }
-
   function fmtDate(iso) {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
   }
-
   function el(tag, attrs = {}, text) {
     const n = document.createElement(tag);
     for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
@@ -231,36 +309,36 @@
   }
 
   function renderLinks() {
-    const cityName = state.data ? state.data.cities[state.city].name : state.city;
-    document.querySelectorAll(".city-name").forEach((n) => (n.textContent = cityName));
+    document.querySelectorAll(".city-name").forEach((n) => (n.textContent = cityName()));
     const elFile = `${state.city}.ics`;
     const ttFile = `${state.city}-top10-${state.cad}.ics`;
     document.getElementById("el-apple").href = webcalUrl(elFile);
     document.getElementById("el-google").href = googleUrl(elFile);
     document.getElementById("tt-apple").href = webcalUrl(ttFile);
     document.getElementById("tt-google").href = googleUrl(ttFile);
-    document.getElementById("gpt-link").href = GPT_URL + "?q=" + encodeURIComponent(`Hi! I live in ${cityName}. Help me get set up.`);
+    document.getElementById("gpt-link").href = gptAsk("Hi! Help me get set up.");
   }
 
   function renderElections() {
     const box = document.getElementById("elections");
     box.replaceChildren();
     if (!state.data) {
-      box.append(el("p", { class: "small" }, "Couldn't load the election list. Open this page from a web server, not as a file."));
+      box.append(el("p", { class: "fine" }, "Couldn't load the election list. Open this page from a web server, not as a file."));
       return;
     }
     const today = new Date().toISOString().slice(0, 10);
+    const key = (e) => e.date || e.approx_date || "9999";
     const list = state.data.elections
-      .filter((e) => !e.past && applies(e, state.city) && (e.date || e.approx_date || "9999") >= today)
-      .sort((a, b) => ((a.date || a.approx_date || "9999") < (b.date || b.approx_date || "9999") ? -1 : 1));
+      .filter((e) => !e.past && applies(e, state.city) && key(e) >= today)
+      .sort((a, b) => (key(a) < key(b) ? -1 : 1));
 
     for (const e of list) {
       const item = el("div", { class: "election" });
-      const head = el("div", { class: "el-head" });
-      head.append(el("span", { class: "el-date" }, e.date ? fmtDate(e.date) : (e.approx_label || "Date not set yet")));
-      head.append(el("h3", {}, e.name));
-      head.append(el("span", { class: "badge" + (e.status === "confirmed" ? " ok" : "") }, e.status === "confirmed" ? "Official date" : "Expected"));
-      item.append(head);
+      const top = el("div", { class: "el-date" });
+      top.append(el("span", {}, e.date ? fmtDate(e.date) : (e.approx_label || "Date not set yet")));
+      top.append(el("span", { class: "badge" + (e.status === "confirmed" ? " ok" : "") }, e.status === "confirmed" ? "Official date" : "Expected"));
+      item.append(top);
+      item.append(el("h3", {}, e.name));
 
       const races = (e.races || []).filter((r) => applies(r, state.city))
         .sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level));
@@ -274,7 +352,6 @@
         }
         item.append(ul);
       }
-
       const dl = e.deadlines || {};
       const parts = [];
       if (dl.registration) parts.push(["Register by", dl.registration.date]);
@@ -296,6 +373,32 @@
     document.querySelectorAll(selector).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset[attr] === value)));
   }
 
+  // Ask box: rotating placeholder, example chips, and submit to the GPT.
+  const q = document.getElementById("q");
+  let exIndex = 0;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion) {
+    setInterval(() => {
+      if (document.activeElement === q || q.value) return;
+      exIndex = (exIndex + 1) % EXAMPLES.length;
+      q.placeholder = `Try '${EXAMPLES[exIndex]}'`;
+    }, 3500);
+  }
+  const exBox = document.getElementById("examples");
+  EXAMPLES.slice(0, 4).forEach((t) => {
+    const b = el("button", { class: "ex", type: "button" }, t);
+    b.addEventListener("click", () => window.open(gptAsk(t), "_blank", "noopener"));
+    exBox.append(b);
+  });
+  document.getElementById("ask").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const text = q.value.trim() || EXAMPLES[exIndex];
+    window.open(gptAsk(text), "_blank", "noopener");
+  });
+  q.addEventListener("keydown", (ev) => {
+    if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); document.getElementById("ask").requestSubmit(); }
+  });
+
   document.querySelectorAll(".city").forEach((b) => b.addEventListener("click", () => {
     state.city = b.dataset.city;
     press(".city", "city", state.city);
@@ -310,13 +413,13 @@
 
   try {
     const saved = localStorage.getItem("lbb-city");
-    if (saved && ["tempe", "phoenix", "mesa"].includes(saved)) { state.city = saved; press(".city", "city", saved); }
+    if (saved && CITY_NAMES[saved]) { state.city = saved; press(".city", "city", saved); }
   } catch (_) {}
 
   renderLinks();
   fetch("election-calendar.json")
     .then((r) => r.json())
-    .then((d) => { state.data = d; renderLinks(); renderElections(); })
+    .then((d) => { state.data = d; renderElections(); })
     .catch(() => renderElections());
 </script>
 </body>
