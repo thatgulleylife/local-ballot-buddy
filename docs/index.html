@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local Ballot Buddy</title>
+<meta name="description" content="Election reminders and a plain-language news top 10 for young adults in Tempe, Phoenix, and Mesa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fbf8f3;
+    --surface: #ffffff;
+    --ink: #1d1b19;
+    --muted: #5f5a54;
+    --line: #e6e0d6;
+    --accent: #b5441b;
+    --accent-ink: #ffffff;
+    --accent-soft: #f7e6dc;
+    --ok: #2f6b4f;
+    --ok-soft: #e1efe7;
+    --warn: #8a5a00;
+    --warn-soft: #fbefd5;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #161412;
+      --surface: #201d1a;
+      --ink: #f2ede6;
+      --muted: #b3aba1;
+      --line: #36312b;
+      --accent: #ef8a5c;
+      --accent-ink: #1d1b19;
+      --accent-soft: #3a2519;
+      --ok: #8fd1ae;
+      --ok-soft: #1e3329;
+      --warn: #f0c46b;
+      --warn-soft: #3a2f17;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #161412; --surface: #201d1a; --ink: #f2ede6; --muted: #b3aba1; --line: #36312b;
+    --accent: #ef8a5c; --accent-ink: #1d1b19; --accent-soft: #3a2519;
+    --ok: #8fd1ae; --ok-soft: #1e3329; --warn: #f0c46b; --warn-soft: #3a2f17;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.55 Inter, system-ui, -apple-system, sans-serif;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px; }
+  header { padding: 56px 0 32px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 12px; }
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; line-height: 1.15; margin: 0; }
+  h1 { font-size: clamp(34px, 6vw, 52px); max-width: 16ch; }
+  .lede { font-size: 19px; color: var(--muted); max-width: 52ch; margin: 16px 0 0; }
+  h2 { font-size: 26px; margin-bottom: 6px; }
+  h3 { font-size: 19px; }
+  section { padding: 28px 0; border-top: 1px solid var(--line); }
+  .step-num { display: inline-flex; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 600; font-size: 14px; align-items: center; justify-content: center; margin-right: 10px; vertical-align: 3px; }
+  .hint { color: var(--muted); margin: 0 0 18px; }
+
+  .cities { display: flex; gap: 8px; flex-wrap: wrap; }
+  .city {
+    appearance: none; border: 1.5px solid var(--line); background: var(--surface); color: var(--ink);
+    font: inherit; font-weight: 600; padding: 10px 20px; border-radius: 999px; cursor: pointer;
+  }
+  .city[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .city:focus-visible, .btn:focus-visible, .cad:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 18px; border-radius: 10px; font-weight: 600; text-decoration: none;
+    background: var(--accent); color: var(--accent-ink); border: 0; font-size: 15px;
+  }
+  .btn.secondary { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+  .small { font-size: 14px; color: var(--muted); }
+
+  .cadences { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 6px; }
+  .cad { appearance: none; font: inherit; font-size: 14px; padding: 8px 14px; border-radius: 8px; border: 1.5px solid var(--line); background: transparent; color: var(--ink); cursor: pointer; }
+  .cad[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+
+  .election { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .election:last-child { border-bottom: 0; }
+  .el-head { display: flex; gap: 14px; align-items: baseline; flex-wrap: wrap; }
+  .el-date { font-weight: 600; min-width: 150px; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
+  .badge.ok { background: var(--ok-soft); color: var(--ok); }
+  .races { list-style: none; padding: 0; margin: 10px 0 0; }
+  .races li { display: flex; gap: 10px; padding: 3px 0; font-size: 15px; }
+  .lvl { flex: 0 0 112px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); padding-top: 3px; }
+  .deadlines { margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+  .deadlines b { color: var(--ink); font-weight: 600; }
+
+  .promises { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .promises li { padding-left: 26px; position: relative; }
+  .promises li::before { content: ""; position: absolute; left: 0; top: 7px; width: 12px; height: 12px; border-radius: 3px; background: var(--ok); }
+  footer { padding: 28px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  @media (max-width: 520px) {
+    .lvl { flex-basis: 84px; }
+    .el-date { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Tempe · Phoenix · Mesa</p>
+    <h1>Never miss an election that affects you.</h1>
+    <p class="lede">Reminders before every deadline, a plan to vote in a few minutes, and a plain-language news top 10 on your schedule. Covers city, school district, county, state, and federal races, starting with the ones closest to home.</p>
+  </header>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1"><span class="step-num">1</span>Pick your city</h2>
+    <p class="hint">Only your city. We never ask for your address.</p>
+    <div class="cities" role="group" aria-label="City">
+      <button class="city" data-city="tempe" aria-pressed="true">Tempe</button>
+      <button class="city" data-city="phoenix" aria-pressed="false">Phoenix</button>
+      <button class="city" data-city="mesa" aria-pressed="false">Mesa</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2"><span class="step-num">2</span>Add the reminders to your phone</h2>
+    <p class="hint">These are calendar subscriptions. When a date changes, your calendar updates on its own.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Election deadlines</h3>
+        <p class="small">Registration, mail ballot, early voting, and election day reminders for <span class="city-name">Tempe</span>.</p>
+        <div class="btn-row">
+          <a class="btn" id="el-apple" href="#">Apple or Outlook</a>
+          <a class="btn secondary" id="el-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Your news top 10</h3>
+        <p class="small">A reminder that opens your plain-language roundup.</p>
+        <div class="cadences" role="group" aria-label="How often">
+          <button class="cad" data-cad="weekly" aria-pressed="true">Weekly</button>
+          <button class="cad" data-cad="biweekly" aria-pressed="false">Every 2 weeks</button>
+          <button class="cad" data-cad="monthly" aria-pressed="false">Monthly</button>
+        </div>
+        <div class="btn-row">
+          <a class="btn" id="tt-apple" href="#">Apple or Outlook</a>
+          <a class="btn secondary" id="tt-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:14px">Using Google Calendar? Check that your default alerts are on, since Google uses your settings instead of ours.</p>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 id="s3"><span class="step-num">3</span>Chat when you're ready</h2>
+    <p class="hint">Each reminder links here. Ask what's on your ballot, check your registration, or make your plan to vote.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>ChatGPT</h3>
+        <p class="small">Works with a free account.</p>
+        <div class="btn-row"><a class="btn" id="gpt-link" href="#" target="_blank" rel="noopener">Open in ChatGPT</a></div>
+      </div>
+      <div class="card">
+        <h3>Claude</h3>
+        <p class="small">Create a Project, paste in the <a href="instructions.md">instructions</a>, and upload the <a href="trusted-sources.md">trusted sources</a> and <a href="election-calendar.json">election calendar</a> files.</p>
+      </div>
+      <div class="card">
+        <h3>No AI? No problem.</h3>
+        <p class="small">The calendar reminders work on their own and link to official sites.</p>
+        <div class="btn-row"><a class="btn secondary" href="https://my.arizona.vote" target="_blank" rel="noopener">Check my registration</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 id="s4">Coming up in <span class="city-name">Tempe</span></h2>
+    <p class="hint">Local races first. See your exact ballot at <a href="https://my.arizona.vote" target="_blank" rel="noopener">my.arizona.vote</a>.</p>
+    <div class="card" id="elections"><p class="small">Loading elections…</p></div>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 id="s5">What it will never do</h2>
+    <ul class="promises">
+      <li>Tell you who or what to vote for.</li>
+      <li>Ask for your address, birth date, or ID. Anything that needs those goes to the official state site.</li>
+      <li>Ask how you voted, or remember it if you say.</li>
+      <li>Use sources outside its <a href="trusted-sources.md">trusted list</a>, or guess at a date or rule.</li>
+      <li>Send you anything you didn't subscribe to. Unsubscribe by removing the calendar.</li>
+    </ul>
+  </section>
+
+  <footer>
+    A student project, version one. Dates come from official election offices, and dates marked "expected" haven't been published yet. Always confirm with the <a href="https://azsos.gov/elections" target="_blank" rel="noopener">Arizona Secretary of State</a> or <a href="https://elections.maricopa.gov" target="_blank" rel="noopener">Maricopa County Elections</a>.
+  </footer>
+</div>
+
+<script>
+  // Replace with your custom GPT's share link.
+  const GPT_URL = "https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK";
+
+  const LEVELS = ["city", "school", "county", "state", "federal"];
+  const LEVEL_LABEL = { city: "City", school: "School district", county: "County", state: "State", federal: "Federal" };
+  const state = { city: "tempe", cad: "weekly", data: null };
+
+  const base = new URL(".", location.href);
+  const httpsUrl = (file) => new URL("calendars/" + file, base).href;
+  const webcalUrl = (file) => httpsUrl(file).replace(/^https?:/, "webcal:");
+  const googleUrl = (file) => "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcalUrl(file));
+
+  function applies(item, city) {
+    const t = item.applies_to || "all";
+    return t === "all" || t.includes(city);
+  }
+
+  function fmtDate(iso) {
+    const [y, m, d] = iso.split("-").map(Number);
+    return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
+  }
+
+  function el(tag, attrs = {}, text) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  function renderLinks() {
+    const cityName = state.data ? state.data.cities[state.city].name : state.city;
+    document.querySelectorAll(".city-name").forEach((n) => (n.textContent = cityName));
+    const elFile = `${state.city}.ics`;
+    const ttFile = `${state.city}-top10-${state.cad}.ics`;
+    document.getElementById("el-apple").href = webcalUrl(elFile);
+    document.getElementById("el-google").href = googleUrl(elFile);
+    document.getElementById("tt-apple").href = webcalUrl(ttFile);
+    document.getElementById("tt-google").href = googleUrl(ttFile);
+    document.getElementById("gpt-link").href = GPT_URL + "?q=" + encodeURIComponent(`Hi! I live in ${cityName}. Help me get set up.`);
+  }
+
+  function renderElections() {
+    const box = document.getElementById("elections");
+    box.replaceChildren();
+    if (!state.data) {
+      box.append(el("p", { class: "small" }, "Couldn't load the election list. Open this page from a web server, not as a file."));
+      return;
+    }
+    const today = new Date().toISOString().slice(0, 10);
+    const list = state.data.elections
+      .filter((e) => !e.past && applies(e, state.city) && (e.date || e.approx_date || "9999") >= today)
+      .sort((a, b) => ((a.date || a.approx_date || "9999") < (b.date || b.approx_date || "9999") ? -1 : 1));
+
+    for (const e of list) {
+      const item = el("div", { class: "election" });
+      const head = el("div", { class: "el-head" });
+      head.append(el("span", { class: "el-date" }, e.date ? fmtDate(e.date) : (e.approx_label || "Date not set yet")));
+      head.append(el("h3", {}, e.name));
+      head.append(el("span", { class: "badge" + (e.status === "confirmed" ? " ok" : "") }, e.status === "confirmed" ? "Official date" : "Expected"));
+      item.append(head);
+
+      const races = (e.races || []).filter((r) => applies(r, state.city))
+        .sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level));
+      if (races.length) {
+        const ul = el("ul", { class: "races" });
+        for (const r of races) {
+          const li = el("li");
+          li.append(el("span", { class: "lvl" }, LEVEL_LABEL[r.level]));
+          li.append(el("span", {}, r.office + (r.status === "confirm" ? " (expected)" : "")));
+          ul.append(li);
+        }
+        item.append(ul);
+      }
+
+      const dl = e.deadlines || {};
+      const parts = [];
+      if (dl.registration) parts.push(["Register by", dl.registration.date]);
+      if (dl.early_ballot_request) parts.push(["Request a mail ballot by", dl.early_ballot_request.date]);
+      if (parts.length) {
+        const p = el("p", { class: "deadlines" });
+        parts.forEach(([label, d], i) => {
+          if (i) p.append(document.createTextNode(" · "));
+          p.append(document.createTextNode(label + " "));
+          p.append(el("b", {}, fmtDate(d)));
+        });
+        item.append(p);
+      }
+      box.append(item);
+    }
+  }
+
+  function press(selector, attr, value) {
+    document.querySelectorAll(selector).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset[attr] === value)));
+  }
+
+  document.querySelectorAll(".city").forEach((b) => b.addEventListener("click", () => {
+    state.city = b.dataset.city;
+    press(".city", "city", state.city);
+    try { localStorage.setItem("lbb-city", state.city); } catch (_) {}
+    renderLinks(); renderElections();
+  }));
+  document.querySelectorAll(".cad").forEach((b) => b.addEventListener("click", () => {
+    state.cad = b.dataset.cad;
+    press(".cad", "cad", state.cad);
+    renderLinks();
+  }));
+
+  try {
+    const saved = localStorage.getItem("lbb-city");
+    if (saved && ["tempe", "phoenix", "mesa"].includes(saved)) { state.city = saved; press(".city", "city", saved); }
+  } catch (_) {}
+
+  renderLinks();
+  fetch("election-calendar.json")
+    .then((r) => r.json())
+    .then((d) => { state.data = d; renderLinks(); renderElections(); })
+    .catch(() => renderElections());
+</script>
+</body>
+</html>

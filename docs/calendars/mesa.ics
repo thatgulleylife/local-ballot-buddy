@@ -1,0 +1,371 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Local Ballot Buddy//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Mesa elections
+X-WR-TIMEZONE:America/Phoenix
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VTIMEZONE
+TZID:America/Phoenix
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0700
+TZNAME:MST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:mesa-maricopa-2027-11-prep@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20270705
+DTEND;VALUE=DATE:20270706
+SUMMARY:Get ready: Nov 2027 local election in 120 days
+DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any 
+ city calls them (expected\, not yet official)\n- School district: School d
+ istrict bond and budget override measures\, if any districts call them (ex
+ pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
+ te\n\nTap the link to check your address\, see your ballot\, and make a pl
+ an.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20
+ ready%20for%20the%20Maricopa%20County%20jurisdictional%20election%20on%202
+ 027-11-02.%20I%20live%20in%20Mesa.\n\nCity info: https://www.mesaaz.gov/Go
+ vernment/City-Clerk/Elections\nCheck your registration: https://my.arizona
+ .vote
+URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
+ ady%20for%20the%20Maricopa%20County%20jurisdictional%20election%20on%20202
+ 7-11-02.%20I%20live%20in%20Mesa.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Get ready: Nov 2027 local election in 120 days
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-maricopa-2027-11-reg@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20271004
+DTEND;VALUE=DATE:20271005
+SUMMARY:Register or update address by midnight: Nov 2027 local election (da
+ te expected)
+DESCRIPTION:For the Maricopa County jurisdictional election on 2027-11-02. 
+ Moved since the last election? Update your address before midnight.\nhttps
+ ://my.arizona.vote\n\nSource: Arizona Secretary of State\, 29 days before 
+ the election.
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: Nov 2027 local election
+  (date expected)
+TRIGGER:-P6DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: Nov 2027 local election
+  (date expected)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-maricopa-2027-11-early@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20271006
+DTEND;VALUE=DATE:20271007
+SUMMARY:Early voting starts: Nov 2027 local election (date expected)
+DESCRIPTION:Early ballots go out and early voting locations open for the Ma
+ ricopa County jurisdictional election.\nhttps://elections.maricopa.gov
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Early voting starts: Nov 2027 local election (date expected)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-maricopa-2027-11-req@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20271022
+DTEND;VALUE=DATE:20271023
+SUMMARY:Mail ballot request due 5 p.m.: Nov 2027 local election (date expec
+ ted)
+DESCRIPTION:For the Maricopa County jurisdictional election on 2027-11-02. 
+ Request it from the Maricopa County Recorder.\nhttps://recorder.maricopa.g
+ ov\n\nSource: Arizona Secretary of State\, 11 days before the election.
+URL:https://recorder.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: Nov 2027 local election (date e
+ xpected)
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: Nov 2027 local election (date e
+ xpected)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-maricopa-2027-11-day@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20271102
+DTEND;VALUE=DATE:20271103
+SUMMARY:Election day: Nov 2027 local election (date expected)
+DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any 
+ city calls them (expected\, not yet official)\n- School district: School d
+ istrict bond and budget override measures\, if any districts call them (ex
+ pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
+ te\n\nVote centers are open 6 a.m. to 7 p.m. Find one at https://elections
+ .maricopa.gov\nNeed a plan? https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LI
+ NK?q=It%27s%20almost%20election%20day%20for%20the%20Maricopa%20County%20ju
+ risdictional%20election.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I
+ %20live%20in%20Mesa.\n\nCity info: https://www.mesaaz.gov/Government/City-
+ Clerk/Elections\nCheck your registration: https://my.arizona.vote
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: Nov 2027 local election (date expected)
+TRIGGER:-P1DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: Nov 2027 local election (date expected)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-03-ppe-prep@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20271122
+DTEND;VALUE=DATE:20271123
+SUMMARY:Get ready: Presidential preference election in 120 days
+DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
+  voters registered with a participating party) (expected\, not yet officia
+ l)\nSee your exact ballot at https://my.arizona.vote\n\nTap the link to ch
+ eck your address\, see your ballot\, and make a plan.\nhttps://chatgpt.com
+ /g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20ready%20for%20the%20Ariz
+ ona%20presidential%20preference%20election%20on%202028-03-21.%20I%20live%2
+ 0in%20Mesa.\n\nCity info: https://www.mesaaz.gov/Government/City-Clerk/Ele
+ ctions\nCheck your registration: https://my.arizona.vote
+URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
+ ady%20for%20the%20Arizona%20presidential%20preference%20election%20on%2020
+ 28-03-21.%20I%20live%20in%20Mesa.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Get ready: Presidential preference election in 120 days
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-03-ppe-reg@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20280221
+DTEND;VALUE=DATE:20280222
+SUMMARY:Register or update address by midnight: Presidential preference ele
+ ction (date expected)
+DESCRIPTION:For the Arizona presidential preference election on 2028-03-21.
+  Moved since the last election? Update your address before midnight.\nhttp
+ s://my.arizona.vote\n\nSource: Arizona Secretary of State\, 29 days before
+  the election.
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: Presidential preference
+  election (date expected)
+TRIGGER:-P6DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: Presidential preference
+  election (date expected)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-03-ppe-req@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20280310
+DTEND;VALUE=DATE:20280311
+SUMMARY:Mail ballot request due 5 p.m.: Presidential preference election (d
+ ate expected)
+DESCRIPTION:For the Arizona presidential preference election on 2028-03-21.
+  Request it from the Maricopa County Recorder.\nhttps://recorder.maricopa.
+ gov\n\nSource: Arizona Secretary of State\, 11 days before the election.
+URL:https://recorder.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: Presidential preference electio
+ n (date expected)
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: Presidential preference electio
+ n (date expected)
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-03-ppe-day@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20280321
+DTEND;VALUE=DATE:20280322
+SUMMARY:Election day: Presidential preference election (date expected)
+DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
+  voters registered with a participating party) (expected\, not yet officia
+ l)\nSee your exact ballot at https://my.arizona.vote\n\nVote centers are o
+ pen 6 a.m. to 7 p.m. Find one at https://elections.maricopa.gov\nNeed a pl
+ an? https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=It%27s%20almost%20e
+ lection%20day%20for%20the%20Arizona%20presidential%20preference%20election
+ .%20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20in%20Mesa.\n\
+ nCity info: https://www.mesaaz.gov/Government/City-Clerk/Elections\nCheck 
+ your registration: https://my.arizona.vote
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: Presidential preference election (date expected)
+TRIGGER:-P1DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: Presidential preference election (date expected)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-11-prep@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20280710
+DTEND;VALUE=DATE:20280711
+SUMMARY:Get ready: 2028 general election in 120 days
+DESCRIPTION:On the ballot:\n- City: Mesa mayor and council Districts 1\, 2 
+ and 3 (runoffs only\, if the primary doesn't decide them) (expected\, not 
+ yet official)\n- School district: School board seats and any district bond
+  or override measures (expected\, not yet official)\n- County: Maricopa Co
+ unty offices (supervisors\, recorder\, sheriff\, county attorney\, assesso
+ r\, treasurer\, school superintendent) (expected\, not yet official)\n- St
+ ate: All 90 state legislature seats\n- State: Three Corporation Commission
+  seats\n- State: Statewide ballot measures\, if any qualify (expected\, no
+ t yet official)\n- Federal: President\n- Federal: U.S. Senate (the seat Ma
+ rk Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact ball
+ ot at https://my.arizona.vote\n\nTap the link to check your address\, see 
+ your ballot\, and make a plan.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR-GP
+ T-LINK?q=Help%20me%20get%20ready%20for%20the%20General%20election%20on%202
+ 028-11-07.%20I%20live%20in%20Mesa.\n\nCity info: https://www.mesaaz.gov/Go
+ vernment/City-Clerk/Elections\nCheck your registration: https://my.arizona
+ .vote
+URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
+ ady%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20in%20
+ Mesa.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Get ready: 2028 general election in 120 days
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-11-reg@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20281009
+DTEND;VALUE=DATE:20281010
+SUMMARY:Register or update address by midnight: 2028 general election
+DESCRIPTION:For the General election on 2028-11-07. Moved since the last el
+ ection? Update your address before midnight.\nhttps://my.arizona.vote\n\nS
+ ource: Arizona Secretary of State\, 29 days before the election.
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: 2028 general election
+TRIGGER:-P6DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Register or update address by midnight: 2028 general election
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-11-early@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20281011
+DTEND;VALUE=DATE:20281012
+SUMMARY:Early voting starts: 2028 general election (date expected)
+DESCRIPTION:Early ballots go out and early voting locations open for the Ge
+ neral election.\nhttps://elections.maricopa.gov
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Early voting starts: 2028 general election (date expected)
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-11-req@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20281027
+DTEND;VALUE=DATE:20281028
+SUMMARY:Mail ballot request due 5 p.m.: 2028 general election
+DESCRIPTION:For the General election on 2028-11-07. Request it from the Mar
+ icopa County Recorder.\nhttps://recorder.maricopa.gov\n\nSource: Arizona S
+ ecretary of State\, 11 days before the election.
+URL:https://recorder.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: 2028 general election
+TRIGGER:-P2DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail ballot request due 5 p.m.: 2028 general election
+TRIGGER:-PT15H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
+UID:mesa-az-2028-11-day@local-ballot-buddy
+DTSTAMP:20261122T235425Z
+DTSTART;VALUE=DATE:20281107
+DTEND;VALUE=DATE:20281108
+SUMMARY:Election day: 2028 general election
+DESCRIPTION:On the ballot:\n- City: Mesa mayor and council Districts 1\, 2 
+ and 3 (runoffs only\, if the primary doesn't decide them) (expected\, not 
+ yet official)\n- School district: School board seats and any district bond
+  or override measures (expected\, not yet official)\n- County: Maricopa Co
+ unty offices (supervisors\, recorder\, sheriff\, county attorney\, assesso
+ r\, treasurer\, school superintendent) (expected\, not yet official)\n- St
+ ate: All 90 state legislature seats\n- State: Three Corporation Commission
+  seats\n- State: Statewide ballot measures\, if any qualify (expected\, no
+ t yet official)\n- Federal: President\n- Federal: U.S. Senate (the seat Ma
+ rk Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact ball
+ ot at https://my.arizona.vote\n\nVote centers are open 6 a.m. to 7 p.m. Fi
+ nd one at https://elections.maricopa.gov\nNeed a plan? https://chatgpt.com
+ /g/REPLACE-WITH-YOUR-GPT-LINK?q=It%27s%20almost%20election%20day%20for%20t
+ he%20General%20election.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I
+ %20live%20in%20Mesa.\n\nCity info: https://www.mesaaz.gov/Government/City-
+ Clerk/Elections\nCheck your registration: https://my.arizona.vote
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: 2028 general election
+TRIGGER:-P1DT15H
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Election day: 2028 general election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

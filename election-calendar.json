@@ -1,0 +1,331 @@
+{
+  "_about": "Election dates for the civic assistant, covering federal, state, county, school district, and city races. build_calendars.py turns this into one .ics calendar per city. applies_to is 'all' (every city in the list) or a list of city keys. status is 'confirmed' (an official source states it), 'computed' (worked out from Arizona's 29-day and 11-day rules), or 'confirm' (expected but not yet published; check before testers see it). past: true elections are kept for demo mode and are not written to the calendars.",
+  "_rules": {
+    "registration_deadline": "Midnight on the 29th day before the election (azsos.gov)",
+    "early_ballot_request_deadline": "5 p.m. on the 11th day before the election (azsos.gov)",
+    "early_voting_starts": "27th day before the election; confirm with the county for each election",
+    "primaries": "Arizona voters registered as independent or with no party can choose one party's ballot in the state primary. They cannot vote in the presidential preference election."
+  },
+  "last_checked": "2026-11-22",
+  "cities": {
+    "tempe": {
+      "name": "Tempe",
+      "county": "Maricopa",
+      "clerk_url": "https://www.tempe.gov/government/city-clerk-s-office/election-information"
+    },
+    "phoenix": {
+      "name": "Phoenix",
+      "county": "Maricopa",
+      "clerk_url": "https://www.phoenix.gov/elections"
+    },
+    "mesa": {
+      "name": "Mesa",
+      "county": "Maricopa",
+      "clerk_url": "https://www.mesaaz.gov/Government/City-Clerk/Elections"
+    }
+  },
+  "elections": [
+    {
+      "id": "tempe-2026-03",
+      "name": "Tempe city council election",
+      "short_name": "Tempe council election",
+      "date": "2026-03-10",
+      "applies_to": [
+        "tempe"
+      ],
+      "status": "confirmed",
+      "source": "https://www.12news.com/article/news/politics/elections/ballot-for-tempe-council-election-on-march-10-arizona/75-896a5b64-08af-4ccf-93d2-cf5a677fa9ab",
+      "races": [
+        {
+          "level": "city",
+          "office": "Three Tempe city council seats",
+          "status": "confirmed"
+        }
+      ],
+      "past": true
+    },
+    {
+      "id": "az-2026-11",
+      "name": "Arizona general election (midterms)",
+      "short_name": "2026 general election",
+      "date": "2026-11-03",
+      "applies_to": "all",
+      "status": "confirmed",
+      "source": "https://azsos.gov/elections",
+      "deadlines": {
+        "registration": {
+          "date": "2026-10-05",
+          "status": "confirmed"
+        },
+        "early_ballot_request": {
+          "date": "2026-10-23",
+          "status": "confirmed"
+        }
+      },
+      "races": [
+        {
+          "level": "federal",
+          "office": "All nine U.S. House seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "Governor, secretary of state, attorney general, treasurer, superintendent of public instruction, and other statewide offices",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "Two Corporation Commission seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "All 90 state legislature seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "city",
+          "office": "Phoenix city council Districts 2, 4, 6 and 8",
+          "applies_to": [
+            "phoenix"
+          ],
+          "status": "confirmed",
+          "source": "https://www.phoenix.gov/administration/departments/cityclerk/programs-services/elections/november-election-26.html"
+        },
+        {
+          "level": "city",
+          "office": "Mesa District 5 council runoff and four city ballot measures",
+          "applies_to": [
+            "mesa"
+          ],
+          "status": "confirmed",
+          "source": "https://www.mesaaz.gov/Government/City-Clerk/Elections/GeneralElection"
+        }
+      ],
+      "past": true
+    },
+    {
+      "id": "maricopa-2027-11",
+      "name": "Maricopa County jurisdictional election",
+      "short_name": "Nov 2027 local election",
+      "date": "2027-11-02",
+      "applies_to": "all",
+      "status": "confirm",
+      "source": "https://azcleanelections.gov/november-04-2025-election/maricopa",
+      "deadlines": {
+        "registration": {
+          "date": "2027-10-04",
+          "status": "computed"
+        },
+        "early_voting_starts": {
+          "date": "2027-10-06",
+          "status": "confirm"
+        },
+        "early_ballot_request": {
+          "date": "2027-10-22",
+          "status": "computed"
+        }
+      },
+      "races": [
+        {
+          "level": "school",
+          "office": "School district bond and budget override measures, if any districts call them",
+          "status": "confirm"
+        },
+        {
+          "level": "city",
+          "office": "City bond or charter measures, if any city calls them",
+          "status": "confirm"
+        }
+      ],
+      "notes": "Maricopa County held a November election in 2025 for school district bonds and overrides and a few city measures. Districts decide by summer whether to put a measure on the November 2027 ballot, so this election may or may not reach every voter. It is the nearest possible election for testers. Watch the county elections site and school district board agendas from June 2027."
+    },
+    {
+      "id": "az-2028-03-ppe",
+      "name": "Arizona presidential preference election",
+      "short_name": "Presidential preference election",
+      "date": "2028-03-21",
+      "applies_to": "all",
+      "status": "confirm",
+      "source": "http://www.frontloadinghq.com/p/the-2028-presidential-primary-calendar.html",
+      "deadlines": {
+        "registration": {
+          "date": "2028-02-21",
+          "status": "computed"
+        },
+        "early_ballot_request": {
+          "date": "2028-03-10",
+          "status": "computed"
+        }
+      },
+      "races": [
+        {
+          "level": "federal",
+          "office": "Party presidential nominee (only for voters registered with a participating party)",
+          "status": "confirm"
+        }
+      ],
+      "notes": "Independents cannot vote in this election. Registration deadline matters twice here: to vote at all, and to switch parties if someone wants to take part. Confirm the date with azsos.gov."
+    },
+    {
+      "id": "tempe-2028-03",
+      "name": "Tempe city election",
+      "short_name": "Tempe city election",
+      "date": "2028-03-14",
+      "applies_to": [
+        "tempe"
+      ],
+      "status": "confirmed",
+      "source": "https://www.tempe.gov/government/city-clerk-s-office/election-information/information-for-candidates",
+      "deadlines": {
+        "registration": {
+          "date": "2028-02-14",
+          "status": "computed"
+        },
+        "early_voting_starts": {
+          "date": "2028-02-16",
+          "status": "confirm"
+        },
+        "early_ballot_request": {
+          "date": "2028-03-03",
+          "status": "computed"
+        }
+      },
+      "races": [
+        {
+          "level": "city",
+          "office": "Tempe mayor and three city council seats",
+          "status": "confirmed"
+        }
+      ],
+      "notes": "Tempe's clerk page is old enough that the date should be rechecked before launch."
+    },
+    {
+      "id": "az-2028-primary",
+      "name": "Arizona primary election",
+      "short_name": "2028 primary",
+      "date": null,
+      "approx_date": "2028-07-25",
+      "approx_label": "Summer 2028, date not set yet",
+      "applies_to": "all",
+      "status": "confirm",
+      "source": "https://www.azleg.gov/legtext/57leg/2R/bills/hb2022p.pdf",
+      "races": [
+        {
+          "level": "federal",
+          "office": "Party nominees for U.S. Senate and all nine U.S. House seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "Party nominees for all 90 state legislature seats and three Corporation Commission seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "county",
+          "office": "Party nominees for Maricopa County offices (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
+          "status": "confirm"
+        },
+        {
+          "level": "city",
+          "office": "Mesa city primary (mayor and Districts 1, 2 and 3)",
+          "applies_to": [
+            "mesa"
+          ],
+          "status": "confirm"
+        }
+      ],
+      "notes": "The date is not set. The 2026 primary was July 21 after a one-time change, and bills in the legislature would put future primaries in late July. The builder skips this election until a date is filled in."
+    },
+    {
+      "id": "az-2028-11",
+      "name": "General election",
+      "short_name": "2028 general election",
+      "date": "2028-11-07",
+      "applies_to": "all",
+      "status": "confirmed",
+      "source": "Federal law sets the general election on the Tuesday after the first Monday in November.",
+      "deadlines": {
+        "registration": {
+          "date": "2028-10-09",
+          "status": "computed"
+        },
+        "early_voting_starts": {
+          "date": "2028-10-11",
+          "status": "confirm"
+        },
+        "early_ballot_request": {
+          "date": "2028-10-27",
+          "status": "computed"
+        }
+      },
+      "races": [
+        {
+          "level": "federal",
+          "office": "President",
+          "status": "confirmed"
+        },
+        {
+          "level": "federal",
+          "office": "U.S. Senate (the seat Mark Kelly holds)",
+          "status": "confirmed",
+          "source": "https://www.fox10phoenix.com/election/looking-ahead-2028-arizona-voters-decide-presidential-senate-state-legislature-seats"
+        },
+        {
+          "level": "federal",
+          "office": "All nine U.S. House seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "All 90 state legislature seats",
+          "status": "confirmed"
+        },
+        {
+          "level": "state",
+          "office": "Three Corporation Commission seats",
+          "status": "confirmed",
+          "source": "https://www.fox10phoenix.com/election/looking-ahead-2028-arizona-voters-decide-presidential-senate-state-legislature-seats"
+        },
+        {
+          "level": "state",
+          "office": "Statewide ballot measures, if any qualify",
+          "status": "confirm"
+        },
+        {
+          "level": "county",
+          "office": "Maricopa County offices (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
+          "status": "confirm"
+        },
+        {
+          "level": "city",
+          "office": "Phoenix mayor and odd-numbered council districts",
+          "applies_to": [
+            "phoenix"
+          ],
+          "status": "confirm",
+          "source": "https://www.phoenix.gov/content/dam/phoenix/cityclerksite/documents/elections/WEB_ENG_Pub_Pamphlet_Nov_3_2026.pdf"
+        },
+        {
+          "level": "city",
+          "office": "Mesa mayor and council Districts 1, 2 and 3 (runoffs only, if the primary doesn't decide them)",
+          "applies_to": [
+            "mesa"
+          ],
+          "status": "confirm",
+          "source": "https://ballotpedia.org/Mesa,_Arizona"
+        },
+        {
+          "level": "school",
+          "office": "School board seats and any district bond or override measures",
+          "status": "confirm"
+        }
+      ]
+    }
+  ],
+  "not_yet_set": [
+    "Arizona 2028 primary election date",
+    "Whether Maricopa County holds a November 2, 2027 election, and which school districts and cities join it",
+    "Whether Phoenix and Mesa races are on the November 2028 ballot as expected"
+  ]
+}
