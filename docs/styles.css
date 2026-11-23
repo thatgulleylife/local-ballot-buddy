@@ -312,6 +312,12 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .lead-in strong { color: var(--ink); font-weight: 500; }
 @media (max-width: 760px) { .features { grid-template-columns: 1fr; gap: 48px; } .feature-item .bento { border-radius: var(--r-l); } }
 
+/* Three across, for short promises (any AI tool, free, private) */
+.features.three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 16px; }
+.features.three .bento { aspect-ratio: 4 / 3; }
+.features.three .lead-in { padding-right: 4%; }
+@media (max-width: 900px) { .features.three { grid-template-columns: 1fr; gap: 40px; } .features.three .bento { aspect-ratio: 16 / 7; } }
+
 /* Compact version: lead-ins without tiles, in a two-column list */
 .features.compact { gap: 28px 40px; }
 
@@ -357,10 +363,10 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .ch-head { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; padding: 10px 16px 10px; border-bottom: 1px solid #f0f0f2; }
 .ch-head svg { width: 18px; height: 18px; color: #6e6e73; }
 .ch-title { text-align: center; line-height: 1.2; }
-.ch-title b { font-size: 13.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+.ch-title b { font-size: 14.5px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; }
 .ch-title small { display: block; font-size: 10.5px; color: #8e8e93; }
-.ch-avatar { width: 20px; height: 20px; border-radius: 6px; background: #fff5cb; display: inline-grid; place-items: center; overflow: hidden; }
-.ch-avatar img { width: 18px; height: 18px; display: block; }
+.ch-avatar { width: 32px; height: 32px; border-radius: 9px; background: #fff5cb; display: inline-grid; place-items: center; overflow: hidden; }
+.ch-avatar img { width: 30px; height: 30px; display: block; }
 .ch-body { display: grid; gap: 11px; padding: 14px 18px 92px; align-content: start; }
 .ch-task { justify-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 600; color: #6e6e73; background: #f4f4f6; border-radius: 999px; padding: 4px 10px; }
 .ch-task svg { width: 11px; height: 11px; }
