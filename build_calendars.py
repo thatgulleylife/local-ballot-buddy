@@ -84,7 +84,7 @@ def all_day_event(uid, day, summary, description, url, alarms_days):
 
 def calendar(name, events):
     head = [
-        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Sol Arizona Ballot Buddy//EN",
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Precinctly//Sol//EN",
         "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
         f"X-WR-CALNAME:{esc(name)}", "X-WR-TIMEZONE:America/Phoenix",
         "REFRESH-INTERVAL;VALUE=DURATION:P1D", "X-PUBLISHED-TTL:P1D",

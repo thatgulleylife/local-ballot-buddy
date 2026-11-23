@@ -89,7 +89,6 @@ Use these for the news roundup. Each item in the roundup links to the original s
 |---|---|---|
 | Associated Press | National and federal government news | https://apnews.com |
 | Reuters | National and federal government news | https://www.reuters.com |
-| NPR | National news and election explainers | https://www.npr.org |
 | PBS News | National news and election explainers | https://www.pbs.org/newshour |
 
 ### Arizona and local
@@ -105,7 +104,6 @@ Use these for the news roundup. Each item in the roundup links to the original s
 | Votebeat Arizona | Election administration | https://www.votebeat.org/arizona |
 | Cronkite News (ASU) | Statewide, with student reporters | https://cronkitenews.azpbs.org |
 | Arizona Luminaria | Southern Arizona and statewide policy | https://azluminaria.org |
-| The Arizona Republic | Statewide and city news | https://www.azcentral.com |
 | Axios Phoenix | Short daily Valley news | https://www.axios.com/local/phoenix |
 | 12News (KPNX) | Valley news and election explainers | https://www.12news.com |
 | KTAR News | Valley news and election explainers | https://ktar.com |
@@ -116,5 +114,6 @@ Use these for the news roundup. Each item in the roundup links to the original s
 - Districts depend on the full address. A ZIP code can fall in more than one congressional or legislative district, so the assistant never guesses a district from a ZIP code. It sends users to https://my.arizona.vote to see their own districts and sample ballot.
 - Small races (school boards, special districts, justices of the peace) often get little or no news coverage. For these, the assistant links to the Clean Elections guide and the county sample ballot and says that coverage is limited.
 - Several Tier 3 outlets have paywalls. The assistant notes a paywall and offers a free source on the same story if one exists.
+- The Arizona Republic and NPR were removed in November 2026 because their sites block ChatGPT and Claude from reading them, so scheduled roundups couldn't use them. Some remaining outlets block one tool but not the other: AP and Reuters block Claude, and the Arizona Daily Sun and Yuma Sun block ChatGPT.
 - Only the largest cities have their own entries. Smaller cities and towns, and rural areas, get county-level information plus a pointer to the local clerk.
 - Rural and tribal communities get very little news coverage on this list. The Navajo Nation, Tohono O'odham Nation, and other tribal nations run their own elections, which this assistant doesn't cover. For state and federal elections, tribal members vote through their county like any other Arizona voter.

@@ -1,4 +1,4 @@
-// Sol chat proxy.
+// Precinctly chat proxy for Sol.
 // The web page sends a question here; this Worker adds the API key, calls Claude,
 // and returns a short answer with source links. The key never reaches the browser.
 
@@ -34,7 +34,7 @@ const allowedDomains = [
 
 const WEB_PAGE_RULES = `## On the website
 
-You're answering in a small chat box on the Sol website, not in a full chat app.
+You're answering in a small chat box on the Precinctly website, not in a full chat app.
 
 - Keep answers under 120 words. Use short paragraphs or a short list. No headings and no tables.
 - Answer from election-calendar.json first. Search the web only when the file doesn't answer the question, and only for facts you can link to.

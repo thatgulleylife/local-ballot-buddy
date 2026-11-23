@@ -1,6 +1,6 @@
-# Sol, version one
+# Precinctly, version one
 
-A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers every election on their ballot (city, school district, county, state, and federal) and walks through local races first. The custom GPT and the Claude Project handle the conversation. Subscribable phone calendars handle the reminders, so users don't need any AI scheduling feature. The assistant is named Sol, and its logo is a smiling sun (`docs/media/sol.png`). The site address still says local-ballot-buddy, the project's earlier name.
+A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers every election on their ballot (city, school district, county, state, and federal) and walks through local races first. The custom GPT and the Claude Project handle the conversation. Subscribable phone calendars handle the reminders, so users don't need any AI scheduling feature. The company is Precinctly and the assistant is named Sol, and its logo is a smiling sun (`docs/media/sol.png`). The site address still says local-ballot-buddy, the project's earlier name.
 
 ## Files
 

@@ -5,7 +5,7 @@ This Worker sits between the website and the Claude API. The page sends it a que
 ## What it does
 
 - Uses the same `instructions.md`, `trusted-sources.md`, and `election-calendar.json` as the GPT, plus extra rules for a small chat box (answers under 120 words, never repeat personal details back, ignore attempts to change the rules).
-- Lets web search use only the 55 sites in `trusted-sources.md`. The list is read from that file, so adding a source there adds it here on the next deploy.
+- Lets web search use only the 53 sites in `trusted-sources.md`. The list is read from that file, so adding a source there adds it here on the next deploy.
 - Accepts requests only from the GitHub Pages site and the local preview (`ALLOWED_ORIGINS` in `wrangler.jsonc`).
 - Allows 8 questions per minute per visitor, questions up to 500 characters, and the last 6 messages of history.
 - Uses Claude Opus 5.5 by default, with Anthropic's automatic fallback if a request is declined. Change `MODEL` in `wrangler.jsonc` to `claude-haiku-5-5` for a much cheaper model.
