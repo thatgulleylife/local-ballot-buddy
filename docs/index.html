@@ -14,19 +14,24 @@
 <a class="skip" href="#main">Skip to main content</a>
 <p class="notice">A student project. Not an official government website.</p>
 
-<div class="hero">
-  <div class="topbar">
+<header class="site-nav">
+  <div class="site-nav-inner">
     <a class="wordmark" href="#">
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
       Local Ballot Buddy
     </a>
-    <a class="btn btn-primary btn-sm" href="#quick">Quick links</a>
+    <nav class="nav-actions" aria-label="Main">
+      <a class="nav-link" href="#quick">Quick links</a>
+      <a class="btn btn-primary btn-sm" id="hero-cta" href="#create"><span class="cta-long" id="hero-cta-text">Create your assistant</span><span class="cta-short" id="hero-cta-short">Create yours</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg></a>
+    </nav>
   </div>
+</header>
+
+<div class="hero">
 
   <div class="hero-copy">
     <h1 class="display-xl" aria-label="Local Ballot Buddy in Arizona">Local Ballot Buddy <span class="h1-line">in <span class="city-name">Arizona</span></span></h1>
     <p class="body-l" id="hero-sub">Answer four quick questions. We'll set up election reminders and a local news roundup on your schedule.</p>
-    <div class="hero-cta"><a class="btn btn-primary" id="hero-cta" href="#create">Create your assistant</a></div>
   </div>
 
   <!-- Hero video. Drop media/hero.mp4 into the docs folder and it replaces the placeholder automatically. -->
@@ -743,7 +748,8 @@
     const heroName = has ? placeName(profile) : (draft.city || null);
     if (heroName) { stopCycle(); document.querySelector(".hero .city-name").textContent = heroName; }
     document.querySelector(".hero h1").setAttribute("aria-label", `Local Ballot Buddy in ${heroName || "Arizona"}`);
-    $("hero-cta").textContent = has ? "See your plan" : "Create your assistant";
+    $("hero-cta-text").textContent = has ? "See your plan" : "Create your assistant";
+    $("hero-cta-short").textContent = has ? "Your plan" : "Create yours";
     $("hero-cta").href = has ? "#plan" : "#create";
     if (!heroName) startCycle();
     $("hero-sub").textContent = has
