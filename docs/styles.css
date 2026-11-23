@@ -513,3 +513,39 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .js-reveal .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
 .js-reveal .reveal.in { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { .js-reveal .reveal { opacity: 1; transform: none; } }
+
+/* ---------- Countdown bar (fixed to the bottom while scrolling) ---------- */
+.countdown {
+  position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 45;
+  width: min(680px, calc(100% - 24px)); display: flex; align-items: center; gap: 14px;
+  padding: 10px 10px 10px 12px; border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86); -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+  box-shadow: 0 10px 30px rgba(0, 12, 31, 0.14), 0 0 0 1px rgba(0, 12, 31, 0.06);
+}
+.countdown[hidden] { display: none; }
+.cd-sol { width: 36px; height: 36px; flex: none; border-radius: 10px; background: var(--hero-top); padding: 2px; }
+.cd-text { display: grid; min-width: 0; flex: 1; line-height: 1.25; }
+.cd-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--navy); }
+.cd-name { font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cd-name:hover { text-decoration: underline; }
+.cd-date { font-size: 13px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cd-clock { display: flex; gap: 6px; flex: none; }
+.cd-unit { display: grid; justify-items: center; min-width: 50px; padding: 6px 8px; border-radius: 12px; background: var(--tint); line-height: 1.1; }
+.cd-unit b { font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--ink); }
+.cd-unit small { font-size: 11px; color: var(--ink-2); }
+.cd-close { flex: none; width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--ink-2); display: grid; place-items: center; cursor: pointer; }
+.cd-close:hover { background: var(--tint); color: var(--ink); }
+.cd-close svg { width: 16px; height: 16px; }
+body.has-countdown { padding-bottom: 96px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .countdown { background: rgba(28, 28, 32, 0.86); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08); } }
+:root[data-theme="dark"] .countdown { background: rgba(28, 28, 32, 0.86); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08); }
+@media (max-width: 560px) {
+  .countdown { gap: 10px; bottom: 10px; padding: 8px 6px 8px 8px; border-radius: 18px; }
+  .cd-sol { display: none; }
+  .cd-label { font-size: 10.5px; }
+  .cd-name { font-size: 13px; }
+  .cd-date { font-size: 12px; }
+  .cd-unit { min-width: 40px; padding: 5px 6px; }
+  .cd-unit b { font-size: 16px; }
+  .cd-unit small { font-size: 10px; }
+}

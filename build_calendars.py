@@ -65,7 +65,7 @@ def all_day_event(uid, day, summary, description, url, alarms_days):
     d = date.fromisoformat(day)
     lines = [
         "BEGIN:VEVENT",
-        f"UID:{uid}@local-ballot-buddy",
+        f"UID:{uid}@local-ballot-buddy",  # keep the old id so subscribers don't get duplicate events
         f"DTSTAMP:{STAMP}",
         f"DTSTART;VALUE=DATE:{d:%Y%m%d}",
         f"DTEND;VALUE=DATE:{d + timedelta(days=1):%Y%m%d}",
@@ -84,7 +84,7 @@ def all_day_event(uid, day, summary, description, url, alarms_days):
 
 def calendar(name, events):
     head = [
-        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Local Ballot Buddy//EN",
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Sol Arizona Ballot Buddy//EN",
         "CALSCALE:GREGORIAN", "METHOD:PUBLISH",
         f"X-WR-CALNAME:{esc(name)}", "X-WR-TIMEZONE:America/Phoenix",
         "REFRESH-INTERVAL;VALUE=DURATION:P1D", "X-PUBLISHED-TTL:P1D",
