@@ -761,3 +761,8 @@ body.has-countdown { padding-bottom: 96px; }
 .video-play:focus-visible { outline: none; }
 .video-play:focus-visible .play-mark { outline: 3px solid var(--on-navy); outline-offset: 4px; }
 @media (max-width: 640px) { .video-play .play-mark { width: 68px; height: 68px; } }
+/* Play button over the video: white circle, red arrow, soft layered shadow so it stands out on dark and light frames. */
+.video-play .play-mark { background: #fff; color: var(--navy); box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.28), 0 12px 32px rgba(0, 12, 31, 0.35), 0 2px 6px rgba(0, 12, 31, 0.2); }
+.video-play:hover .play-mark { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.36), 0 16px 40px rgba(0, 12, 31, 0.4), 0 2px 6px rgba(0, 12, 31, 0.2); }
+.video-play .play-mark svg { width: 46px; height: 46px; margin-left: 6px; }
+.video-play:focus-visible .play-mark { outline-color: #fff; }
