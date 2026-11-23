@@ -97,7 +97,6 @@
   }
   .field input:focus, .field select:focus { border-color: var(--navy); outline: none; }
   .field .note { font-size: 13px; color: var(--muted); }
-  .check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); margin: -4px 0 14px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
   .chip {
     appearance: none; border: 0; background: var(--chip); color: var(--ink);
@@ -236,7 +235,6 @@
         <input id="f-city" list="az-towns" autocomplete="off" maxlength="40" placeholder="Start typing, like Tucson or Flagstaff">
         <datalist id="az-towns"></datalist>
       </div>
-      <label class="check"><input type="checkbox" id="f-rural"> I don't live in a city or town</label>
       <div class="field">
         <label for="f-county">County</label>
         <select id="f-county"><option value="">Choose your county</option></select>
@@ -536,7 +534,7 @@
 
   // ---------- State ----------
   let profile = load("lbb-profile", null);
-  let draft = profile ? { ...profile } : { city: "", rural: false, county: "", topics: [], sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
+  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
   let step = 1;
   let electionData = null;
 
@@ -554,11 +552,6 @@
 
     $("f-city").addEventListener("change", onCity);
     $("f-city").addEventListener("input", () => { if (TOWNS[cleanName($("f-city").value)]) onCity(); });
-    $("f-rural").addEventListener("change", () => {
-      draft.rural = $("f-rural").checked;
-      $("f-city").disabled = draft.rural;
-      if (draft.rural) { $("f-city").value = ""; draft.city = ""; $("county-note").textContent = ""; }
-    });
     $("f-county").addEventListener("change", () => { draft.county = $("f-county").value; });
     $("f-day").addEventListener("change", () => (draft.day = $("f-day").value));
     $("f-time").addEventListener("change", () => (draft.time = $("f-time").value));
@@ -624,7 +617,7 @@
 
   function validate() {
     if (step === 1) {
-      if (!draft.rural && !draft.city) return "Type your city or town, or check the box if you don't live in one.";
+      if (!draft.city && !draft.county) return "Type your city or town, or choose your county.";
       if (!draft.county) return "Choose your county.";
     }
     if (step === 2 && !draft.topics.length) return "Pick at least one topic.";
@@ -646,7 +639,7 @@
   }
 
   function next() {
-    if (step === 1) { draft.city = draft.rural ? "" : cleanName($("f-city").value); draft.county = $("f-county").value; }
+    if (step === 1) { draft.city = cleanName($("f-city").value); draft.county = $("f-county").value; }
     const problem = validate();
     if (problem) { $("wiz-err").textContent = problem; return; }
     if (step < 4) { go(step + 1); return; }
@@ -662,8 +655,6 @@
 
   function fillWizardFromDraft() {
     $("f-city").value = draft.city;
-    $("f-rural").checked = draft.rural;
-    $("f-city").disabled = draft.rural;
     $("f-county").value = draft.county;
     $("f-day").value = draft.day;
     $("f-time").value = draft.time;
@@ -691,7 +682,7 @@
     const list = $("summary-list");
     list.replaceChildren();
     const rows = [
-      ["Where", profile.city ? `${profile.city}, ${profile.county} County` : `${profile.county} County (outside a city)`],
+      ["Where", profile.city ? `${profile.city}, ${profile.county} County` : `${profile.county} County`],
       ["Topics", profile.topics.join(", ")],
       ["News from", profile.sources.join(", ")],
       ["Roundup", freqPhrase(profile)],
@@ -729,7 +720,7 @@
 
   function buildPrompt(p) {
     const c = COUNTIES[p.county];
-    const where = p.city ? `${p.city}, in ${p.county} County, Arizona` : `${p.county} County, Arizona, outside any city or town`;
+    const where = p.city ? `${p.city}, in ${p.county} County, Arizona` : `${p.county} County, Arizona`;
     const schedule = freqPhrase(p) + " Arizona time";
     return [
       "You are my Local Ballot Buddy, a nonpartisan civic assistant. Please remember these details and rules.",
