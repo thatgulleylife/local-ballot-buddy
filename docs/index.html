@@ -131,7 +131,7 @@
         </div>
         <div class="field">
           <label for="f-time">Time (Arizona time)</label>
-          <select id="f-time"></select>
+          <input id="f-time" type="time" step="300" required>
         </div>
       </div>
     </section>
@@ -516,7 +516,14 @@
   // Custom schedules run from every day to every 3 months.
   const CUSTOM_MAX = { days: 90, weeks: 12, months: 3 };
   const DAYS = [["MO", "Monday"], ["TU", "Tuesday"], ["WE", "Wednesday"], ["TH", "Thursday"], ["FR", "Friday"], ["SA", "Saturday"], ["SU", "Sunday"]];
-  const TIMES = [["07:00", "7 a.m."], ["08:00", "8 a.m."], ["12:00", "Noon"], ["17:00", "5 p.m."], ["20:00", "8 p.m."]];
+  // Any time of day, written the way the site writes times ("8 a.m.", "6:30 p.m.", "Noon").
+  function fmtTime(hhmm) {
+    const [h, m] = (hhmm || "08:00").split(":").map(Number);
+    if (h === 12 && m === 0) return "Noon";
+    if (h === 0 && m === 0) return "Midnight";
+    const hr = h % 12 || 12, mins = m ? `:${String(m).padStart(2, "0")}` : "";
+    return `${hr}${mins} ${h < 12 ? "a.m." : "p.m."}`;
+  }
 
   const TOOLS = {
     chatgpt: {
@@ -606,7 +613,6 @@
     });
     FREQS.forEach(([k, l]) => $("f-freq").append(chip(l, () => { draft.freq = k; paintFreq(); }, k)));
     DAYS.forEach(([k, l]) => $("f-day").append(el("option", { value: k }, l)));
-    TIMES.forEach(([k, l]) => $("f-time").append(el("option", { value: k }, l)));
 
     $("f-city").addEventListener("change", onCity);
     $("f-city").addEventListener("input", () => {
@@ -615,7 +621,7 @@
     });
     $("f-county").addEventListener("change", () => { draft.county = $("f-county").value; });
     $("f-day").addEventListener("change", () => { draft.day = $("f-day").value; paintPreview(); });
-    $("f-time").addEventListener("change", () => { draft.time = $("f-time").value; paintPreview(); });
+    $("f-time").addEventListener("input", () => { if (/^\d{2}:\d{2}$/.test($("f-time").value)) { draft.time = $("f-time").value; paintPreview(); } });
     $("f-every").addEventListener("input", () => { draft.every = Number($("f-every").value); paintPreview(); });
     $("f-unit").addEventListener("change", () => { draft.unit = $("f-unit").value; paintFreq(); });
     $("wiz-back").addEventListener("click", () => go(step - 1));
@@ -790,6 +796,7 @@
       if (draft.otherSrc && !customSources(draft).length) return "Type your news source under Other, or unselect Other.";
       if (!allSources(draft).length) return "Pick at least one news source, or tap Select for me.";
     }
+    if (step === 4 && !/^\d{2}:\d{2}$/.test($("f-time").value)) return "Pick a time of day for your roundup.";
     if (step === 4 && draft.freq === "custom") {
       const n = draft.every, max = CUSTOM_MAX[draft.unit] || 90;
       if (!Number.isInteger(n) || n < 1 || n > max) return `Pick a whole number from 1 to ${max} ${draft.unit}. Custom schedules run from every day to every 3 months.`;
@@ -862,7 +869,7 @@
   // ---------- Summary ----------
   const placeName = (p) => (p && p.city) || (p && p.county ? `${p.county} County` : "Arizona");
   function freqPhrase(p) {
-    const day = label(DAYS, p.day), time = label(TIMES, p.time);
+    const day = label(DAYS, p.day), time = fmtTime(p.time);
     if (p.freq === "custom") {
       const n = p.every || 1, unit = p.unit || "days";
       if (unit === "days") return n === 1 ? `Every day at ${time}` : `Every ${n} days at ${time}`;
