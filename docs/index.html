@@ -106,6 +106,8 @@
   .ask textarea::placeholder { color: var(--muted); }
   .ask-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
   .ask-note { font-size: 13px; color: var(--muted); }
+  .soon { display: block; width: fit-content; margin: 0 auto 12px; font-size: 13px; font-weight: 600; letter-spacing: .02em; padding: 6px 14px; border-radius: 40px; background: var(--navy); color: var(--navy-ink); }
+  .soon[hidden] { display: none; }
   .go { width: 46px; height: 46px; border-radius: 50%; background: var(--navy); color: var(--navy-ink); border: 0; display: grid; place-items: center; cursor: pointer; flex: none; margin-left: auto; }
   .go svg { width: 20px; height: 20px; }
   .examples { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 760px; margin: 18px auto 0; }
@@ -205,6 +207,7 @@
     </div>
   </div>
 
+  <p class="soon" id="soon">On-page chat coming soon</p>
   <form class="ask" id="ask">
     <label for="q">Ask a question about voting in Arizona</label>
     <textarea id="q" rows="2" placeholder="Try 'What's on my ballot?'"></textarea>
@@ -445,7 +448,27 @@
   const chatBox = document.getElementById("chat");
   const history = [];
   let busy = false;
-  if (!CHAT_API) document.getElementById("ask-note").textContent = "Opens in ChatGPT. Answers come only from trusted sources.";
+  // Until the chat Worker is deployed, the ask box explains that chat is coming soon
+  // and points to what already works.
+  if (CHAT_API) document.getElementById("soon").hidden = true;
+  else document.getElementById("ask-note").textContent = "Chat is coming soon. Answers will come only from trusted sources.";
+
+  function comingSoon(text) {
+    chatBox.replaceChildren();
+    bubble("you").textContent = text;
+    const b = bubble("bot");
+    b.append(el("p", {}, "The on-page chat is coming soon. Until then, here's what you can do now:"));
+    const ul = el("ul");
+    const item = (label, href, ext) => {
+      const li = el("li");
+      li.append(el("a", ext ? { href, target: "_blank", rel: "noopener" } : { href }, label));
+      ul.append(li);
+    };
+    item("Check your registration and see your ballot", "https://my.arizona.vote", true);
+    item("See upcoming elections", "#h-up");
+    item("Get deadline reminders on your phone", "#reminders");
+    b.append(ul);
+  }
 
   function addInline(parent, text) {
     const parts = text.replace(/\*\*(.+?)\*\*/g, "$1").split(/(https?:\/\/[^\s)]+[^\s).,;:!?])/g);
@@ -479,7 +502,7 @@
   }
 
   async function ask(text) {
-    if (!CHAT_API) { window.open(gptAsk(text), "_blank", "noopener"); return; }
+    if (!CHAT_API) { comingSoon(text); return; }
     if (busy) return;
     busy = true;
     bubble("you").textContent = text;
