@@ -707,3 +707,22 @@ body.has-countdown { padding-bottom: 96px; }
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .sc:not(.sc-feature) .sc-eyebrow { color: #ff9a5c; } }
 :root[data-theme="dark"] .sc:not(.sc-feature) .sc-eyebrow { color: #ff9a5c; }
+
+/* About page: Who we are, as a logo and copy card */
+.who-band { background: var(--surface); border-radius: var(--r-xl); padding: clamp(16px, 3vw, 32px); max-width: var(--container); margin-left: auto; margin-right: auto; }
+.who-card { background: var(--bg); border-radius: var(--r-l); display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 5vw, 72px); align-items: center; padding: clamp(40px, 7vw, 110px) clamp(28px, 6vw, 96px); }
+.who-logo { display: flex; align-items: center; gap: clamp(14px, 2vw, 24px); }
+.who-logo img { width: clamp(96px, 13vw, 170px); height: auto; flex: none; }
+.who-word { font-family: var(--font-brand); font-weight: 500; font-size: clamp(40px, 5.4vw, 72px); letter-spacing: -0.02em; color: var(--ink); line-height: 1; }
+.who-copy .who-eyebrow { margin: 0 0 12px; font-size: var(--body-s); font-weight: 600; color: var(--navy); }
+.who-copy h2 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.025em; font-size: clamp(30px, 3.6vw, 48px); line-height: 1.08; margin: 0 0 24px; color: var(--ink); }
+.who-copy p { font-size: 19px; line-height: 1.45; color: var(--ink); margin: 0 0 14px; }
+.who-links { display: grid; gap: 12px; margin-top: 24px; }
+.who-links a { display: inline-flex; align-items: center; gap: 4px; font-size: 19px; color: var(--navy); text-decoration: none; width: fit-content; }
+.who-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.who-links svg { width: 17px; height: 17px; }
+@media (max-width: 860px) {
+  .who-card { grid-template-columns: 1fr; }
+  .who-logo { justify-content: center; }
+}
+@media (max-width: 640px) { .who-band { border-radius: var(--r-l); padding: 16px; } .who-card { border-radius: var(--r-l); padding: 36px 24px; } }
