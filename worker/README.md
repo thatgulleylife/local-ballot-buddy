@@ -35,7 +35,7 @@ You need your own accounts for this. Run these from the `worker` folder.
 
    Wrangler prints the Worker's address, ending in `workers.dev`.
 
-5. **Connect the page.** In `docs/index.html`, set `CHAT_API` to that address, then commit and push. Until you do, the ask box keeps opening ChatGPT.
+5. **Connect the page.** In `docs/index.html`, set `CHAT_API` to that address, then commit and push. Until you do, the ask box shows "On-page chat coming soon" and points visitors to registration, upcoming elections, and reminders.
 
 ## Test it locally first (optional)
 
