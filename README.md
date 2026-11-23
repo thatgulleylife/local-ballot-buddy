@@ -23,7 +23,7 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 3. **GPT link (optional).** If you make a custom GPT, put its link into `GPT_URL` at the top of `build_calendars.py` and rerun the builder. The website doesn't need it: it gives each visitor a setup prompt to paste into their own AI tool. Test one link on your phone to confirm ChatGPT opens with the question filled in. If the `?q=` part doesn't carry through to a custom GPT, the event still opens the GPT and the user types the question.
 4. **Host the site.** Upload the `docs` folder to GitHub Pages (free, and serves the calendar files correctly). The subscribe buttons build their links from whatever address the page is on, so nothing needs changing after you upload. Google Calendar can only subscribe once the site is public. Changes you make later reach subscribers on their next refresh.
 
-5. **On-page chat (optional).** Follow `worker/README.md` to deploy the Worker, then put its address in `CHAT_API` in `docs/index.html`. Until then, the ask box says the chat is coming soon.
+5. **On-page chat (optional).** Follow `worker/README.md` to deploy the Worker, then put its address in `CHAT_API` in `docs/index.html`. Until then, the page says "Chatbot coming soon."
 
 To preview on your computer, run `python3 -m http.server 8765 --directory docs` and open http://localhost:8765. Opening `index.html` directly as a file won't load the election list.
 

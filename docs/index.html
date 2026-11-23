@@ -377,9 +377,10 @@
   </section>
 
   <section class="feature" aria-labelledby="h-ask">
-    <span class="soon" id="soon">Coming soon</span>
-    <h2 id="h-ask">Ask a question.</h2>
-    <p class="lead">Soon you'll be able to ask simple voting questions right here, with answers only from trusted sources.</p>
+    <h2 id="h-ask">Chatbot coming soon.</h2>
+    <p class="lead" id="ask-lead">Soon you'll be able to ask simple voting questions right here, with answers only from trusted sources.</p>
+    <!-- Hidden until CHAT_API is set. -->
+    <div id="chat-ui" hidden>
     <form class="ask" id="ask">
       <label class="sr" for="q">Ask a question about voting in Arizona</label>
       <textarea id="q" rows="2" placeholder="Try 'What's on my ballot?'"></textarea>
@@ -392,6 +393,7 @@
     </form>
     <div class="chat" id="chat" aria-live="polite" hidden></div>
     <div class="examples" id="examples"></div>
+    </div>
   </section>
 
   <section class="feature" aria-labelledby="h-priv">
@@ -983,7 +985,12 @@
   const chatBox = $("chat");
   const history = [];
   let busy = false;
-  if (CHAT_API) { $("soon").hidden = true; $("ask-note").textContent = "Answers come only from trusted sources. Don't type your address."; }
+  if (CHAT_API) {
+    $("chat-ui").hidden = false;
+    $("h-ask").textContent = "Ask a question.";
+    $("ask-lead").textContent = "Ask simple voting questions. Answers come only from trusted sources.";
+    $("ask-note").textContent = "Answers come only from trusted sources. Don't type your address.";
+  }
 
   function bubble(cls) {
     const b = el("div", { class: "msg " + cls });
