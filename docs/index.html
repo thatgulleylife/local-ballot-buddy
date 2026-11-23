@@ -24,11 +24,25 @@
   </div>
 
   <div class="hero-copy">
-    <h1 class="display-xl">Hello, <span class="city-name">Arizona</span></h1>
+    <h1 class="display-xl" aria-label="Hello, Arizona">Hello, <span class="city-name">Arizona</span></h1>
     <p class="body-l" id="hero-sub">Answer four quick questions. We'll set up election reminders and a local news roundup on your schedule.</p>
+    <div class="hero-cta"><a class="btn btn-primary" id="hero-cta" href="#create">Create your assistant</a></div>
   </div>
 
+  <!-- Hero video. Drop media/hero.mp4 into the docs folder and it replaces the placeholder automatically. -->
+  <figure class="hero-media" id="hero-media">
+    <video id="hero-video" muted playsinline loop preload="none" aria-label="How Local Ballot Buddy works" hidden></video>
+    <div class="media-placeholder" id="media-placeholder">
+      <span class="play-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+      <span class="caption">Video coming soon</span>
+    </div>
+    <button type="button" class="icon-btn media-toggle" id="video-toggle" aria-label="Pause video" hidden>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path id="video-toggle-icon" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+    </button>
+  </figure>
+
   <!-- Profile questions -->
+  <div id="create" class="anchor"></div>
   <form class="panel" id="wizard" novalidate>
     <div class="progress"><span id="step-label">Step 1 of 4</span><div class="bar" aria-hidden="true"><span id="step-bar" style="width:25%"></span></div></div>
 
@@ -449,7 +463,9 @@
   let typeTimer = null;
   function typeCity(name) {
     const span = document.querySelector(".hero .city-name");
-    if (!name || span.textContent === name) return;
+    stopCycle();
+    if (!name) { span.textContent = "Arizona"; return; }
+    if (span.textContent === name) return;
     clearTimeout(typeTimer);
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { span.textContent = name; return; }
     const h1 = span.closest("h1");
@@ -463,6 +479,66 @@
       else typeTimer = setTimeout(() => span.classList.remove("caret"), 1200);
     };
     typeTimer = setTimeout(tick, 250);
+  }
+
+  // Until the visitor picks a city, the headline cycles through cities across the Valley.
+  const CYCLE_NAMES = ["Arizona", "Phoenix", "Tempe", "Mesa", "Scottsdale", "Chandler", "Glendale", "Gilbert", "Peoria", "Surprise"];
+  const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cycleTimer = null, cycling = false;
+  function startCycle() {
+    if (cycling || profile || reducedMotion()) return;
+    const span = document.querySelector(".hero .city-name");
+    cycling = true;
+    let idx = Math.max(0, CYCLE_NAMES.indexOf(span.textContent));
+    span.classList.add("caret");
+    const erase = () => {
+      if (!cycling) return;
+      const t = span.textContent;
+      if (t.length) { span.textContent = t.slice(0, -1); cycleTimer = setTimeout(erase, 45); }
+      else { idx = (idx + 1) % CYCLE_NAMES.length; typeIn(CYCLE_NAMES[idx], 1); }
+    };
+    const typeIn = (name, n) => {
+      if (!cycling) return;
+      span.textContent = name.slice(0, n);
+      cycleTimer = n < name.length ? setTimeout(() => typeIn(name, n + 1), 85) : setTimeout(erase, 1800);
+    };
+    cycleTimer = setTimeout(erase, 1800);
+  }
+  function stopCycle() {
+    cycling = false;
+    clearTimeout(cycleTimer);
+    document.querySelector(".hero .city-name").classList.remove("caret");
+  }
+
+  // Hero video: shows media/hero.mp4 once that file exists, and plays while it's on screen.
+  const VIDEO_SRC = "media/hero.mp4";
+  const VIDEO_POSTER = "media/hero-poster.jpg";
+  let videoPausedByUser = false;
+  function setToggle(playing) {
+    $("video-toggle").setAttribute("aria-label", playing ? "Pause video" : "Play video");
+    $("video-toggle-icon").setAttribute("d", playing ? "M7 5h4v14H7zM13 5h4v14h-4z" : "M8 5.5v13l11-6.5z");
+  }
+  async function setupVideo() {
+    const exists = async (url) => { try { return (await fetch(url, { method: "HEAD", cache: "no-store" })).ok; } catch (_) { return false; } };
+    if (!(await exists(VIDEO_SRC))) return; // keep the placeholder
+    const video = $("hero-video");
+    if (await exists(VIDEO_POSTER)) video.poster = VIDEO_POSTER;
+    video.src = VIDEO_SRC;
+    video.hidden = false;
+    $("media-placeholder").hidden = true;
+    $("video-toggle").hidden = false;
+    video.addEventListener("play", () => setToggle(true));
+    video.addEventListener("pause", () => setToggle(false));
+    $("video-toggle").addEventListener("click", () => {
+      if (video.paused) { videoPausedByUser = false; video.play().catch(() => {}); }
+      else { videoPausedByUser = true; video.pause(); }
+    });
+    setToggle(false);
+    if (reducedMotion() || !("IntersectionObserver" in window)) return; // no autoplay; the button still works
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !videoPausedByUser) video.play().catch(() => {});
+      else if (!entry.isIntersecting) video.pause();
+    }, { threshold: 0.5 }).observe(video);
   }
 
   function onCity() {
@@ -589,7 +665,13 @@
     const has = !!profile;
     $("wizard").hidden = has;
     $("summary").hidden = !has;
-    document.querySelectorAll(".city-name").forEach((n) => (n.textContent = placeName(profile)));
+    document.querySelectorAll("main .city-name").forEach((n) => (n.textContent = placeName(profile)));
+    const heroName = has ? placeName(profile) : (draft.city || null);
+    if (heroName) { stopCycle(); document.querySelector(".hero .city-name").textContent = heroName; }
+    document.querySelector(".hero h1").setAttribute("aria-label", `Hello, ${heroName || "Arizona"}`);
+    $("hero-cta").textContent = has ? "See your plan" : "Create your assistant";
+    $("hero-cta").href = has ? "#plan" : "#create";
+    if (!heroName) startCycle();
     $("hero-sub").textContent = has
       ? "Your reminders and news roundup are ready to set up below."
       : "Answer four quick questions. We'll set up election reminders and a local news roundup on your schedule.";
@@ -994,6 +1076,9 @@
     $("wizard").scrollIntoView({ block: "center" });
     $("f-city").focus({ preventScroll: true });
   });
+  $("hero-cta").addEventListener("click", () => {
+    if (!profile) setTimeout(() => $("f-city").focus({ preventScroll: true }), 600);
+  });
   $("copy-prompt").addEventListener("click", copyPrompt);
   $("car-prev").addEventListener("click", () => scrollCarousel(-1));
   $("car-next").addEventListener("click", () => scrollCarousel(1));
@@ -1010,6 +1095,7 @@
   }
   $("dl-reminder").addEventListener("click", downloadReminder);
 
+  setupVideo();
   buildWizard();
   fillWizardFromDraft();
   go(1);
