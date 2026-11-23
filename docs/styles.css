@@ -188,7 +188,9 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .hero-copy { text-align: center; padding: 72px 0 8px; }
 .hero-copy h1 { font-family: var(--font-brand); font-weight: 500; letter-spacing: -0.05em; line-height: 1.02; font-size: clamp(34px, 9.2vw, 88px); }
 .hero-copy h1 .h1-line { display: block; }   /* "in [city]" sits on its own line so changing names never reflow the headline */
-.hero-copy .body-l { margin: 20px auto 0; max-width: 40ch; font-size: clamp(17px, 2vw, 20px); }
+.hero-copy .tagline { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: clamp(20px, 2.4vw, 26px); color: var(--ink); margin: 22px 0 0; }
+.hero-copy .tagline + .body-l { margin-top: 10px; }
+.hero-copy .body-l { margin: 20px auto 0; max-width: 46ch; font-size: clamp(17px, 2vw, 20px); }
 /* Hero call to action and video */
 .hero-cta { margin-top: 32px; display: flex; justify-content: center; }
 .hero-media {

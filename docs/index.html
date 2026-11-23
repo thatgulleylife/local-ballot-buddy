@@ -34,7 +34,8 @@
     <img class="hero-sol" src="media/sol.png" alt="" width="160" height="109">
     <p class="meet">Meet Sol</p>
     <h1 class="display-xl" aria-label="Your ballot buddy in Arizona">Your ballot buddy <span class="h1-line">in <span class="city-name">Arizona</span></span></h1>
-    <p class="body-l" id="hero-sub">Sol sends free, nonpartisan reminders before every city, state, and national election, plus a local news roundup.</p>
+    <p class="tagline">Your city. Your future. Your vote.</p>
+    <p class="body-l" id="hero-sub">You plan to vote, but life gets in the way. Sol keeps you on time, prepared, and informed, so your voice gets heard.</p>
   </div>
 
   <!-- Hero video. Drop media/hero.mp4 into the docs folder and it replaces the placeholder automatically. -->
@@ -753,9 +754,6 @@
     $("hero-cta-short").textContent = has ? "Your plan" : "Set up Sol";
     $("hero-cta").href = has ? "#plan" : "#create";
     startCycle();
-    $("hero-sub").textContent = has
-      ? "Your reminders and news roundup are ready to set up below."
-      : "Sol sends free, nonpartisan reminders before every city, state, and national election, plus a local news roundup.";
     if (!has) return;
     const list = $("summary-list");
     list.replaceChildren();
