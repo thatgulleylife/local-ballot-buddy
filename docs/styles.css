@@ -517,14 +517,15 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 
 /* ---------- 17. Footer ---------- */
 /* Site footer: brand, two link columns, then the disclaimer */
-.site-footer { margin-top: var(--section); background: var(--surface); border-radius: 40px 40px 0 0; padding: 64px var(--gutter) 40px; }
-.sf-inner { max-width: var(--container); margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
+/* The footer lines up with the inner edge of the gray section panels above it. */
+.site-footer { --sf-inset: calc(var(--gutter) + clamp(16px, 4vw, 48px)); margin-top: var(--section); background: var(--surface); border-radius: 40px 40px 0 0; padding: 64px var(--sf-inset) 40px; }
+.sf-inner { max-width: calc(var(--container) - 2 * var(--sf-inset)); margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; }
 .sf-brand p { color: var(--ink-2); font-size: var(--body-s); line-height: 1.55; max-width: 52ch; margin: 14px 0 0; }
 .sf-col { display: flex; gap: 28px; padding-top: 6px; }
 .sf-col h2 { font-family: var(--font-display); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin: 0 0 4px; }
 .sf-col a { color: var(--ink); text-decoration: none; font-size: var(--body-m); font-weight: 600; white-space: nowrap; }
 .sf-col a:hover, .sf-base a:hover { color: var(--navy); text-decoration: underline; }
-.sf-base { max-width: var(--container); margin: 48px auto 0; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 32px; font-size: var(--caption); color: var(--ink-3); line-height: 1.55; }
+.sf-base { max-width: calc(var(--container) - 2 * var(--sf-inset)); margin: 48px auto 0; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 32px; font-size: var(--caption); color: var(--ink-3); line-height: 1.55; }
 .sf-base p { margin: 0; max-width: 80ch; }
 .sf-base a { color: var(--ink-2); white-space: nowrap; }
 @media (max-width: 760px) { .site-footer { border-radius: 28px 28px 0 0; padding-top: 48px; } .sf-inner { flex-direction: column; gap: 24px; } }
@@ -708,7 +709,7 @@ body.has-countdown { padding-bottom: 96px; }
 :root[data-theme="dark"] .sc:not(.sc-feature) .sc-eyebrow { color: #ff9a5c; }
 
 /* About page: Who we are, as a logo and copy card */
-.who-band { background: var(--surface); border-radius: var(--r-xl); padding: clamp(16px, 3vw, 32px); max-width: var(--container); margin-left: auto; margin-right: auto; }
+.who-band { background: var(--surface); border-radius: var(--r-xl); padding: clamp(24px, 6vw, 80px); max-width: var(--container); margin-left: auto; margin-right: auto; }
 .who-card { background: var(--bg); border-radius: var(--r-l); display: grid; grid-template-columns: 5fr 6fr; gap: clamp(32px, 5vw, 72px); align-items: center; padding: clamp(36px, 5vw, 64px) clamp(28px, 5vw, 72px); max-width: 1040px; margin: 0 auto; }
 .who-logo { display: flex; align-items: center; gap: clamp(14px, 2vw, 24px); }
 .who-logo img { width: clamp(64px, 7vw, 92px); height: auto; flex: none; }
