@@ -256,12 +256,20 @@
     <section class="step" data-step="3" hidden>
       <h2>Where do you want your news from?</h2>
       <p class="hint">These are the news outlets we trust. We picked a few for your area. Change them however you like.</p>
+      <div class="chips"><button type="button" class="pill ghost" id="pick-for-me">Select for me</button></div>
       <p class="group-label">In your area</p>
       <div class="chips" id="f-sources-local" role="group" aria-label="Local news outlets"></div>
       <p class="group-label">Statewide</p>
       <div class="chips" id="f-sources-state" role="group" aria-label="Statewide news outlets"></div>
       <p class="group-label">National</p>
       <div class="chips" id="f-sources-national" role="group" aria-label="National news outlets"></div>
+      <p class="group-label">Don't see yours?</p>
+      <div class="chips" id="f-sources-other" role="group" aria-label="Add your own"></div>
+      <div class="field" id="other-src-field" hidden>
+        <label for="f-other-src">Your other news sources</label>
+        <input id="f-other-src" maxlength="120" autocomplete="off" placeholder="Like your campus paper or a local TV station">
+        <span class="note">Separate them with commas. These aren't on our trusted list, so your AI tool will use them for news stories only. Dates and voting rules always come from official sources.</span>
+      </div>
     </section>
 
     <section class="step" data-step="4" hidden>
@@ -539,7 +547,7 @@
 
   // ---------- State ----------
   let profile = load("lbb-profile", null);
-  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], other: false, otherText: "", sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
+  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], other: false, otherText: "", otherSrc: false, otherSrcText: "", sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
   let step = 1;
   let electionData = null;
 
@@ -556,6 +564,17 @@
       if (draft.other) setTimeout(() => $("f-other").focus(), 0);
     }, "__other"));
     $("f-other").addEventListener("input", () => (draft.otherText = $("f-other").value));
+    $("f-sources-other").append(chip("Other", () => {
+      draft.otherSrc = !draft.otherSrc;
+      if (draft.otherSrc) setTimeout(() => $("f-other-src").focus(), 0);
+    }, "__othersrc"));
+    $("f-other-src").addEventListener("input", () => (draft.otherSrcText = $("f-other-src").value));
+    $("pick-for-me").addEventListener("click", () => {
+      const region = (COUNTIES[draft.county] || {}).region;
+      draft.sources = [...DEFAULT_PICKS, ...(REGION_DEFAULTS[region] || [])];
+      paintChips();
+      $("wiz-err").textContent = "";
+    });
     FREQS.forEach(([k, l]) => $("f-freq").append(chip(l, () => { draft.freq = k; paintFreq(); }, k)));
     DAYS.forEach(([k, l]) => $("f-day").append(el("option", { value: k }, l)));
     TIMES.forEach(([k, l]) => $("f-time").append(el("option", { value: k }, l)));
@@ -581,7 +600,8 @@
   function paintChips() {
     document.querySelectorAll("#f-topics .chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === "__other" ? !!draft.other : draft.topics.includes(b.dataset.key))));
     $("other-field").hidden = !draft.other;
-    document.querySelectorAll("[id^=f-sources] .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.sources.includes(b.dataset.key))));
+    document.querySelectorAll("[id^=f-sources] .chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === "__othersrc" ? !!draft.otherSrc : draft.sources.includes(b.dataset.key))));
+    $("other-src-field").hidden = !draft.otherSrc;
     paintFreq();
   }
   function paintFreq() {
@@ -614,7 +634,7 @@
       draft.sources.push(...(REGION_DEFAULTS[region] || []));
     }
     draft.sourceRegion = region;
-    const groups = { local: $("f-sources-local"), state: $("f-sources-state"), national: $("f-sources-national") };
+    const groups = { local: $("f-sources-local"), state: $("f-sources-state"), national: $("f-sources-national") }; // "Other" lives in its own group and isn't rebuilt
     Object.values(groups).forEach((g) => g.replaceChildren());
     SOURCES.forEach((s) => {
       const target = s.region === "state" ? groups.state : s.region === "national" ? groups.national : s.region === region ? groups.local : null;
@@ -635,7 +655,10 @@
       if (draft.other && !customTopics(draft).length) return "Type your topic under Other, or unselect Other.";
       if (!allTopics(draft).length) return "Pick at least one topic.";
     }
-    if (step === 3 && !draft.sources.length) return "Pick at least one news source.";
+    if (step === 3) {
+      if (draft.otherSrc && !customSources(draft).length) return "Type your news source under Other, or unselect Other.";
+      if (!allSources(draft).length) return "Pick at least one news source, or tap Select for me.";
+    }
     return "";
   }
 
@@ -660,7 +683,7 @@
     // Keep only sources still offered for this region.
     const region = (COUNTIES[draft.county] || {}).region;
     draft.sources = draft.sources.filter((n) => SOURCES.some((s) => s.name === n && (s.region === "state" || s.region === "national" || s.region === region)));
-    if (!draft.sources.length) draft.sources = [...DEFAULT_PICKS];
+    if (!allSources(draft).length) draft.sources = [...DEFAULT_PICKS];
     profile = { ...draft };
     save("lbb-profile", profile);
     renderAll();
@@ -676,8 +699,18 @@
   }
   const allTopics = (p) => [...p.topics, ...customTopics(p)];
 
+  // News sources the visitor typed under Other. These are outside the trusted list.
+  function customSources(p) {
+    if (!p.otherSrc || !p.otherSrcText) return [];
+    return p.otherSrcText.replace(/<[^>]*>/g, "").split(",")
+      .map((t) => t.replace(/[^A-Za-z0-9 .'&/-]/g, "").replace(/\s+/g, " ").trim().slice(0, 40))
+      .filter(Boolean).slice(0, 5);
+  }
+  const allSources = (p) => [...p.sources, ...customSources(p)];
+
   function fillWizardFromDraft() {
     $("f-other").value = draft.otherText || "";
+    $("f-other-src").value = draft.otherSrcText || "";
     $("f-city").value = draft.city;
     $("f-county").value = draft.county;
     $("f-day").value = draft.day;
@@ -708,7 +741,7 @@
     const rows = [
       ["Where", profile.city ? `${profile.city}, ${profile.county} County` : `${profile.county} County`],
       ["Topics", allTopics(profile).join(", ")],
-      ["News from", profile.sources.join(", ")],
+      ["News from", allSources(profile).join(", ")],
       ["Roundup", freqPhrase(profile)],
     ];
     rows.forEach(([k, v]) => { list.append(el("dt", {}, k), el("dd", {}, v)); });
@@ -752,10 +785,11 @@
       "ABOUT ME",
       `- I live in ${where}.`,
       `- Topics I care about: ${allTopics(p).join(", ")}.`,
-      `- My news sources: ${p.sources.join(", ")}.`,
+      `- My news sources: ${p.sources.join(", ") || "none picked from the trusted list"}.`,
+      ...(customSources(p).length ? [`- I also added: ${customSources(p).join(", ")}. These aren't on the trusted list. Use them only for news stories, skip their opinion pieces, and never use them for election dates or voting rules.`] : []),
       "",
       "MY NEWS ROUNDUP",
-      `- ${schedule}, send me up to 10 recent stories on my topics, using only my news sources.`,
+      `- ${schedule}, send me up to 10 recent stories on my topics, using only the news sources above.`,
       `- Weight it toward home: ${p.city ? "my city, " : ""}my county, my school district, and the Arizona Legislature first, then a few federal stories that affect young adults.`,
       "- For each story: a plain-language headline, one or two sentences on why it matters to someone my age, a label (City, County, State, or National), and a link to the original story.",
       "- Put anything I can act on first, like a public meeting or a deadline. If there are fewer than 10 good stories, send fewer.",
