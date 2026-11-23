@@ -726,3 +726,27 @@ body.has-countdown { padding-bottom: 96px; }
   .who-logo { justify-content: center; }
 }
 @media (max-width: 640px) { .who-band { border-radius: var(--r-l); padding: 16px; } .who-card { border-radius: var(--r-l); padding: 36px 24px; } }
+
+/* Calendar event mockup (showcase): event detail view with an illustrated header */
+.gc-banner { position: relative; height: 150px; margin-top: -40px; overflow: hidden; }
+.gc-art { display: block; width: 100%; height: 100%; }
+.gc-actions { position: absolute; top: 50px; right: 14px; display: flex; gap: 8px; }
+.gc-actions span { width: 30px; height: 30px; border-radius: 50%; background: rgba(0, 12, 31, 0.45); color: #fff; display: grid; place-items: center; }
+.gc-actions svg { width: 15px; height: 15px; }
+.gc-sample { position: absolute; left: 14px; bottom: 10px; background: rgba(255, 255, 255, 0.85); }
+.gc-body { padding: 18px 20px 24px 14px; display: grid; gap: 16px; align-content: start; }
+.gc-screen { background: #f8f9fb; }
+.gc-row { display: grid; grid-template-columns: 22px 1fr; gap: 12px; align-items: start; }
+.gc-row > svg { width: 18px; height: 18px; color: #5f6368; margin-top: 1px; }
+.gc-swatch { width: 14px; height: 14px; border-radius: 4px; background: #e8a33a; margin: 6px 0 0 3px; }
+.gc-title { display: block; font-size: 18px; line-height: 1.25; font-weight: 500; color: #1f1f1f; letter-spacing: -0.01em; }
+.gc-title-row small { display: block; margin-top: 4px; font-size: 12.5px; color: #3c4043; }
+.gc-notes { font-size: 12.5px; line-height: 1.45; color: #1f1f1f; }
+.gc-notes p { margin: 0 0 8px; }
+.gc-notes ul { list-style: none; padding: 0; margin: 0 0 8px; display: grid; gap: 6px; }
+.gc-notes li { position: relative; padding-left: 20px; }
+.gc-notes li::before { content: ""; position: absolute; left: 0; top: 2px; width: 11px; height: 11px; border: 1.5px solid var(--navy); border-radius: 3px; }
+.gc-link { color: #1a62d6; text-decoration: underline; text-underline-offset: 2px; }
+.gc-meta { align-items: center; font-size: 12.5px; color: #1f1f1f; }
+.gc-meta svg { margin-top: 0; }
+.gc-screen .sb { position: relative; z-index: 2; }
