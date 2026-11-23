@@ -537,34 +537,17 @@
     document.querySelectorAll("#f-freq .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.freq === b.dataset.key)));
   }
 
-  // After step 1, retype the greeting with the visitor's city, like someone typing it.
-  let typeTimer = null;
-  function typeCity(name) {
-    const span = document.querySelector(".hero .city-name");
-    stopCycle();
-    if (!name) { span.textContent = "Arizona"; return; }
-    if (span.textContent === name) return;
-    clearTimeout(typeTimer);
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { span.textContent = name; return; }
-    const h1 = span.closest("h1");
-    h1.setAttribute("aria-label", `Local Ballot Buddy in ${name}`); // screen readers hear the final text once
-    span.textContent = "";
-    span.classList.add("caret");
-    let i = 0;
-    const tick = () => {
-      span.textContent = name.slice(0, ++i);
-      if (i < name.length) typeTimer = setTimeout(tick, 70 + Math.random() * 60);
-      else typeTimer = setTimeout(() => span.classList.remove("caret"), 1200);
-    };
-    typeTimer = setTimeout(tick, 250);
-  }
-
-  // Until the visitor picks a city, the headline cycles through cities across the Valley.
-  const CYCLE_NAMES = ["Arizona", "Phoenix", "Tempe", "Mesa", "Scottsdale", "Chandler", "Glendale", "Gilbert", "Peoria", "Surprise"];
+  // The headline always cycles through every Arizona city and town on the list, in a shuffled
+  // order on each visit, starting from "Arizona". It never stops on the visitor's own city.
+  const CYCLE_NAMES = (() => {
+    const towns = Object.keys(TOWNS);
+    for (let i = towns.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [towns[i], towns[j]] = [towns[j], towns[i]]; }
+    return ["Arizona", ...towns];
+  })();
   const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
   let cycleTimer = null, cycling = false;
   function startCycle() {
-    if (cycling || profile || reducedMotion()) return;
+    if (cycling || reducedMotion()) return;
     const span = document.querySelector(".hero .city-name");
     cycling = true;
     let idx = Math.max(0, CYCLE_NAMES.indexOf(span.textContent));
@@ -690,7 +673,6 @@
     if (step === 1) { draft.city = cleanName($("f-city").value); draft.county = $("f-county").value; }
     const problem = validate();
     if (problem) { $("wiz-err").textContent = problem; return; }
-    if (step === 1) typeCity(draft.city);
     if (step < 4) { go(step + 1); return; }
     // Keep only sources still offered for this region.
     const region = (COUNTIES[draft.county] || {}).region;
@@ -744,13 +726,11 @@
     $("wizard").hidden = has;
     $("summary").hidden = !has;
     document.querySelectorAll("main .city-name").forEach((n) => (n.textContent = placeName(profile)));
-    const heroName = has ? placeName(profile) : (draft.city || null);
-    if (heroName) { stopCycle(); document.querySelector(".hero .city-name").textContent = heroName; }
-    document.querySelector(".hero h1").setAttribute("aria-label", `Local Ballot Buddy in ${heroName || "Arizona"}`);
+
     $("hero-cta-text").textContent = has ? "See your plan" : "Create your assistant";
     $("hero-cta-short").textContent = has ? "Your plan" : "Create yours";
     $("hero-cta").href = has ? "#plan" : "#create";
-    if (!heroName) startCycle();
+    startCycle();
     $("hero-sub").textContent = has
       ? "Your reminders and news roundup are ready to set up below."
       : "Answer four quick questions. We'll set up election reminders and a local news roundup on your schedule.";
