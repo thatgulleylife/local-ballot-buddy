@@ -768,3 +768,9 @@ body.has-countdown { padding-bottom: 96px; }
 .video-play:focus-visible .play-mark { outline-color: #fff; }
 /* A white ring around the video so it stands apart from the hero background. */
 .hero-media { box-shadow: 0 0 0 6px #fff, var(--shadow-1); }
+
+/* "Your AI. Free. Private." illustrations */
+.feature-item .bento.art-a { background: linear-gradient(160deg, #fff7dd, #ffe1dc); }
+.feature-item .bento.art-b { background: linear-gradient(160deg, #ffe8e4, #ffd0cb); }
+.feature-item .bento.art-c { background: linear-gradient(160deg, #fff5cb, #ffe0c2); }
+.feature-item .bento svg.art { width: 74%; max-width: 340px; color: inherit; filter: drop-shadow(0 14px 22px rgba(179, 88, 88, 0.18)); }
