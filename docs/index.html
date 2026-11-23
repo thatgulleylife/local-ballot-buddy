@@ -24,7 +24,7 @@
   </div>
 
   <div class="hero-copy">
-    <h1 class="display-xl" aria-label="Hello, Arizona">Hello, <span class="city-name">Arizona</span></h1>
+    <h1 class="display-xl" aria-label="Local Ballot Buddy in Arizona">Local Ballot Buddy <span class="h1-line">in <span class="city-name">Arizona</span></span></h1>
     <p class="body-l" id="hero-sub">Answer four quick questions. We'll set up election reminders and a local news roundup on your schedule.</p>
     <div class="hero-cta"><a class="btn btn-primary" id="hero-cta" href="#create">Create your assistant</a></div>
   </div>
@@ -543,7 +543,7 @@
     clearTimeout(typeTimer);
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) { span.textContent = name; return; }
     const h1 = span.closest("h1");
-    h1.setAttribute("aria-label", `Hello, ${name}`); // screen readers hear the final text once
+    h1.setAttribute("aria-label", `Local Ballot Buddy in ${name}`); // screen readers hear the final text once
     span.textContent = "";
     span.classList.add("caret");
     let i = 0;
@@ -742,7 +742,7 @@
     document.querySelectorAll("main .city-name").forEach((n) => (n.textContent = placeName(profile)));
     const heroName = has ? placeName(profile) : (draft.city || null);
     if (heroName) { stopCycle(); document.querySelector(".hero .city-name").textContent = heroName; }
-    document.querySelector(".hero h1").setAttribute("aria-label", `Hello, ${heroName || "Arizona"}`);
+    document.querySelector(".hero h1").setAttribute("aria-label", `Local Ballot Buddy in ${heroName || "Arizona"}`);
     $("hero-cta").textContent = has ? "See your plan" : "Create your assistant";
     $("hero-cta").href = has ? "#plan" : "#create";
     if (!heroName) startCycle();
