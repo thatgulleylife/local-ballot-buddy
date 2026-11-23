@@ -105,12 +105,27 @@
     </section>
 
     <section class="step" data-step="4" hidden>
-      <h2 class="heading-m">When do you want your roundup?</h2>
-      <p class="hint">Your AI tool or calendar will nudge you on this schedule.</p>
+      <h2 class="heading-m">When do you want your news roundup?</h2>
+      <p class="hint">This schedule is just for news. Election reminders follow the real deadlines, so you don't need to set them.</p>
       <p class="group-label">How often</p>
       <div class="chips" id="f-freq" role="group" aria-label="How often"></div>
-      <div class="row">
+      <div class="row" id="custom-freq" hidden>
         <div class="field">
+          <label for="f-every">Every</label>
+          <input id="f-every" type="number" min="1" max="90" step="1" inputmode="numeric">
+        </div>
+        <div class="field">
+          <label for="f-unit">Days, weeks, or months</label>
+          <select id="f-unit">
+            <option value="days">Days</option>
+            <option value="weeks">Weeks</option>
+            <option value="months">Months</option>
+          </select>
+        </div>
+        <span class="note" style="grid-column:1/-1">Anywhere from every day to every 3 months.</span>
+      </div>
+      <div class="row">
+        <div class="field" id="day-field">
           <label for="f-day">Day</label>
           <select id="f-day"></select>
         </div>
@@ -126,7 +141,26 @@
       <button type="button" class="btn btn-ghost" id="wiz-back">Back</button>
       <button type="submit" class="btn btn-primary" id="wiz-next">Next</button>
     </div>
-    <p class="caption">Your answers stay in this browser. Nothing is sent anywhere.</p>
+    <p class="caption" id="wiz-privacy">Your answers stay in this browser. Nothing is sent anywhere.</p>
+    <div class="cal-preview" id="cal-preview" hidden>
+      <p class="group-label">What goes on your calendar</p>
+      <div class="cp-event">
+        <div class="date-tile" aria-hidden="true"><span class="dt-mon">News</span><span class="dt-day cp-repeat">&#8635;</span></div>
+        <div>
+          <p class="cp-title">Your local news roundup</p>
+          <p class="cp-meta" id="cp-news-when"></p>
+          <p class="cp-body">Tap it to open your AI tool and get up to 10 local stories in plain language.</p>
+        </div>
+      </div>
+      <div class="cp-event" id="cp-election" hidden>
+        <div class="date-tile" aria-hidden="true"><span class="dt-mon" id="cp-mon"></span><span class="dt-day" id="cp-day"></span></div>
+        <div>
+          <p class="cp-title" id="cp-el-title"></p>
+          <p class="cp-meta" id="cp-el-meta"></p>
+          <ul class="about-list cal-checklist cp-list" id="cp-el-list"></ul>
+        </div>
+      </div>
+    </div>
   </form>
 
   <!-- Finished profile -->
@@ -145,7 +179,7 @@
   <section class="section measure reveal" id="plan" aria-labelledby="h-plan">
     <div class="section-head">
       <h2 class="display-l" id="h-plan">Your plan</h2>
-      <p class="body-l">Put election deadlines on your calendar, then have your AI tool send your roundup on your schedule.</p>
+      <p class="body-l">Put election reminders on your calendar, then have your AI tool send your news roundup on your schedule.</p>
     </div>
 
     <div class="locked" id="plan-locked">
@@ -155,9 +189,17 @@
 
     <div id="plan-body" hidden>
       <details class="plan-step" id="plan-step-1" open>
-        <summary><span class="num">1</span><h3 class="heading-m">Add election deadlines to your calendar</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <summary><span class="num">1</span><h3 class="heading-m">Add election reminders to your calendar</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
         <div class="plan-content">
-          <p id="cal-desc">Registration, mail ballot, early voting, and election day reminders. When a date changes, your calendar updates on its own.</p>
+          <p id="cal-desc">Reminders to get ready for each election, check your registration, and meet every deadline. When a date changes, your calendar updates on its own.</p>
+          <p style="margin-top:14px">Each reminder comes with a short checklist:</p>
+          <ul class="about-list cal-checklist">
+            <li>Check that you're registered</li>
+            <li>Update your address if you've moved</li>
+            <li>Request an early ballot, or join the Active Early Voting List</li>
+            <li>See who and what is on your ballot, and learn about it</li>
+            <li>Mail your ballot back in time, or find where to vote</li>
+          </ul>
           <div class="btns">
             <a class="btn btn-primary" id="el-apple" href="#">Apple or Outlook</a>
             <a class="btn btn-secondary" id="el-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
@@ -470,7 +512,9 @@
   const DEFAULT_PICKS = ["Arizona Mirror", "Votebeat Arizona", "Cronkite News"];
   const REGION_DEFAULTS = { central: ["KJZZ", "Axios Phoenix"], south: ["AZPM", "Arizona Daily Star"], north: ["Arizona Daily Sun"], west: ["Yuma Sun"] };
 
-  const FREQS = [["weekly", "Every week"], ["biweekly", "Every 2 weeks"], ["monthly", "Once a month"]];
+  const FREQS = [["weekly", "Every week"], ["biweekly", "Every 2 weeks"], ["monthly", "Once a month"], ["custom", "Custom"]];
+  // Custom schedules run from every day to every 3 months.
+  const CUSTOM_MAX = { days: 90, weeks: 12, months: 3 };
   const DAYS = [["MO", "Monday"], ["TU", "Tuesday"], ["WE", "Wednesday"], ["TH", "Thursday"], ["FR", "Friday"], ["SA", "Saturday"], ["SU", "Sunday"]];
   const TIMES = [["07:00", "7 a.m."], ["08:00", "8 a.m."], ["12:00", "Noon"], ["17:00", "5 p.m."], ["20:00", "8 p.m."]];
 
@@ -532,7 +576,7 @@
   if (profile && Array.isArray(profile.sources)) {
     profile.sources = profile.sources.filter((n) => SOURCES.some((x) => x.name === n));
   }
-  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], other: false, otherText: "", otherSrc: false, otherSrcText: "", sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
+  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], other: false, otherText: "", otherSrc: false, otherSrcText: "", sources: [], freq: "weekly", every: 1, unit: "days", day: "MO", time: "08:00", tool: "chatgpt" };
   let step = 1;
   let electionData = null;
 
@@ -570,8 +614,10 @@
       if (TOWNS[name]) onCity();
     });
     $("f-county").addEventListener("change", () => { draft.county = $("f-county").value; });
-    $("f-day").addEventListener("change", () => (draft.day = $("f-day").value));
-    $("f-time").addEventListener("change", () => (draft.time = $("f-time").value));
+    $("f-day").addEventListener("change", () => { draft.day = $("f-day").value; paintPreview(); });
+    $("f-time").addEventListener("change", () => { draft.time = $("f-time").value; paintPreview(); });
+    $("f-every").addEventListener("input", () => { draft.every = Number($("f-every").value); paintPreview(); });
+    $("f-unit").addEventListener("change", () => { draft.unit = $("f-unit").value; paintFreq(); });
     $("wiz-back").addEventListener("click", () => go(step - 1));
     $("wizard").addEventListener("submit", (ev) => { ev.preventDefault(); next(); });
   }
@@ -592,8 +638,40 @@
     $("other-src-field").hidden = !draft.otherSrc;
     paintFreq();
   }
+  // Preview of what lands on the calendar: the news roundup on the chosen schedule,
+  // plus the next statewide election reminder and its checklist.
+  function paintPreview() {
+    const n = draft.every;
+    const okCustom = draft.freq !== "custom" || (Number.isInteger(n) && n >= 1 && n <= (CUSTOM_MAX[draft.unit] || 90));
+    $("cp-news-when").textContent = okCustom ? `${freqPhrase(draft)} Arizona time` : "Pick anywhere from every day to every 3 months";
+    const today = new Date().toISOString().slice(0, 10);
+    const shift = (iso, days) => { const d = new Date(iso + "T12:00:00"); d.setDate(d.getDate() + days); return d.toISOString().slice(0, 10); };
+    const next = electionData && electionData.elections
+      .filter((e) => !e.past && (e.applies_to || "all") === "all" && e.deadlines && e.deadlines.registration && e.deadlines.registration.date >= today)
+      .sort((a, b) => a.date.localeCompare(b.date))[0];
+    $("cp-election").hidden = !next;
+    if (!next) return;
+    const reg = next.deadlines.registration.date, check = shift(reg, -14);
+    const useCheck = check >= today;
+    const day = useCheck ? check : reg;
+    const d = new Date(day + "T12:00:00");
+    $("cp-mon").textContent = d.toLocaleString("en-US", { month: "short" });
+    $("cp-day").textContent = d.getDate();
+    $("cp-el-title").textContent = useCheck ? "Check your voter registration" : "Register or update your address by midnight";
+    $("cp-el-meta").textContent = `Election reminder for the ${next.short_name || next.name}`;
+    const items = useCheck
+      ? ["Check that you're registered and your address is current", "Turning 18 by election day? You can register now", "Request an early ballot if you want one"]
+      : ["Register, or update your address if you've moved", "Request an early ballot if you want one"];
+    $("cp-el-list").replaceChildren(...items.map((t) => el("li", {}, t)));
+  }
+
   function paintFreq() {
     document.querySelectorAll("#f-freq .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.freq === b.dataset.key)));
+    const custom = draft.freq === "custom";
+    $("custom-freq").hidden = !custom;
+    // A daily schedule doesn't need a day of the week.
+    $("day-field").hidden = custom && (draft.unit || "days") === "days";
+    paintPreview();
   }
 
   // The headline always cycles through every Arizona city and town on the list, in a shuffled
@@ -712,6 +790,10 @@
       if (draft.otherSrc && !customSources(draft).length) return "Type your news source under Other, or unselect Other.";
       if (!allSources(draft).length) return "Pick at least one news source, or tap Select for me.";
     }
+    if (step === 4 && draft.freq === "custom") {
+      const n = draft.every, max = CUSTOM_MAX[draft.unit] || 90;
+      if (!Number.isInteger(n) || n < 1 || n > max) return `Pick a whole number from 1 to ${max} ${draft.unit}. Custom schedules run from every day to every 3 months.`;
+    }
     return "";
   }
 
@@ -723,6 +805,10 @@
     $("wiz-back").style.visibility = step === 1 ? "hidden" : "visible";
     $("wiz-next").textContent = step === 4 ? "Finish" : "Next";
     $("wiz-err").textContent = "";
+    // On the last step, a preview of the calendar reminders takes the place of the privacy note.
+    $("wiz-privacy").hidden = step === 4;
+    $("cal-preview").hidden = step !== 4;
+    if (step === 4) paintPreview();
     if (step === 3) buildSourceChips();
     const first = document.querySelector(`.step[data-step="${step}"] input, .step[data-step="${step}"] button, .step[data-step="${step}"] select`);
     if (first && document.activeElement !== document.body) first.focus({ preventScroll: true });
@@ -768,6 +854,8 @@
     $("f-county").value = draft.county;
     $("f-day").value = draft.day;
     $("f-time").value = draft.time;
+    $("f-every").value = draft.every || 1;
+    $("f-unit").value = draft.unit || "days";
     paintChips();
   }
 
@@ -775,6 +863,12 @@
   const placeName = (p) => (p && p.city) || (p && p.county ? `${p.county} County` : "Arizona");
   function freqPhrase(p) {
     const day = label(DAYS, p.day), time = label(TIMES, p.time);
+    if (p.freq === "custom") {
+      const n = p.every || 1, unit = p.unit || "days";
+      if (unit === "days") return n === 1 ? `Every day at ${time}` : `Every ${n} days at ${time}`;
+      if (unit === "weeks") return n === 1 ? `Every ${day} at ${time}` : `Every ${n} weeks on ${day} at ${time}`;
+      return n === 1 ? `The first ${day} of each month at ${time}` : `The first ${day} of every ${n} months at ${time}`;
+    }
     if (p.freq === "monthly") return `The first ${day} of each month at ${time}`;
     if (p.freq === "biweekly") return `Every other ${day} at ${time}`;
     return `Every ${day} at ${time}`;
@@ -914,8 +1008,8 @@
     $("el-apple").href = webcalUrl(`${key}.ics`);
     $("el-google").href = googleUrl(`${key}.ics`);
     $("cal-desc").textContent = key === "arizona"
-      ? "Registration, mail ballot, early voting, and election day reminders for statewide and federal elections. When a date changes, your calendar updates on its own. For city and school elections, check your county elections office in Quick links."
-      : `Registration, mail ballot, early voting, and election day reminders for ${profile.city}, ${profile.county} County, state, and federal elections. When a date changes, your calendar updates on its own.`;
+      ? "For statewide and federal elections, you'll get a heads-up about 4 months out, a registration check 2 weeks before the deadline, and a reminder for each deadline after that. When a date changes, your calendar updates on its own. For city and school elections, check your county elections office in Quick links."
+      : `For ${profile.city}, ${profile.county} County, state, and federal elections, you'll get a heads-up about 4 months out, a registration check 2 weeks before the deadline, and a reminder for each deadline after that. When a date changes, your calendar updates on its own.`;
 
     const tabs = $("tool-tabs");
     tabs.replaceChildren();
@@ -958,10 +1052,13 @@
     const now = new Date();
     const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     const jsDay = (dayIdx + 1) % 7; // JS: 0 = Sunday
-    start.setDate(start.getDate() + ((jsDay - start.getDay() + 7) % 7 || 7));
+    const daily = p.freq === "custom" && p.unit === "days";
+    start.setDate(start.getDate() + (daily ? 1 : ((jsDay - start.getDay() + 7) % 7 || 7)));
     const pad = (n) => String(n).padStart(2, "0");
     const dt = `${start.getFullYear()}${pad(start.getMonth() + 1)}${pad(start.getDate())}T${p.time.replace(":", "")}00`;
-    const rule = p.freq === "monthly" ? `FREQ=MONTHLY;BYDAY=1${p.day}` : p.freq === "biweekly" ? `FREQ=WEEKLY;INTERVAL=2;BYDAY=${p.day}` : `FREQ=WEEKLY;BYDAY=${p.day}`;
+    const n = p.every || 1;
+    const custom = { days: `FREQ=DAILY;INTERVAL=${n}`, weeks: `FREQ=WEEKLY;INTERVAL=${n};BYDAY=${p.day}`, months: `FREQ=MONTHLY;INTERVAL=${n};BYDAY=1${p.day}` };
+    const rule = p.freq === "custom" ? custom[p.unit] || custom.days : p.freq === "monthly" ? `FREQ=MONTHLY;BYDAY=1${p.day}` : p.freq === "biweekly" ? `FREQ=WEEKLY;INTERVAL=2;BYDAY=${p.day}` : `FREQ=WEEKLY;BYDAY=${p.day}`;
     const esc = (s) => s.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
     const fold = (line) => line.length <= 73 ? line : line.match(/.{1,73}/g).join("\r\n ");
     const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");

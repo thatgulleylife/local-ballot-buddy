@@ -131,6 +131,19 @@ def ballot_summary(e, place):
     return ("On the ballot:\n" + "\n".join(lines) + "\nSee your exact ballot at https://my.arizona.vote\n\n") if lines else ""
 
 
+CLEAN_ELECTIONS = "https://www.azcleanelections.gov"
+BOX = "\u2610"  # an empty checkbox, so each list reads as a checklist in calendar apps
+
+
+def checklist(items):
+    return "Your checklist:\n" + "\n".join(f"{BOX} {i}" for i in items) + "\n"
+
+
+def pretty(day):
+    d = date.fromisoformat(day)
+    return f"{d:%B} {d.day}"
+
+
 def election_events(e, place):
     ev, eid = [], f"{place['key']}-{e['id']}"
     dl = e.get("deadlines", {})
@@ -142,47 +155,94 @@ def election_events(e, place):
         official = f"Find your county elections office: {FIND_COUNTY}\nCheck your registration: https://my.arizona.vote"
     races = ballot_summary(e, place)
     county = f"{place['county']} County" if place.get("county") else "your county"
+    reg, req, early = dl.get("registration"), dl.get("early_ballot_request"), dl.get("early_voting_starts")
+    election_day = date.fromisoformat(e["date"])
 
     def dt(status):
         # A deadline counted from an unconfirmed election date is unconfirmed too.
         return date_tag("confirm" if e["status"] == "confirm" else status)
 
-    prep_day = (date.fromisoformat(e["date"]) - timedelta(days=PREP_LEAD_DAYS)).isoformat()
+    def by(item):
+        return f" by {pretty(item['date'])}{dt(item['status'])}" if item else ""
+
+    learn = f"Learn about the candidates and measures in the Clean Elections voter guide: {CLEAN_ELECTIONS}"
+    see_ballot = "See who and what is on your ballot: https://my.arizona.vote"
+
+    prep_day = (election_day - timedelta(days=PREP_LEAD_DAYS)).isoformat()
     ev.append(all_day_event(
         f"{eid}-prep", prep_day, f"Get ready: {e['short_name']} in {PREP_LEAD_DAYS} days",
-        f"{races}Tap the link to check your address, see your ballot, and make a plan.\n"
-        f"{gpt_link(prep_prompt)}\n\n{official}",
+        f"{races}" + checklist([
+            "Check that you're registered: https://my.arizona.vote",
+            f"Moved? Update your address{by(reg)}",
+            f"Want to vote by mail? Request an early ballot{by(req)}, or join the Active Early Voting List to get one every election: {place['recorder_url']}",
+            see_ballot,
+            learn,
+            "Decide how and when you'll vote",
+        ]) + f"\nWant help? {gpt_link(prep_prompt)}\n\n{official}",
         gpt_link(prep_prompt), [0]))
 
-    if "registration" in dl:
-        r = dl["registration"]
+    if reg:
+        check_day = (date.fromisoformat(reg["date"]) - timedelta(days=14)).isoformat()
         ev.append(all_day_event(
-            f"{eid}-reg", r["date"], f"Register or update address by midnight: {e['short_name']}{dt(r['status'])}",
-            f"For the {e['name']} on {e['date']}. Moved since the last election? Update your address before midnight.\n"
-            f"https://my.arizona.vote\n\nSource: Arizona Secretary of State, 29 days before the election.",
+            f"{eid}-check", check_day, f"Check your voter registration: {e['short_name']}",
+            f"The deadline to register or update your address for the {e['name']} is in 2 weeks, on {pretty(reg['date'])}{dt(reg['status'])}.\n"
+            + checklist([
+                "Check that you're registered and your address is current: https://my.arizona.vote",
+                "Turning 18 by election day? You can register now",
+                f"Request an early ballot if you want one{by(req)}: {place['recorder_url']}",
+            ]),
+            "https://my.arizona.vote", [0]))
+
+        ev.append(all_day_event(
+            f"{eid}-reg", reg["date"], f"Register or update address by midnight: {e['short_name']}{dt(reg['status'])}",
+            f"For the {e['name']} on {e['date']}. Today is the last day.\n"
+            + checklist([
+                "Register, or update your address if you've moved: https://my.arizona.vote",
+                f"Request an early ballot if you want one{by(req)}",
+            ]) + "\nSource: Arizona Secretary of State, 29 days before the election.",
             "https://my.arizona.vote", [7, 1]))
 
-    if "early_voting_starts" in dl:
-        s = dl["early_voting_starts"]
+    if early:
+        mail_by = (election_day - timedelta(days=7)).isoformat()
         ev.append(all_day_event(
-            f"{eid}-early", s["date"], f"Early voting starts: {e['short_name']}{dt(s['status'])}",
-            f"Early ballots go out and early voting locations open for the {e['name']}. Locations come from {county} elections.\n"
-            f"{place['elections_url']}",
+            f"{eid}-early", early["date"], f"Early voting starts: {e['short_name']}{dt(early['status'])}",
+            f"Early ballots go out and early voting locations open for the {e['name']}. Locations come from {county} elections: {place['elections_url']}\n"
+            + checklist([
+                see_ballot,
+                learn,
+                f"Voting by mail? Fill it out, sign the envelope, and mail it by {pretty(mail_by)} so it arrives in time",
+            ]),
             place["elections_url"], [0]))
 
-    if "early_ballot_request" in dl:
-        b = dl["early_ballot_request"]
         ev.append(all_day_event(
-            f"{eid}-req", b["date"], f"Mail ballot request due 5 p.m.: {e['short_name']}{dt(b['status'])}",
-            f"For the {e['name']} on {e['date']}. Request it from the {county} Recorder.\n"
-            f"{place['recorder_url']}\n\nSource: Arizona Secretary of State, 11 days before the election.",
+            f"{eid}-mail", mail_by, f"Mail your ballot back today: {e['short_name']}",
+            f"Election officials recommend mailing your early ballot at least a week before election day so it arrives in time.\n"
+            + checklist([
+                "Sign the envelope. An unsigned ballot can't be counted",
+                f"Missed the mail? Drop it off at any voting location or drop box in {county} by 7 p.m. on election day: {place['elections_url']}",
+                "Track your ballot: https://my.arizona.vote",
+            ]),
+            place["elections_url"], [0]))
+
+    if req:
+        ev.append(all_day_event(
+            f"{eid}-req", req["date"], f"Mail ballot request due 5 p.m.: {e['short_name']}{dt(req['status'])}",
+            f"For the {e['name']} on {e['date']}.\n"
+            + checklist([
+                f"Request your early ballot from the {county} Recorder by 5 p.m.: {place['recorder_url']}",
+                "Already have one? Mail it back now, or plan to drop it off by 7 p.m. on election day",
+            ]) + "\nSource: Arizona Secretary of State, 11 days before the election.",
             place["recorder_url"], [3, 1]))
 
     plan_prompt = f"It's almost election day for the {e['name']}. Help me finish my plan to vote. {where}"
     ev.append(all_day_event(
         f"{eid}-day", e["date"], f"Election day: {e['short_name']}{dt(e['status'])}",
-        f"{races}Polls are open 6 a.m. to 7 p.m. Find where to vote through {county} elections: {place['elections_url']}\n"
-        f"Need a plan? {gpt_link(plan_prompt)}\n\n{official}",
+        f"{races}Polls are open 6 a.m. to 7 p.m. If you're in line by 7 p.m., you can still vote.\n"
+        + checklist([
+            f"Find where to vote through {county} elections: {place['elections_url']}",
+            "Voting in person? Bring an ID, like a driver's license or tribal ID",
+            "Still have your early ballot? Drop it off at any voting location by 7 p.m.",
+        ]) + f"\nNeed a plan? {gpt_link(plan_prompt)}\n\n{official}",
         place["elections_url"], [2, 0]))
     return ev
 

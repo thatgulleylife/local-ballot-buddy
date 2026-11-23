@@ -18,7 +18,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-prep@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20270705
 DTEND;VALUE=DATE:20270706
 SUMMARY:Get ready: Nov 2027 local election in 120 days
@@ -26,11 +26,17 @@ DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any
  city calls them (expected\, not yet official)\n- School district: School d
  istrict bond and budget override measures\, if any districts call them (ex
  pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
- te\n\nTap the link to check your address\, see your ballot\, and make a pl
- an.\nhttps://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Maricopa
- %20County%20jurisdictional%20election%20on%202027-11-02.%20I%20live%20in%2
- 0Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your regi
- stration: https://my.arizona.vote
+ te\n\nYour checklist:\n☐ Check that you're registered: https://my.arizon
+ a.vote\n☐ Moved? Update your address by October 4 (date expected)\n☐ W
+ ant to vote by mail? Request an early ballot by October 22 (date expected)
+ \, or join the Active Early Voting List to get one every election: https:/
+ /recorder.maricopa.gov\n☐ See who and what is on your ballot: https://my
+ .arizona.vote\n☐ Learn about the candidates and measures in the Clean El
+ ections voter guide: https://www.azcleanelections.gov\n☐ Decide how and 
+ when you'll vote\n\nWant help? https://chatgpt.com/?q=Help%20me%20get%20re
+ ady%20for%20the%20Maricopa%20County%20jurisdictional%20election%20on%20202
+ 7-11-02.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/
+ elections\nCheck your registration: https://my.arizona.vote
 URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Maricopa%2
  0County%20jurisdictional%20election%20on%202027-11-02.%20I%20live%20in%20P
  hoenix.
@@ -42,16 +48,37 @@ TRIGGER:PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:phoenix-maricopa-2027-11-check@local-ballot-buddy
+DTSTAMP:20261123T042651Z
+DTSTART;VALUE=DATE:20270920
+DTEND;VALUE=DATE:20270921
+SUMMARY:Check your voter registration: Nov 2027 local election
+DESCRIPTION:The deadline to register or update your address for the Maricop
+ a County jurisdictional election is in 2 weeks\, on October 4 (date expect
+ ed).\nYour checklist:\n☐ Check that you're registered and your address i
+ s current: https://my.arizona.vote\n☐ Turning 18 by election day? You ca
+ n register now\n☐ Request an early ballot if you want one by October 22 
+ (date expected): https://recorder.maricopa.gov\n
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Check your voter registration: Nov 2027 local election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-reg@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20271004
 DTEND;VALUE=DATE:20271005
 SUMMARY:Register or update address by midnight: Nov 2027 local election (da
  te expected)
 DESCRIPTION:For the Maricopa County jurisdictional election on 2027-11-02. 
- Moved since the last election? Update your address before midnight.\nhttps
- ://my.arizona.vote\n\nSource: Arizona Secretary of State\, 29 days before 
- the election.
+ Today is the last day.\nYour checklist:\n☐ Register\, or update your add
+ ress if you've moved: https://my.arizona.vote\n☐ Request an early ballot
+  if you want one by October 22 (date expected)\n\nSource: Arizona Secretar
+ y of State\, 29 days before the election.
 URL:https://my.arizona.vote
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -69,13 +96,17 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-early@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20271006
 DTEND;VALUE=DATE:20271007
 SUMMARY:Early voting starts: Nov 2027 local election (date expected)
 DESCRIPTION:Early ballots go out and early voting locations open for the Ma
  ricopa County jurisdictional election. Locations come from Maricopa County
-  elections.\nhttps://elections.maricopa.gov
+  elections: https://elections.maricopa.gov\nYour checklist:\n☐ See who a
+ nd what is on your ballot: https://my.arizona.vote\n☐ Learn about the ca
+ ndidates and measures in the Clean Elections voter guide: https://www.azcl
+ eanelections.gov\n☐ Voting by mail? Fill it out\, sign the envelope\, an
+ d mail it by October 26 so it arrives in time\n
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -85,15 +116,37 @@ TRIGGER:PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:phoenix-maricopa-2027-11-mail@local-ballot-buddy
+DTSTAMP:20261123T042651Z
+DTSTART;VALUE=DATE:20271026
+DTEND;VALUE=DATE:20271027
+SUMMARY:Mail your ballot back today: Nov 2027 local election
+DESCRIPTION:Election officials recommend mailing your early ballot at least
+  a week before election day so it arrives in time.\nYour checklist:\n☐ S
+ ign the envelope. An unsigned ballot can't be counted\n☐ Missed the mail
+ ? Drop it off at any voting location or drop box in Maricopa County by 7 p
+ .m. on election day: https://elections.maricopa.gov\n☐ Track your ballot
+ : https://my.arizona.vote\n
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail your ballot back today: Nov 2027 local election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-req@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20271022
 DTEND;VALUE=DATE:20271023
 SUMMARY:Mail ballot request due 5 p.m.: Nov 2027 local election (date expec
  ted)
-DESCRIPTION:For the Maricopa County jurisdictional election on 2027-11-02. 
- Request it from the Maricopa County Recorder.\nhttps://recorder.maricopa.g
- ov\n\nSource: Arizona Secretary of State\, 11 days before the election.
+DESCRIPTION:For the Maricopa County jurisdictional election on 2027-11-02.\
+ nYour checklist:\n☐ Request your early ballot from the Maricopa County R
+ ecorder by 5 p.m.: https://recorder.maricopa.gov\n☐ Already have one? Ma
+ il it back now\, or plan to drop it off by 7 p.m. on election day\n\nSourc
+ e: Arizona Secretary of State\, 11 days before the election.
 URL:https://recorder.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -111,7 +164,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-day@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20271102
 DTEND;VALUE=DATE:20271103
 SUMMARY:Election day: Nov 2027 local election (date expected)
@@ -119,12 +172,15 @@ DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any
  city calls them (expected\, not yet official)\n- School district: School d
  istrict bond and budget override measures\, if any districts call them (ex
  pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
- te\n\nPolls are open 6 a.m. to 7 p.m. Find where to vote through Maricopa 
- County elections: https://elections.maricopa.gov\nNeed a plan? https://cha
- tgpt.com/?q=It%27s%20almost%20election%20day%20for%20the%20Maricopa%20Coun
- ty%20jurisdictional%20election.%20Help%20me%20finish%20my%20plan%20to%20vo
- te.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/elect
- ions\nCheck your registration: https://my.arizona.vote
+ te\n\nPolls are open 6 a.m. to 7 p.m. If you're in line by 7 p.m.\, you ca
+ n still vote.\nYour checklist:\n☐ Find where to vote through Maricopa Co
+ unty elections: https://elections.maricopa.gov\n☐ Voting in person? Brin
+ g an ID\, like a driver's license or tribal ID\n☐ Still have your early 
+ ballot? Drop it off at any voting location by 7 p.m.\n\nNeed a plan? https
+ ://chatgpt.com/?q=It%27s%20almost%20election%20day%20for%20the%20Maricopa%
+ 20County%20jurisdictional%20election.%20Help%20me%20finish%20my%20plan%20t
+ o%20vote.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov
+ /elections\nCheck your registration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -140,18 +196,24 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-prep@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20271122
 DTEND;VALUE=DATE:20271123
 SUMMARY:Get ready: Presidential preference election in 120 days
 DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
   voters registered with a participating party) (expected\, not yet officia
- l)\nSee your exact ballot at https://my.arizona.vote\n\nTap the link to ch
- eck your address\, see your ballot\, and make a plan.\nhttps://chatgpt.com
- /?q=Help%20me%20get%20ready%20for%20the%20Arizona%20presidential%20prefere
- nce%20election%20on%202028-03-21.%20I%20live%20in%20Phoenix.\n\nCity info:
-  https://www.phoenix.gov/elections\nCheck your registration: https://my.ar
- izona.vote
+ l)\nSee your exact ballot at https://my.arizona.vote\n\nYour checklist:\n
+ ☐ Check that you're registered: https://my.arizona.vote\n☐ Moved? Upda
+ te your address by February 21 (date expected)\n☐ Want to vote by mail? 
+ Request an early ballot by March 10 (date expected)\, or join the Active E
+ arly Voting List to get one every election: https://recorder.maricopa.gov\
+ n☐ See who and what is on your ballot: https://my.arizona.vote\n☐ Lear
+ n about the candidates and measures in the Clean Elections voter guide: ht
+ tps://www.azcleanelections.gov\n☐ Decide how and when you'll vote\n\nWan
+ t help? https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Arizo
+ na%20presidential%20preference%20election%20on%202028-03-21.%20I%20live%20
+ in%20Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your 
+ registration: https://my.arizona.vote
 URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Arizona%20
  presidential%20preference%20election%20on%202028-03-21.%20I%20live%20in%20
  Phoenix.
@@ -163,16 +225,37 @@ TRIGGER:PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:phoenix-az-2028-03-ppe-check@local-ballot-buddy
+DTSTAMP:20261123T042651Z
+DTSTART;VALUE=DATE:20280207
+DTEND;VALUE=DATE:20280208
+SUMMARY:Check your voter registration: Presidential preference election
+DESCRIPTION:The deadline to register or update your address for the Arizona
+  presidential preference election is in 2 weeks\, on February 21 (date exp
+ ected).\nYour checklist:\n☐ Check that you're registered and your addres
+ s is current: https://my.arizona.vote\n☐ Turning 18 by election day? You
+  can register now\n☐ Request an early ballot if you want one by March 10
+  (date expected): https://recorder.maricopa.gov\n
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Check your voter registration: Presidential preference election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-reg@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20280221
 DTEND;VALUE=DATE:20280222
 SUMMARY:Register or update address by midnight: Presidential preference ele
  ction (date expected)
 DESCRIPTION:For the Arizona presidential preference election on 2028-03-21.
-  Moved since the last election? Update your address before midnight.\nhttp
- s://my.arizona.vote\n\nSource: Arizona Secretary of State\, 29 days before
-  the election.
+  Today is the last day.\nYour checklist:\n☐ Register\, or update your ad
+ dress if you've moved: https://my.arizona.vote\n☐ Request an early ballo
+ t if you want one by March 10 (date expected)\n\nSource: Arizona Secretary
+  of State\, 29 days before the election.
 URL:https://my.arizona.vote
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -190,14 +273,16 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-req@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20280310
 DTEND;VALUE=DATE:20280311
 SUMMARY:Mail ballot request due 5 p.m.: Presidential preference election (d
  ate expected)
 DESCRIPTION:For the Arizona presidential preference election on 2028-03-21.
-  Request it from the Maricopa County Recorder.\nhttps://recorder.maricopa.
- gov\n\nSource: Arizona Secretary of State\, 11 days before the election.
+ \nYour checklist:\n☐ Request your early ballot from the Maricopa County 
+ Recorder by 5 p.m.: https://recorder.maricopa.gov\n☐ Already have one? M
+ ail it back now\, or plan to drop it off by 7 p.m. on election day\n\nSour
+ ce: Arizona Secretary of State\, 11 days before the election.
 URL:https://recorder.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -215,19 +300,22 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-day@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20280321
 DTEND;VALUE=DATE:20280322
 SUMMARY:Election day: Presidential preference election (date expected)
 DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
   voters registered with a participating party) (expected\, not yet officia
  l)\nSee your exact ballot at https://my.arizona.vote\n\nPolls are open 6 a
- .m. to 7 p.m. Find where to vote through Maricopa County elections: https:
- //elections.maricopa.gov\nNeed a plan? https://chatgpt.com/?q=It%27s%20alm
- ost%20election%20day%20for%20the%20Arizona%20presidential%20preference%20e
- lection.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20in%20P
- hoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your regist
- ration: https://my.arizona.vote
+ .m. to 7 p.m. If you're in line by 7 p.m.\, you can still vote.\nYour chec
+ klist:\n☐ Find where to vote through Maricopa County elections: https://
+ elections.maricopa.gov\n☐ Voting in person? Bring an ID\, like a driver'
+ s license or tribal ID\n☐ Still have your early ballot? Drop it off at a
+ ny voting location by 7 p.m.\n\nNeed a plan? https://chatgpt.com/?q=It%27s
+ %20almost%20election%20day%20for%20the%20Arizona%20presidential%20preferen
+ ce%20election.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20
+ in%20Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your 
+ registration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -243,7 +331,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-prep@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20280710
 DTEND;VALUE=DATE:20280711
 SUMMARY:Get ready: 2028 general election in 120 days
@@ -256,11 +344,17 @@ DESCRIPTION:On the ballot:\n- City: Phoenix mayor and odd-numbered council
  ion seats\n- State: Statewide ballot measures\, if any qualify (expected\,
   not yet official)\n- Federal: President\n- Federal: U.S. Senate (the seat
   Mark Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact b
- allot at https://my.arizona.vote\n\nTap the link to check your address\, s
- ee your ballot\, and make a plan.\nhttps://chatgpt.com/?q=Help%20me%20get%
- 20ready%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20i
- n%20Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your r
- egistration: https://my.arizona.vote
+ allot at https://my.arizona.vote\n\nYour checklist:\n☐ Check that you're
+  registered: https://my.arizona.vote\n☐ Moved? Update your address by Oc
+ tober 9\n☐ Want to vote by mail? Request an early ballot by October 27\,
+  or join the Active Early Voting List to get one every election: https://r
+ ecorder.maricopa.gov\n☐ See who and what is on your ballot: https://my.a
+ rizona.vote\n☐ Learn about the candidates and measures in the Clean Elec
+ tions voter guide: https://www.azcleanelections.gov\n☐ Decide how and wh
+ en you'll vote\n\nWant help? https://chatgpt.com/?q=Help%20me%20get%20read
+ y%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20in%20Ph
+ oenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your registr
+ ation: https://my.arizona.vote
 URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20General%20
  election%20on%202028-11-07.%20I%20live%20in%20Phoenix.
 TRANSP:TRANSPARENT
@@ -271,14 +365,35 @@ TRIGGER:PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:phoenix-az-2028-11-check@local-ballot-buddy
+DTSTAMP:20261123T042651Z
+DTSTART;VALUE=DATE:20280925
+DTEND;VALUE=DATE:20280926
+SUMMARY:Check your voter registration: 2028 general election
+DESCRIPTION:The deadline to register or update your address for the General
+  election is in 2 weeks\, on October 9.\nYour checklist:\n☐ Check that y
+ ou're registered and your address is current: https://my.arizona.vote\n☐
+  Turning 18 by election day? You can register now\n☐ Request an early ba
+ llot if you want one by October 27: https://recorder.maricopa.gov\n
+URL:https://my.arizona.vote
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Check your voter registration: 2028 general election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:phoenix-az-2028-11-reg@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20281009
 DTEND;VALUE=DATE:20281010
 SUMMARY:Register or update address by midnight: 2028 general election
-DESCRIPTION:For the General election on 2028-11-07. Moved since the last el
- ection? Update your address before midnight.\nhttps://my.arizona.vote\n\nS
- ource: Arizona Secretary of State\, 29 days before the election.
+DESCRIPTION:For the General election on 2028-11-07. Today is the last day.\
+ nYour checklist:\n☐ Register\, or update your address if you've moved: h
+ ttps://my.arizona.vote\n☐ Request an early ballot if you want one by Oct
+ ober 27\n\nSource: Arizona Secretary of State\, 29 days before the electio
+ n.
 URL:https://my.arizona.vote
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -294,13 +409,17 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-early@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20281011
 DTEND;VALUE=DATE:20281012
 SUMMARY:Early voting starts: 2028 general election (date expected)
 DESCRIPTION:Early ballots go out and early voting locations open for the Ge
- neral election. Locations come from Maricopa County elections.\nhttps://el
- ections.maricopa.gov
+ neral election. Locations come from Maricopa County elections: https://ele
+ ctions.maricopa.gov\nYour checklist:\n☐ See who and what is on your ball
+ ot: https://my.arizona.vote\n☐ Learn about the candidates and measures i
+ n the Clean Elections voter guide: https://www.azcleanelections.gov\n☐ V
+ oting by mail? Fill it out\, sign the envelope\, and mail it by October 31
+  so it arrives in time\n
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -310,14 +429,36 @@ TRIGGER:PT9H
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
+UID:phoenix-az-2028-11-mail@local-ballot-buddy
+DTSTAMP:20261123T042651Z
+DTSTART;VALUE=DATE:20281031
+DTEND;VALUE=DATE:20281101
+SUMMARY:Mail your ballot back today: 2028 general election
+DESCRIPTION:Election officials recommend mailing your early ballot at least
+  a week before election day so it arrives in time.\nYour checklist:\n☐ S
+ ign the envelope. An unsigned ballot can't be counted\n☐ Missed the mail
+ ? Drop it off at any voting location or drop box in Maricopa County by 7 p
+ .m. on election day: https://elections.maricopa.gov\n☐ Track your ballot
+ : https://my.arizona.vote\n
+URL:https://elections.maricopa.gov
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Mail your ballot back today: 2028 general election
+TRIGGER:PT9H
+END:VALARM
+END:VEVENT
+BEGIN:VEVENT
 UID:phoenix-az-2028-11-req@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20281027
 DTEND;VALUE=DATE:20281028
 SUMMARY:Mail ballot request due 5 p.m.: 2028 general election
-DESCRIPTION:For the General election on 2028-11-07. Request it from the Mar
- icopa County Recorder.\nhttps://recorder.maricopa.gov\n\nSource: Arizona S
- ecretary of State\, 11 days before the election.
+DESCRIPTION:For the General election on 2028-11-07.\nYour checklist:\n☐ R
+ equest your early ballot from the Maricopa County Recorder by 5 p.m.: http
+ s://recorder.maricopa.gov\n☐ Already have one? Mail it back now\, or pla
+ n to drop it off by 7 p.m. on election day\n\nSource: Arizona Secretary of
+  State\, 11 days before the election.
 URL:https://recorder.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -333,7 +474,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-day@local-ballot-buddy
-DTSTAMP:20261123T032006Z
+DTSTAMP:20261123T042651Z
 DTSTART;VALUE=DATE:20281107
 DTEND;VALUE=DATE:20281108
 SUMMARY:Election day: 2028 general election
@@ -346,12 +487,15 @@ DESCRIPTION:On the ballot:\n- City: Phoenix mayor and odd-numbered council
  ion seats\n- State: Statewide ballot measures\, if any qualify (expected\,
   not yet official)\n- Federal: President\n- Federal: U.S. Senate (the seat
   Mark Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact b
- allot at https://my.arizona.vote\n\nPolls are open 6 a.m. to 7 p.m. Find w
- here to vote through Maricopa County elections: https://elections.maricopa
- .gov\nNeed a plan? https://chatgpt.com/?q=It%27s%20almost%20election%20day
- %20for%20the%20General%20election.%20Help%20me%20finish%20my%20plan%20to%2
- 0vote.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/el
- ections\nCheck your registration: https://my.arizona.vote
+ allot at https://my.arizona.vote\n\nPolls are open 6 a.m. to 7 p.m. If you
+ 're in line by 7 p.m.\, you can still vote.\nYour checklist:\n☐ Find whe
+ re to vote through Maricopa County elections: https://elections.maricopa.g
+ ov\n☐ Voting in person? Bring an ID\, like a driver's license or tribal 
+ ID\n☐ Still have your early ballot? Drop it off at any voting location b
+ y 7 p.m.\n\nNeed a plan? https://chatgpt.com/?q=It%27s%20almost%20election
+ %20day%20for%20the%20General%20election.%20Help%20me%20finish%20my%20plan%
+ 20to%20vote.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.
+ gov/elections\nCheck your registration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
