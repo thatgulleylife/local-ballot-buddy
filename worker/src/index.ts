@@ -19,7 +19,6 @@ type Turn = { role: "user" | "assistant"; content: string };
 const MAX_QUESTION_CHARS = 500;
 const MAX_HISTORY_TURNS = 6;
 const MAX_CONTINUATIONS = 3;
-const CITIES = new Set(["tempe", "phoenix", "mesa"]);
 
 // The assistant instructions are everything below the first "---" line.
 const instructions = instructionsFile.split(/\n---\n/).slice(1).join("\n---\n").trim();
@@ -119,8 +118,14 @@ export default {
     if (question.length > MAX_QUESTION_CHARS) {
       return json({ error: `Keep questions under ${MAX_QUESTION_CHARS} characters.` }, 400, cors);
     }
-    const city = typeof body.city === "string" && CITIES.has(body.city) ? body.city : "tempe";
-    const cityName = city[0].toUpperCase() + city.slice(1);
+    // Any Arizona city or town the visitor typed, limited to place-name characters.
+    const cityName =
+      typeof body.city === "string"
+        ? body.city.replace(/[^A-Za-z .'-]/g, "").replace(/\s+/g, " ").trim().slice(0, 40)
+        : "";
+    const where = cityName
+      ? `The visitor says they live in ${cityName}, Arizona.`
+      : "The visitor hasn't said where in Arizona they live. Ask for their city or town if the answer depends on it.";
 
     const messages: Anthropic.Beta.BetaMessageParam[] = [
       ...cleanHistory(body.history),
@@ -140,7 +145,7 @@ export default {
           output_config: { effort: "medium" },
           system: [
             { type: "text", text: STABLE_SYSTEM, cache_control: { type: "ephemeral" } },
-            { type: "text", text: `Today is ${todayInArizona()} in Arizona. The visitor picked ${cityName} on the page.` },
+            { type: "text", text: `Today is ${todayInArizona()} in Arizona. ${where}` },
           ],
           tools: [
             { type: "web_search_20260209", name: "web_search", max_uses: 3, allowed_domains: allowedDomains },

@@ -6,7 +6,7 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 
 | File | What it is |
 |---|---|
-| `instructions.md` | The assistant's instructions. Paste the part below the line into the GPT and the Claude Project. About 6,800 characters, under the GPT's 8,000 limit. |
+| `instructions.md` | The assistant's instructions. Paste the part below the line into the GPT and the Claude Project. About 7,800 characters, under the GPT's 8,000 limit. |
 | `trusted-sources.md` | The only sources the assistant may use, in three tiers. Upload as a knowledge file. |
 | `election-calendar.json` | Every election, its deadlines, and the races on it, each race tagged city, school, county, state, or federal, with a source and a status. Upload as a knowledge file. |
 | `build_calendars.py` | Turns the JSON into calendar files. Run `python3 build_calendars.py`. It skips any election without a date. |

@@ -81,6 +81,13 @@
   .sub { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); margin: 18px auto 0; max-width: 34ch; }
 
   .cities { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 28px; }
+  .city-field { display: flex; justify-content: center; margin-top: 28px; }
+  .city-field label { position: absolute; left: -999px; }
+  .city-field input {
+    width: min(100%, 340px); border: 0; border-radius: 40px; background: var(--bg); color: var(--ink);
+    font: 500 16px/1 inherit; font-family: inherit; padding: 15px 22px; text-align: center; box-shadow: 0 2px 10px rgba(0,12,31,.06);
+  }
+  .city-field input::placeholder { color: var(--muted); font-weight: 400; }
   .city {
     appearance: none; border: 0; background: var(--chip); color: var(--ink);
     font: 500 15px/1 inherit; font-family: inherit; padding: 12px 20px; border-radius: 40px; cursor: pointer;
@@ -189,17 +196,17 @@
   </div>
 
   <div class="hero-copy">
-    <h1>Hello, <span class="city-name">Tempe</span></h1>
+    <h1>Hello, <span class="city-name">Arizona</span></h1>
     <p class="sub">Every election that affects you, starting close to home.</p>
-    <div class="cities" role="group" aria-label="Choose your city">
-      <button class="city" data-city="tempe" aria-pressed="true">Tempe</button>
-      <button class="city" data-city="phoenix" aria-pressed="false">Phoenix</button>
-      <button class="city" data-city="mesa" aria-pressed="false">Mesa</button>
+    <div class="city-field">
+      <label for="city-input">Your city or town in Arizona</label>
+      <input id="city-input" list="az-towns" autocomplete="off" placeholder="Your city or town" maxlength="40">
+      <datalist id="az-towns"><option value="Apache Junction"><option value="Avondale"><option value="Benson"><option value="Bisbee"><option value="Buckeye"><option value="Bullhead City"><option value="Camp Verde"><option value="Carefree"><option value="Casa Grande"><option value="Cave Creek"><option value="Chandler"><option value="Chino Valley"><option value="Clarkdale"><option value="Clifton"><option value="Colorado City"><option value="Coolidge"><option value="Cottonwood"><option value="Dewey-Humboldt"><option value="Douglas"><option value="Duncan"><option value="Eagar"><option value="El Mirage"><option value="Eloy"><option value="Flagstaff"><option value="Florence"><option value="Fountain Hills"><option value="Fredonia"><option value="Gila Bend"><option value="Gilbert"><option value="Glendale"><option value="Globe"><option value="Goodyear"><option value="Guadalupe"><option value="Hayden"><option value="Holbrook"><option value="Huachuca City"><option value="Jerome"><option value="Kearny"><option value="Kingman"><option value="Lake Havasu City"><option value="Litchfield Park"><option value="Mammoth"><option value="Marana"><option value="Maricopa"><option value="Mesa"><option value="Miami"><option value="Nogales"><option value="Oro Valley"><option value="Page"><option value="Paradise Valley"><option value="Parker"><option value="Patagonia"><option value="Payson"><option value="Peoria"><option value="Phoenix"><option value="Pima"><option value="Pinetop-Lakeside"><option value="Prescott"><option value="Prescott Valley"><option value="Quartzsite"><option value="Queen Creek"><option value="Safford"><option value="Sahuarita"><option value="San Luis"><option value="Scottsdale"><option value="Sedona"><option value="Show Low"><option value="Sierra Vista"><option value="Snowflake"><option value="Somerton"><option value="South Tucson"><option value="Springerville"><option value="St. Johns"><option value="Star Valley"><option value="Superior"><option value="Surprise"><option value="Taylor"><option value="Tempe"><option value="Thatcher"><option value="Tolleson"><option value="Tombstone"><option value="Tucson"><option value="Tusayan"><option value="Wellton"><option value="Wickenburg"><option value="Willcox"><option value="Williams"><option value="Winkelman"><option value="Winslow"><option value="Youngtown"><option value="Yuma"></datalist>
     </div>
   </div>
 
   <form class="ask" id="ask">
-    <label for="q">Ask a question about voting in your city</label>
+    <label for="q">Ask a question about voting in Arizona</label>
     <textarea id="q" rows="2" placeholder="Try 'What's on my ballot?'"></textarea>
     <div class="ask-row">
       <span class="ask-note" id="ask-note">Answers come only from trusted sources. Don't type your address.</span>
@@ -220,7 +227,7 @@
       <div class="panel-grid">
         <div>
           <h3>Election deadlines</h3>
-          <p>Registration, mail ballot, early voting, and election day for <span class="city-name">Tempe</span>.</p>
+          <p id="el-desc">Registration, mail ballot, early voting, and election day for statewide and federal elections.</p>
           <div class="btns">
             <a class="pill" id="el-apple" href="#">Apple or Outlook</a>
             <a class="pill ghost" id="el-google" href="#" target="_blank" rel="noopener">Google Calendar</a>
@@ -245,9 +252,10 @@
   </section>
 
   <section class="feature" aria-labelledby="h-up">
-    <h2 id="h-up">Coming up in <span class="city-name">Tempe</span>.</h2>
+    <h2 id="h-up">Coming up in <span class="city-name">Arizona</span>.</h2>
     <p class="lead">Local races first. See your exact ballot at <a class="text-link" href="https://my.arizona.vote" target="_blank" rel="noopener">my.arizona.vote</a>.</p>
     <div id="elections"><p class="fine">Loading elections…</p></div>
+    <p class="fine" id="local-note" hidden></p>
   </section>
 
   <section class="feature" aria-labelledby="h-chat">
@@ -273,7 +281,7 @@
 
   <section class="feature" aria-labelledby="h-priv">
     <h2 id="h-priv">Your information stays yours.</h2>
-    <p class="lead">It only asks for your city. Anything that needs more goes to the official state site.</p>
+    <p class="lead">It only asks for your city or town. Anything that needs more goes to the official state site.</p>
     <ul class="promises">
       <li>It never tells you who or what to vote for.</li>
       <li>It never asks for your address, birth date, or ID.</li>
@@ -305,20 +313,30 @@
   ];
   const LEVELS = ["city", "school", "county", "state", "federal"];
   const LEVEL_LABEL = { city: "City", school: "School district", county: "County", state: "State", federal: "Federal" };
-  const CITY_NAMES = { tempe: "Tempe", phoenix: "Phoenix", mesa: "Mesa" };
-  const state = { city: "tempe", cad: "weekly", data: null };
+  // Cities with their own calendar (city elections included). Everyone else gets the Arizona calendar.
+  const CITY_CALENDARS = { tempe: "Tempe", phoenix: "Phoenix", mesa: "Mesa" };
+  const FIND_COUNTY = "https://azsos.gov/elections/about-elections/county-election-contact-info";
+  const state = { city: "", cad: "weekly", data: null };
 
   const base = new URL(".", location.href);
   const httpsUrl = (file) => new URL("calendars/" + file, base).href;
   const webcalUrl = (file) => httpsUrl(file).replace(/^https?:/, "webcal:");
   const googleUrl = (file) => "https://calendar.google.com/calendar/render?cid=" + encodeURIComponent(webcalUrl(file));
-  const cityName = () => CITY_NAMES[state.city];
-  const gptAsk = (q) => GPT_URL + "?q=" + encodeURIComponent(`${q} I live in ${cityName()}, Arizona.`);
+  const cityName = () => state.city || "Arizona";
+  const placeKey = () => {
+    const k = state.city.trim().toLowerCase();
+    return CITY_CALENDARS[k] ? k : "arizona";
+  };
+  const gptAsk = (q) => GPT_URL + "?q=" + encodeURIComponent(state.city ? `${q} I live in ${state.city}, Arizona.` : `${q} I live in Arizona.`);
 
-  function applies(item, city) {
+  function applies(item, place) {
+    // place is a city key with its own calendar data, or "arizona" for statewide items only.
     const t = item.applies_to || "all";
-    return t === "all" || t.includes(city);
+    if (t === "all") return true;
+    const keys = place === "arizona" ? [] : [place, "county:maricopa"];
+    return keys.some((k) => t.includes(k));
   }
+
   function fmtDate(iso) {
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
@@ -332,8 +350,12 @@
 
   function renderLinks() {
     document.querySelectorAll(".city-name").forEach((n) => (n.textContent = cityName()));
-    const elFile = `${state.city}.ics`;
-    const ttFile = `${state.city}-top10-${state.cad}.ics`;
+    const key = placeKey();
+    const elFile = `${key}.ics`;
+    const ttFile = `${key}-top10-${state.cad}.ics`;
+    document.getElementById("el-desc").textContent = key === "arizona"
+      ? "Registration, mail ballot, early voting, and election day for statewide and federal elections."
+      : `Registration, mail ballot, early voting, and election day for ${CITY_CALENDARS[key]}, county, state, and federal elections.`;
     document.getElementById("el-apple").href = webcalUrl(elFile);
     document.getElementById("el-google").href = googleUrl(elFile);
     document.getElementById("tt-apple").href = webcalUrl(ttFile);
@@ -351,7 +373,7 @@
     const today = new Date().toISOString().slice(0, 10);
     const key = (e) => e.date || e.approx_date || "9999";
     const list = state.data.elections
-      .filter((e) => !e.past && applies(e, state.city) && key(e) >= today)
+      .filter((e) => !e.past && applies(e, placeKey()) && key(e) >= today)
       .sort((a, b) => (key(a) < key(b) ? -1 : 1));
 
     for (const e of list) {
@@ -362,7 +384,7 @@
       item.append(top);
       item.append(el("h3", {}, e.name));
 
-      const races = (e.races || []).filter((r) => applies(r, state.city))
+      const races = (e.races || []).filter((r) => applies(r, placeKey()))
         .sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level));
       if (races.length) {
         const ul = el("ul", { class: "races" });
@@ -388,6 +410,18 @@
         item.append(p);
       }
       box.append(item);
+    }
+    const note = document.getElementById("local-note");
+    if (placeKey() === "arizona") {
+      note.hidden = false;
+      note.replaceChildren(
+        document.createTextNode(state.city
+          ? `These are the statewide and federal elections. We don't have city, school district, or county election dates for ${state.city} yet, so check your `
+          : "These are the statewide and federal elections. For city, school district, and county elections, check your "),
+        el("a", { class: "text-link", href: FIND_COUNTY, target: "_blank", rel: "noopener" }, "county elections office"),
+        document.createTextNode(" and your city or town clerk."));
+    } else {
+      note.hidden = true;
     }
   }
 
@@ -499,12 +533,15 @@
     if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); document.getElementById("ask").requestSubmit(); }
   });
 
-  document.querySelectorAll(".city").forEach((b) => b.addEventListener("click", () => {
-    state.city = b.dataset.city;
-    press(".city", "city", state.city);
+  const cityInput = document.getElementById("city-input");
+  function setCity(value) {
+    // Keep it to plain place-name characters.
+    state.city = value.replace(/[^A-Za-z .'-]/g, "").replace(/\s+/g, " ").trim().slice(0, 40);
     try { localStorage.setItem("lbb-city", state.city); } catch (_) {}
     renderLinks(); renderElections();
-  }));
+  }
+  cityInput.addEventListener("change", () => setCity(cityInput.value));
+  cityInput.addEventListener("keydown", (ev) => { if (ev.key === "Enter") { ev.preventDefault(); cityInput.blur(); } });
   document.querySelectorAll(".cad").forEach((b) => b.addEventListener("click", () => {
     state.cad = b.dataset.cad;
     press(".cad", "cad", state.cad);
@@ -513,7 +550,8 @@
 
   try {
     const saved = localStorage.getItem("lbb-city");
-    if (saved && CITY_NAMES[saved]) { state.city = saved; press(".city", "city", saved); }
+    // Older visits saved a lowercase key like "tempe".
+    if (saved) { state.city = CITY_CALENDARS[saved] || saved; cityInput.value = state.city; }
   } catch (_) {}
 
   renderLinks();

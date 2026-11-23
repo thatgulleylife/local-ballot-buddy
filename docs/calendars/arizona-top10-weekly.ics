@@ -1,0 +1,40 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Local Ballot Buddy//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Arizona top 10 (weekly)
+X-WR-TIMEZONE:America/Phoenix
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VTIMEZONE
+TZID:America/Phoenix
+BEGIN:STANDARD
+DTSTART:19700101T000000
+TZOFFSETFROM:-0700
+TZOFFSETTO:-0700
+TZNAME:MST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:arizona-top10-weekly@local-ballot-buddy
+DTSTAMP:20261123T001718Z
+DTSTART;TZID=America/Phoenix:20270103T100000
+DURATION:PT15M
+RRULE:FREQ=WEEKLY
+SUMMARY:Your Arizona top 10
+DESCRIPTION:Tap for city\, county\, state\, and national news in plain lang
+ uage\, from trusted sources only.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR
+ -GPT-LINK?q=Give%20me%20my%20local%20top%2010%3A%20city%2C%20county%2C%20s
+ tate%2C%20and%20national%20news%20that%20affects%20me%20in%20Arizona.
+URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Give%20me%20my%20loc
+ al%20top%2010%3A%20city%2C%20county%2C%20state%2C%20and%20national%20news%
+ 20that%20affects%20me%20in%20Arizona.
+TRANSP:TRANSPARENT
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Your Arizona top 10
+TRIGGER:PT0M
+END:VALARM
+END:VEVENT
+END:VCALENDAR

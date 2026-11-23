@@ -1,5 +1,5 @@
 {
-  "_about": "Election dates for the civic assistant, covering federal, state, county, school district, and city races. build_calendars.py turns this into one .ics calendar per city. applies_to is 'all' (every city in the list) or a list of city keys. status is 'confirmed' (an official source states it), 'computed' (worked out from Arizona's 29-day and 11-day rules), or 'confirm' (expected but not yet published; check before testers see it). past: true elections are kept for demo mode and are not written to the calendars.",
+  "_about": "Election dates for the civic assistant, covering federal, state, county, school district, and city races. build_calendars.py turns this into an Arizona calendar (statewide items only) plus one calendar per city. applies_to is 'all' (everyone in Arizona), or a list of city keys (like 'tempe') and county keys (like 'county:maricopa'). status is 'confirmed' (an official source states it), 'computed' (worked out from Arizona's 29-day and 11-day rules), or 'confirm' (expected but not yet published; check before testers see it). past: true elections are kept for demo mode and are not written to the calendars.",
   "_rules": {
     "registration_deadline": "Midnight on the 29th day before the election (azsos.gov)",
     "early_ballot_request_deadline": "5 p.m. on the 11th day before the election (azsos.gov)",
@@ -11,17 +11,23 @@
     "tempe": {
       "name": "Tempe",
       "county": "Maricopa",
-      "clerk_url": "https://www.tempe.gov/government/city-clerk-s-office/election-information"
+      "clerk_url": "https://www.tempe.gov/government/city-clerk-s-office/election-information",
+      "recorder_url": "https://recorder.maricopa.gov",
+      "elections_url": "https://elections.maricopa.gov"
     },
     "phoenix": {
       "name": "Phoenix",
       "county": "Maricopa",
-      "clerk_url": "https://www.phoenix.gov/elections"
+      "clerk_url": "https://www.phoenix.gov/elections",
+      "recorder_url": "https://recorder.maricopa.gov",
+      "elections_url": "https://elections.maricopa.gov"
     },
     "mesa": {
       "name": "Mesa",
       "county": "Maricopa",
-      "clerk_url": "https://www.mesaaz.gov/Government/City-Clerk/Elections"
+      "clerk_url": "https://www.mesaaz.gov/Government/City-Clerk/Elections",
+      "recorder_url": "https://recorder.maricopa.gov",
+      "elections_url": "https://elections.maricopa.gov"
     }
   },
   "elections": [
@@ -109,7 +115,9 @@
       "name": "Maricopa County jurisdictional election",
       "short_name": "Nov 2027 local election",
       "date": "2027-11-02",
-      "applies_to": "all",
+      "applies_to": [
+        "county:maricopa"
+      ],
       "status": "confirm",
       "source": "https://azcleanelections.gov/november-04-2025-election/maricopa",
       "deadlines": {
@@ -138,7 +146,7 @@
           "status": "confirm"
         }
       ],
-      "notes": "Maricopa County held a November election in 2025 for school district bonds and overrides and a few city measures. Districts decide by summer whether to put a measure on the November 2027 ballot, so this election may or may not reach every voter. It is the nearest possible election for testers. Watch the county elections site and school district board agendas from June 2027."
+      "notes": "Maricopa County held a November election in 2025 for school district bonds and overrides and a few city measures. Districts decide by summer whether to put a measure on the November 2027 ballot, so this election may or may not reach every voter. It is the nearest possible election for testers. Watch the county elections site and school district board agendas from June 2027. Other counties may hold their own November 2027 elections for school measures; check the county elections office."
     },
     {
       "id": "az-2028-03-ppe",
@@ -223,8 +231,8 @@
         },
         {
           "level": "county",
-          "office": "Party nominees for Maricopa County offices (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
-          "status": "confirm"
+          "office": "Party nominees for county offices in every county (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
+          "status": "confirmed"
         },
         {
           "level": "city",
@@ -294,8 +302,8 @@
         },
         {
           "level": "county",
-          "office": "Maricopa County offices (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
-          "status": "confirm"
+          "office": "County offices in every county (supervisors, recorder, sheriff, county attorney, assessor, treasurer, school superintendent)",
+          "status": "confirmed"
         },
         {
           "level": "city",

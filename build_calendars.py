@@ -5,7 +5,7 @@ Run from the civic-assistant folder:
     python3 build_calendars.py
 
 Writes to docs/calendars/ and copies the knowledge files into docs/ for the web page:
-    <city>.ics                   deadlines and election days for city, school, county, state, and federal races
+    <city>.ics                   (plus arizona.ics for everyone else) deadlines and election days for city, school, county, state, and federal races
     <city>-top10-<cadence>.ics   recurring reminders to open the local top 10
 
 Edit election-calendar.json, rerun, and re-upload the files. Anyone already
@@ -107,25 +107,41 @@ LEVEL_ORDER = ["city", "school", "county", "state", "federal"]
 LEVEL_LABEL = {"city": "City", "school": "School district", "county": "County", "state": "State", "federal": "Federal"}
 
 
-def applies(item, city_key):
+# The statewide calendar is for anyone in Arizona. It only gets items that apply to everyone,
+# and its links point to the Secretary of State's page for finding your county.
+FIND_COUNTY = "https://azsos.gov/elections/about-elections/county-election-contact-info"
+STATEWIDE = {"name": "Arizona", "county": None, "clerk_url": None,
+             "recorder_url": FIND_COUNTY, "elections_url": FIND_COUNTY}
+
+
+def applies(item, place):
+    """True if an election or race applies to this place (a city dict or STATEWIDE)."""
     target = item.get("applies_to", "all")
-    return target == "all" or city_key in target
+    if target == "all":
+        return True
+    keys = {place["key"]} | ({f"county:{place['county'].lower()}"} if place.get("county") else set())
+    return bool(keys & set(target))
 
 
-def ballot_summary(e, city_key):
-    """Races for this city, closest to home first."""
-    races = [r for r in e.get("races", []) if applies(r, city_key)]
+def ballot_summary(e, place):
+    """Races for this place, closest to home first."""
+    races = [r for r in e.get("races", []) if applies(r, place)]
     races.sort(key=lambda r: LEVEL_ORDER.index(r["level"]))
     lines = [f"- {LEVEL_LABEL[r['level']]}: {r['office']}{tag(r['status'])}" for r in races]
     return ("On the ballot:\n" + "\n".join(lines) + "\nSee your exact ballot at https://my.arizona.vote\n\n") if lines else ""
 
 
-def election_events(e, city_key, city_name, clerk_url):
-    ev, eid = [], f"{city_key}-{e['id']}"
+def election_events(e, place):
+    ev, eid = [], f"{place['key']}-{e['id']}"
     dl = e.get("deadlines", {})
-    prep_prompt = f"Help me get ready for the {e['name']} on {e['date']}. I live in {city_name}."
-    official = f"City info: {clerk_url}\nCheck your registration: https://my.arizona.vote"
-    races = ballot_summary(e, city_key)
+    where = f"I live in {place['name']}." if place["clerk_url"] else "I live in Arizona."
+    prep_prompt = f"Help me get ready for the {e['name']} on {e['date']}. {where}"
+    if place["clerk_url"]:
+        official = f"City info: {place['clerk_url']}\nCheck your registration: https://my.arizona.vote"
+    else:
+        official = f"Find your county elections office: {FIND_COUNTY}\nCheck your registration: https://my.arizona.vote"
+    races = ballot_summary(e, place)
+    county = f"{place['county']} County" if place.get("county") else "your county"
 
     def dt(status):
         # A deadline counted from an unconfirmed election date is unconfirmed too.
@@ -150,29 +166,32 @@ def election_events(e, city_key, city_name, clerk_url):
         s = dl["early_voting_starts"]
         ev.append(all_day_event(
             f"{eid}-early", s["date"], f"Early voting starts: {e['short_name']}{dt(s['status'])}",
-            f"Early ballots go out and early voting locations open for the {e['name']}.\n"
-            f"https://elections.maricopa.gov",
-            "https://elections.maricopa.gov", [0]))
+            f"Early ballots go out and early voting locations open for the {e['name']}. Locations come from {county} elections.\n"
+            f"{place['elections_url']}",
+            place["elections_url"], [0]))
 
     if "early_ballot_request" in dl:
         b = dl["early_ballot_request"]
         ev.append(all_day_event(
             f"{eid}-req", b["date"], f"Mail ballot request due 5 p.m.: {e['short_name']}{dt(b['status'])}",
-            f"For the {e['name']} on {e['date']}. Request it from the Maricopa County Recorder.\n"
-            f"https://recorder.maricopa.gov\n\nSource: Arizona Secretary of State, 11 days before the election.",
-            "https://recorder.maricopa.gov", [3, 1]))
+            f"For the {e['name']} on {e['date']}. Request it from the {county} Recorder.\n"
+            f"{place['recorder_url']}\n\nSource: Arizona Secretary of State, 11 days before the election.",
+            place["recorder_url"], [3, 1]))
 
-    plan_prompt = f"It's almost election day for the {e['name']}. Help me finish my plan to vote. I live in {city_name}."
+    plan_prompt = f"It's almost election day for the {e['name']}. Help me finish my plan to vote. {where}"
     ev.append(all_day_event(
         f"{eid}-day", e["date"], f"Election day: {e['short_name']}{dt(e['status'])}",
-        f"{races}Vote centers are open 6 a.m. to 7 p.m. Find one at https://elections.maricopa.gov\n"
+        f"{races}Polls are open 6 a.m. to 7 p.m. Find where to vote through {county} elections: {place['elections_url']}\n"
         f"Need a plan? {gpt_link(plan_prompt)}\n\n{official}",
-        "https://elections.maricopa.gov", [2, 0]))
+        place["elections_url"], [2, 0]))
     return ev
 
 
 def top10_event(city_key, city_name, cadence, rule):
-    prompt = f"Give me my {city_name} top 10: city, county, state, and national news that affects me."
+    if city_key == "arizona":
+        prompt = "Give me my local top 10: city, county, state, and national news that affects me in Arizona."
+    else:
+        prompt = f"Give me my {city_name} top 10: city, county, state, and national news that affects me."
     link = gpt_link(prompt)
     return [
         "BEGIN:VEVENT",
@@ -206,10 +225,12 @@ def main():
         if not e.get("date"):
             print(f"Skipped {e['id']}: no date yet")
     upcoming = sorted((e for e in upcoming if e.get("date")), key=lambda e: e["date"])
-    for key, city in data["cities"].items():
+    places = {"arizona": STATEWIDE, **data["cities"]}
+    for key, city in places.items():
+        place = {**city, "key": key}
         events = []
-        for e in (x for x in upcoming if applies(x, key)):
-            events += election_events(e, key, city["name"], city["clerk_url"])
+        for e in (x for x in upcoming if applies(x, place)):
+            events += election_events(e, place)
         save(OUT / f"{key}.ics", calendar(f"{city['name']} elections", events))
         for cadence, rule in CADENCES.items():
             cal = calendar(f"{city['name']} top 10 ({cadence})", [top10_event(key, city["name"], cadence, rule)])
