@@ -12,7 +12,7 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 | `build_calendars.py` | Turns the JSON into calendar files. Run `python3 build_calendars.py`. It skips any election without a date. |
 | `worker/` | The on-page chat: a Cloudflare Worker that calls the Claude API with the key hidden. See `worker/README.md` to deploy it. |
 | `docs/` | The website. Upload this whole folder to host it. The builder fills it in, so edit the files above, not the copies in here. |
-| `docs/index.html` | The page. Visitors pick a city, subscribe to the calendars, and open the chat. It reads `election-calendar.json` to list upcoming elections. |
+| `docs/index.html` | The page. Visitors answer four questions (city and county, topics, news sources, schedule). The page then gives them quick links, an election calendar to subscribe to, a personalized setup prompt for ChatGPT, Claude, Gemini, or another AI tool, and a downloadable repeating reminder. Answers stay in the visitor's browser. It reads `election-calendar.json` to list upcoming elections. |
 | `docs/calendars/<city>.ics` | Deadlines and election days for each city. Each election day event lists the races for that city, closest to home first. |
 | `docs/calendars/<city>-top10-<cadence>.ics` | A recurring reminder (weekly, every two weeks, or monthly) that opens the GPT and asks for the top 10. |
 
@@ -20,7 +20,7 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 
 1. **Custom GPT.** In ChatGPT, go to Explore GPTs, then Create. Paste the instructions, upload the two knowledge files, and turn on web search. Set sharing to "Anyone with the link" and copy the link.
 2. **Claude Project.** Create a project, paste the instructions into the project instructions, and upload the same two files.
-3. **GPT link.** Put the GPT link into `GPT_URL` at the top of `build_calendars.py` and near the bottom of `docs/index.html`, then rerun the builder. Test one link on your phone to confirm ChatGPT opens with the question filled in. If the `?q=` part doesn't carry through to a custom GPT, the event still opens the GPT and the user types the question.
+3. **GPT link (optional).** If you make a custom GPT, put its link into `GPT_URL` at the top of `build_calendars.py` and rerun the builder. The website doesn't need it: it gives each visitor a setup prompt to paste into their own AI tool. Test one link on your phone to confirm ChatGPT opens with the question filled in. If the `?q=` part doesn't carry through to a custom GPT, the event still opens the GPT and the user types the question.
 4. **Host the site.** Upload the `docs` folder to GitHub Pages (free, and serves the calendar files correctly). The subscribe buttons build their links from whatever address the page is on, so nothing needs changing after you upload. Google Calendar can only subscribe once the site is public. Changes you make later reach subscribers on their next refresh.
 
 5. **On-page chat (optional).** Follow `worker/README.md` to deploy the Worker, then put its address in `CHAT_API` in `docs/index.html`. Until then, the ask box says the chat is coming soon.
