@@ -104,6 +104,24 @@
   .examples { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; max-width: 760px; margin: 18px auto 0; }
   .ex { appearance: none; border: 0; background: var(--chip); color: var(--ink); font: 14px/1.2 inherit; font-family: inherit; padding: 9px 14px; border-radius: 40px; cursor: pointer; }
 
+  .chat { max-width: 760px; margin: 14px auto 0; display: grid; gap: 10px; }
+  .msg { border-radius: 22px; padding: 14px 18px; font-size: 16px; line-height: 1.5; max-width: 92%; }
+  .msg.you { justify-self: end; background: var(--navy); color: var(--navy-ink); }
+  .msg.bot { justify-self: start; background: var(--bg); box-shadow: var(--shadow); }
+  .msg.bot p { margin: 0 0 8px; }
+  .msg.bot p:last-child, .msg.bot ul:last-child { margin-bottom: 0; }
+  .msg.bot ul { margin: 0 0 8px; padding-left: 20px; }
+  .msg.bot a { color: var(--navy); }
+  .msg.err { background: var(--warn-soft); color: var(--warn); box-shadow: none; }
+  .msg .srcs { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .msg .srcs a { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .msg .more { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--muted); }
+  .typing { display: inline-flex; gap: 5px; }
+  .typing i { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); opacity: .4; animation: blink 1.2s infinite; }
+  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 50% { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .typing i { animation: none; opacity: .7; } }
+
   main { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
   .feature { max-width: 760px; margin: 0 auto; padding: 88px 0 0; }
   h2 { font-weight: 500; font-size: clamp(30px, 4.4vw, 42px); letter-spacing: -0.035em; line-height: 1.08; margin: 0 0 16px; }
@@ -184,12 +202,13 @@
     <label for="q">Ask a question about voting in your city</label>
     <textarea id="q" rows="2" placeholder="Try 'What's on my ballot?'"></textarea>
     <div class="ask-row">
-      <span class="ask-note">Opens in ChatGPT. Answers come only from trusted sources.</span>
+      <span class="ask-note" id="ask-note">Answers come only from trusted sources. Don't type your address.</span>
       <button class="go" type="submit" aria-label="Ask">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </button>
     </div>
   </form>
+  <div class="chat" id="chat" aria-live="polite" hidden></div>
   <div class="examples" id="examples"></div>
 </div>
 
@@ -272,6 +291,9 @@
 <script>
   // Replace with your custom GPT's share link.
   const GPT_URL = "https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK";
+  // Paste your Cloudflare Worker's address here after deploying it.
+  // While this is empty, the ask box opens ChatGPT instead of answering on the page.
+  const CHAT_API = "";
 
   const EXAMPLES = [
     "What's on my ballot?",
@@ -384,16 +406,94 @@
       q.placeholder = `Try '${EXAMPLES[exIndex]}'`;
     }, 3500);
   }
+  // On-page chat. Text from the model is shown with textContent and turned into
+  // links only for http(s) URLs, so nothing it returns can inject HTML.
+  const chatBox = document.getElementById("chat");
+  const history = [];
+  let busy = false;
+  if (!CHAT_API) document.getElementById("ask-note").textContent = "Opens in ChatGPT. Answers come only from trusted sources.";
+
+  function addInline(parent, text) {
+    const parts = text.replace(/\*\*(.+?)\*\*/g, "$1").split(/(https?:\/\/[^\s)]+[^\s).,;:!?])/g);
+    parts.forEach((part, i) => {
+      if (i % 2 === 1) parent.append(el("a", { href: part, target: "_blank", rel: "noopener" }, part.replace(/^https?:\/\//, "")));
+      else if (part) parent.append(document.createTextNode(part));
+    });
+  }
+  function renderAnswer(text) {
+    const frag = document.createDocumentFragment();
+    let list = null;
+    for (const line of text.split("\n")) {
+      const t = line.trim();
+      if (!t) { list = null; continue; }
+      const item = t.match(/^(?:[-*•]|\d+[.)])\s+(.*)/);
+      if (item) {
+        if (!list) { list = el("ul"); frag.append(list); }
+        const li = el("li"); addInline(li, item[1]); list.append(li);
+      } else {
+        list = null;
+        const p = el("p"); addInline(p, t.replace(/^#+\s*/, "")); frag.append(p);
+      }
+    }
+    return frag;
+  }
+  function bubble(cls) {
+    const b = el("div", { class: "msg " + cls });
+    chatBox.hidden = false;
+    chatBox.append(b);
+    return b;
+  }
+
+  async function ask(text) {
+    if (!CHAT_API) { window.open(gptAsk(text), "_blank", "noopener"); return; }
+    if (busy) return;
+    busy = true;
+    bubble("you").textContent = text;
+    const wait = bubble("bot");
+    wait.append(el("span", { class: "typing", "aria-label": "Looking that up" }));
+    wait.firstChild.append(el("i"), el("i"), el("i"));
+    try {
+      const res = await fetch(CHAT_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text, city: state.city, history: history.slice(-6) }),
+      });
+      const data = await res.json().catch(() => ({}));
+      wait.replaceChildren();
+      if (!res.ok || !data.answer) {
+        wait.classList.add("err");
+        wait.textContent = data.error || "Something went wrong. Try again in a moment.";
+      } else {
+        wait.append(renderAnswer(data.answer));
+        if (data.sources && data.sources.length) {
+          const s = el("div", { class: "srcs" }, "Sources");
+          data.sources.slice(0, 4).forEach((src) => s.append(el("a", { href: src.url, target: "_blank", rel: "noopener" }, src.title)));
+          wait.append(s);
+        }
+        const more = el("a", { class: "more", href: gptAsk(text), target: "_blank", rel: "noopener" }, "Keep going in ChatGPT →");
+        wait.append(more);
+        history.push({ role: "user", content: text }, { role: "assistant", content: data.answer });
+      }
+    } catch (_) {
+      wait.replaceChildren();
+      wait.classList.add("err");
+      wait.textContent = "Couldn't reach the chat. Check your connection, or use the ChatGPT link below.";
+    } finally {
+      busy = false;
+    }
+  }
+
   const exBox = document.getElementById("examples");
   EXAMPLES.slice(0, 4).forEach((t) => {
     const b = el("button", { class: "ex", type: "button" }, t);
-    b.addEventListener("click", () => window.open(gptAsk(t), "_blank", "noopener"));
+    b.addEventListener("click", () => ask(t));
     exBox.append(b);
   });
   document.getElementById("ask").addEventListener("submit", (ev) => {
     ev.preventDefault();
     const text = q.value.trim() || EXAMPLES[exIndex];
-    window.open(gptAsk(text), "_blank", "noopener");
+    q.value = "";
+    ask(text);
   });
   q.addEventListener("keydown", (ev) => {
     if (ev.key === "Enter" && !ev.shiftKey) { ev.preventDefault(); document.getElementById("ask").requestSubmit(); }

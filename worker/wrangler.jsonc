@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "local-ballot-buddy-chat",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat"],
+  // Bundle the instruction and source files as plain text.
+  "rules": [{ "type": "Text", "globs": ["**/*.md"], "fallthrough": true }],
+  "vars": {
+    // Change to "claude-haiku-5-5" for a much cheaper, simpler model.
+    "MODEL": "claude-opus-5-5",
+    // Only these sites can use the chat.
+    "ALLOWED_ORIGINS": "https://thatgulleylife.github.io,http://localhost:8765"
+  },
+  // 8 questions per minute per visitor.
+  "ratelimits": [
+    { "name": "RATE_LIMITER", "namespace_id": "1001", "simple": { "limit": 8, "period": 60 } }
+  ],
+  "observability": { "enabled": true }
+}
