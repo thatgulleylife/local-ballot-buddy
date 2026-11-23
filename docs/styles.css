@@ -179,7 +179,7 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
   border-radius: var(--r-pill); padding: 8px 40px 96px; margin-top: 16px;
 }
 .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.wordmark { font-family: var(--font-brand); font-weight: 500; color: var(--navy); font-size: 26px; letter-spacing: -0.03em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.wordmark { font-family: var(--font-brand); font-weight: 500; color: var(--ink); font-size: 26px; letter-spacing: -0.03em; text-decoration: none; display: flex; align-items: center; gap: 10px; }
 /* Logo: a cowboy hat with "I VOTED" on the band, in the accent color */
 .logo-hat { width: 62px; display: inline-flex; color: var(--navy); flex: none; }
 .logo-hat svg { width: 100%; height: auto; display: block; }

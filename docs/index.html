@@ -203,15 +203,6 @@
     </div>
   </section>
 
-  <section class="section measure reveal" aria-labelledby="h-up">
-    <div class="section-head">
-      <h2 class="display-l" id="h-up">Coming up in <span class="city-name">Arizona</span></h2>
-      <p class="body-l">Local races first. See your exact ballot at <a class="text-link" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Arizona.Vote</a>.</p>
-    </div>
-    <div id="elections"><p class="caption">Loading elections…</p></div>
-    <p class="caption" id="local-note" hidden></p>
-  </section>
-
   <section class="section reveal" aria-labelledby="h-trust">
     <div class="showcase">
       <h2 class="showcase-title" id="h-trust"><span>Nonpartisan by design.</span> <span>Personalized for you.</span></h2>
@@ -308,6 +299,15 @@
       </article>
 
     </div>
+  </section>
+
+  <section class="section measure reveal" aria-labelledby="h-up">
+    <div class="section-head">
+      <h2 class="display-l" id="h-up">Coming up in <span class="city-name">Arizona</span></h2>
+      <p class="body-l">Local races first. See your exact ballot at <a class="text-link" href="https://my.arizona.vote/WhereToVote.aspx" target="_blank" rel="noopener">Arizona.Vote</a>.</p>
+    </div>
+    <div id="elections"><p class="caption">Loading elections…</p></div>
+    <p class="caption" id="local-note" hidden></p>
   </section>
 
   <section class="section reveal" aria-labelledby="h-ask">
@@ -975,10 +975,9 @@
     electionData.elections
       .filter((e) => !e.past && applies(e) && key(e) >= today)
       .sort((a, b) => (key(a) < key(b) ? -1 : 1))
-      .forEach((e, idx) => {
+      .forEach((e) => {
         // Each election is an accordion: date tile and name up top, critical dates and a calendar CTA inside.
         const item = el("details", { class: "plan-step election-step" });
-        if (idx === 0) item.open = true;
         const sum = el("summary");
         const tile = el("span", { class: "date-tile", "aria-hidden": "true" });
         if (e.date) {
@@ -1025,7 +1024,11 @@
           content.append(ul);
         }
         const btns = el("div", { class: "btns" });
-        const cta = el("a", { class: "btn btn-primary", href: "#plan" }, "Add to your calendar");
+        // Where to act, on official sites. Registration and early ballots apply to every Arizona election.
+        btns.append(
+          el("a", { class: "btn btn-primary", href: "https://azsos.gov/elections/voters/registering-vote", target: "_blank", rel: "noopener" }, "Where to register"),
+          el("a", { class: "btn btn-secondary", href: `${AZV}/Early/Default.aspx`, target: "_blank", rel: "noopener" }, "Request an early ballot"));
+        const cta = el("a", { class: "btn btn-ghost", href: "#plan" }, "Add to your calendar");
         cta.addEventListener("click", goToCalendarStep);
         btns.append(cta);
         content.append(btns);
