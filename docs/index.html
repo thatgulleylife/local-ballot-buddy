@@ -246,6 +246,11 @@
       <h2>What local topics do you care about?</h2>
       <p class="hint">Pick as many as you like. Your news roundup will focus on these.</p>
       <div class="chips" id="f-topics" role="group" aria-label="Topics"></div>
+      <div class="field" id="other-field" hidden>
+        <label for="f-other">Your other topics</label>
+        <input id="f-other" maxlength="120" autocomplete="off" placeholder="Like bike lanes, libraries, or tribal lands">
+        <span class="note">Separate topics with commas.</span>
+      </div>
     </section>
 
     <section class="step" data-step="3" hidden>
@@ -534,7 +539,7 @@
 
   // ---------- State ----------
   let profile = load("lbb-profile", null);
-  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
+  let draft = profile ? { ...profile } : { city: "", county: "", topics: [], other: false, otherText: "", sources: [], freq: "weekly", day: "MO", time: "08:00", tool: "chatgpt" };
   let step = 1;
   let electionData = null;
 
@@ -546,6 +551,11 @@
     Object.keys(COUNTIES).forEach((c) => sel.append(el("option", { value: c }, `${c} County`)));
 
     TOPICS.forEach((t) => $("f-topics").append(chip(t, () => toggle(draft.topics, t))));
+    $("f-topics").append(chip("Other", () => {
+      draft.other = !draft.other;
+      if (draft.other) setTimeout(() => $("f-other").focus(), 0);
+    }, "__other"));
+    $("f-other").addEventListener("input", () => (draft.otherText = $("f-other").value));
     FREQS.forEach(([k, l]) => $("f-freq").append(chip(l, () => { draft.freq = k; paintFreq(); }, k)));
     DAYS.forEach(([k, l]) => $("f-day").append(el("option", { value: k }, l)));
     TIMES.forEach(([k, l]) => $("f-time").append(el("option", { value: k }, l)));
@@ -569,7 +579,8 @@
     if (i >= 0) list.splice(i, 1); else list.push(item);
   }
   function paintChips() {
-    document.querySelectorAll("#f-topics .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.topics.includes(b.dataset.key))));
+    document.querySelectorAll("#f-topics .chip").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.key === "__other" ? !!draft.other : draft.topics.includes(b.dataset.key))));
+    $("other-field").hidden = !draft.other;
     document.querySelectorAll("[id^=f-sources] .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.sources.includes(b.dataset.key))));
     paintFreq();
   }
@@ -620,7 +631,10 @@
       if (!draft.city && !draft.county) return "Type your city or town, or choose your county.";
       if (!draft.county) return "Choose your county.";
     }
-    if (step === 2 && !draft.topics.length) return "Pick at least one topic.";
+    if (step === 2) {
+      if (draft.other && !customTopics(draft).length) return "Type your topic under Other, or unselect Other.";
+      if (!allTopics(draft).length) return "Pick at least one topic.";
+    }
     if (step === 3 && !draft.sources.length) return "Pick at least one news source.";
     return "";
   }
@@ -653,7 +667,17 @@
     $("summary").scrollIntoView({ block: "center" });
   }
 
+  // Topics the visitor typed under Other: plain text only, up to 5 short topics.
+  function customTopics(p) {
+    if (!p.other || !p.otherText) return [];
+    return p.otherText.replace(/<[^>]*>/g, "").split(",")
+      .map((t) => t.replace(/[^A-Za-z0-9 .'&/-]/g, "").replace(/\s+/g, " ").trim().slice(0, 40))
+      .filter(Boolean).slice(0, 5);
+  }
+  const allTopics = (p) => [...p.topics, ...customTopics(p)];
+
   function fillWizardFromDraft() {
+    $("f-other").value = draft.otherText || "";
     $("f-city").value = draft.city;
     $("f-county").value = draft.county;
     $("f-day").value = draft.day;
@@ -683,7 +707,7 @@
     list.replaceChildren();
     const rows = [
       ["Where", profile.city ? `${profile.city}, ${profile.county} County` : `${profile.county} County`],
-      ["Topics", profile.topics.join(", ")],
+      ["Topics", allTopics(profile).join(", ")],
       ["News from", profile.sources.join(", ")],
       ["Roundup", freqPhrase(profile)],
     ];
@@ -727,7 +751,7 @@
       "",
       "ABOUT ME",
       `- I live in ${where}.`,
-      `- Topics I care about: ${p.topics.join(", ")}.`,
+      `- Topics I care about: ${allTopics(p).join(", ")}.`,
       `- My news sources: ${p.sources.join(", ")}.`,
       "",
       "MY NEWS ROUNDUP",
