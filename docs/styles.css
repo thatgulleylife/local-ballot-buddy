@@ -24,7 +24,9 @@
   --tile: #000c1f;                   /* icon tiles on cards */
   --on-tile: #ffffff;
   --hero-top: #f4f2f0;
-  --hero-bottom: #e4e1de;
+  --hero-bottom: #ffa3a3;
+  --cta: #ba5e5e;          /* primary call-to-action buttons */
+  --on-cta: #ffffff;
   --ok: #1f6a45;  --ok-soft: #e2f1e8;
   --warn: #7a4f00; --warn-soft: #fbf0d9;
 
@@ -73,7 +75,7 @@
     --navy: #8fb2ff; --on-navy: #06132b; --bg: #0b0d12; --surface: #14171d;
     --tint: rgba(255, 255, 255, 0.06); --tint-2: rgba(255, 255, 255, 0.12);
     --line: rgba(255, 255, 255, 0.12); --line-2: rgba(255, 255, 255, 0.06);
-    --tile: #f2f4f8; --on-tile: #0b0d12; --hero-top: #141820; --hero-bottom: #0f1217;
+    --tile: #f2f4f8; --on-tile: #0b0d12; --hero-top: #141820; --hero-bottom: #3a2226; --cta: #d27a7a; --on-cta: #1a0b0d;
     --ok: #8fd6b0; --ok-soft: #173326; --warn: #f2c66d; --warn-soft: #362a12;
     --shadow-1: 0 10px 40px rgba(0, 0, 0, 0.5); --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.4);
   }
@@ -83,7 +85,7 @@
   --navy: #8fb2ff; --on-navy: #06132b; --bg: #0b0d12; --surface: #14171d;
   --tint: rgba(255, 255, 255, 0.06); --tint-2: rgba(255, 255, 255, 0.12);
   --line: rgba(255, 255, 255, 0.12); --line-2: rgba(255, 255, 255, 0.06);
-  --tile: #f2f4f8; --on-tile: #0b0d12; --hero-top: #141820; --hero-bottom: #0f1217;
+  --tile: #f2f4f8; --on-tile: #0b0d12; --hero-top: #141820; --hero-bottom: #3a2226; --cta: #d27a7a; --on-cta: #1a0b0d;
   --ok: #8fd6b0; --ok-soft: #173326; --warn: #f2c66d; --warn-soft: #362a12;
   --shadow-1: 0 10px 40px rgba(0, 0, 0, 0.5); --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.4);
 }
@@ -134,7 +136,7 @@ a { color: inherit; }
   transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 .btn:active { transform: scale(0.98); }
-.btn-primary { background: var(--navy); color: var(--on-navy); }
+.btn-primary { background: var(--cta); color: var(--on-cta); }
 .btn-primary:hover { filter: brightness(1.12); }
 .btn-secondary { background: var(--tint); color: var(--ink); }
 .btn-secondary:hover { background: var(--tint-2); }
