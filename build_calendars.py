@@ -296,6 +296,9 @@ def main():
             cal = calendar(f"{city['name']} top 10 ({cadence})", [top10_event(key, city["name"], cadence, rule)])
             save(OUT / f"{key}-top10-{cadence}.ics", cal)
         print(f"{city['name']}: {len(events)} election events")
+    # Keep the public Trusted sources page in step with trusted-sources.md.
+    import build_sources_page
+    build_sources_page.build()
 
 
 STAMP = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")

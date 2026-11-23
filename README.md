@@ -10,6 +10,7 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 | `trusted-sources.md` | The only sources the assistant may use, in three tiers. Upload as a knowledge file. |
 | `election-calendar.json` | Every election, its deadlines, and the races on it, each race tagged city, school, county, state, or federal, with a source and a status. Upload as a knowledge file. |
 | `build_calendars.py` | Turns the JSON into calendar files. Run `python3 build_calendars.py`. It skips any election without a date. |
+| `build_sources_page.py` | Builds the public Trusted sources page (`docs/sources.html`) from `trusted-sources.md`. `build_calendars.py` runs it too. |
 | `worker/` | The on-page chat: a Cloudflare Worker that calls the Claude API with the key hidden. See `worker/README.md` to deploy it. |
 | `docs/` | The website. Upload this whole folder to host it. The builder fills it in, so edit the files above, not the copies in here. |
 | `docs/styles.css` | The design system: color, type, shape, shadow, and spacing tokens, plus every component (buttons, chips, fields, panel, stepper, link card carousel, feature grid, timeline, banner, chat). Modeled on america.gov's How it works page, without its government branding. |
