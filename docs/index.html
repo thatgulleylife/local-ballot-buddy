@@ -414,7 +414,11 @@
     TIMES.forEach(([k, l]) => $("f-time").append(el("option", { value: k }, l)));
 
     $("f-city").addEventListener("change", onCity);
-    $("f-city").addEventListener("input", () => { if (TOWNS[cleanName($("f-city").value)]) onCity(); });
+    $("f-city").addEventListener("input", () => {
+      const name = cleanName($("f-city").value);
+      // Only greet a complete place name; anything else waits until they leave the field.
+      if (TOWNS[name]) onCity(); else if (!name) greet("");
+    });
     $("f-county").addEventListener("change", () => { draft.county = $("f-county").value; });
     $("f-day").addEventListener("change", () => (draft.day = $("f-day").value));
     $("f-time").addEventListener("change", () => (draft.time = $("f-time").value));
@@ -442,9 +446,15 @@
     document.querySelectorAll("#f-freq .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.freq === b.dataset.key)));
   }
 
+  // Greet the visitor by city as soon as they type or pick one.
+  function greet(name) {
+    document.querySelector(".hero .city-name").textContent = name || "Arizona";
+  }
+
   function onCity() {
     const name = cleanName($("f-city").value);
     draft.city = name;
+    greet(name);
     const counties = TOWNS[name];
     const note = $("county-note");
     if (!counties) { note.textContent = name ? "We don't have that place on our list. Choose your county below." : ""; return; }
