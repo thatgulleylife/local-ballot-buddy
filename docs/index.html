@@ -38,15 +38,15 @@
     <p class="body-l" id="hero-sub">You plan to vote, but life gets in the way. Sol keeps you on time, prepared, and informed, so your voice gets heard.</p>
   </div>
 
-  <!-- Hero video. Drop media/hero.mp4 into the docs folder and it replaces the placeholder automatically. -->
+  <!-- Hero video. It waits for a click, then plays with sound and the browser's own controls. -->
   <figure class="hero-media" id="hero-media">
-    <video id="hero-video" muted playsinline loop preload="none" aria-label="How Sol works" hidden></video>
+    <video id="hero-video" playsinline preload="none" poster="media/hero-poster.jpg" aria-label="Precinctly: how Sol helps you vote" hidden></video>
     <div class="media-placeholder" id="media-placeholder">
       <span class="play-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
       <span class="caption">Video coming soon</span>
     </div>
-    <button type="button" class="icon-btn media-toggle" id="video-toggle" aria-label="Pause video" hidden>
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path id="video-toggle-icon" d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+    <button type="button" class="video-play" id="video-play" aria-label="Play video" hidden>
+      <span class="play-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
     </button>
   </figure>
 
@@ -750,35 +750,29 @@
     document.querySelector(".hero .city-name").classList.remove("caret");
   }
 
-  // Hero video: shows media/hero.mp4 once that file exists, and plays while it's on screen.
+  // Hero video: shows the cover image with a play button. A click plays it with sound.
   const VIDEO_SRC = "media/hero.mp4";
-  const VIDEO_POSTER = "media/hero-poster.jpg";
-  let videoPausedByUser = false;
-  function setToggle(playing) {
-    $("video-toggle").setAttribute("aria-label", playing ? "Pause video" : "Play video");
-    $("video-toggle-icon").setAttribute("d", playing ? "M7 5h4v14H7zM13 5h4v14h-4z" : "M8 5.5v13l11-6.5z");
-  }
   async function setupVideo() {
     const exists = async (url) => { try { return (await fetch(url, { method: "HEAD", cache: "no-store" })).ok; } catch (_) { return false; } };
     if (!(await exists(VIDEO_SRC))) return; // keep the placeholder
-    const video = $("hero-video");
-    if (await exists(VIDEO_POSTER)) video.poster = VIDEO_POSTER;
-    video.src = VIDEO_SRC;
+    const video = $("hero-video"), play = $("video-play");
     video.hidden = false;
     $("media-placeholder").hidden = true;
-    $("video-toggle").hidden = false;
-    video.addEventListener("play", () => setToggle(true));
-    video.addEventListener("pause", () => setToggle(false));
-    $("video-toggle").addEventListener("click", () => {
-      if (video.paused) { videoPausedByUser = false; video.play().catch(() => {}); }
-      else { videoPausedByUser = true; video.pause(); }
+    play.hidden = false;
+    play.addEventListener("click", () => {
+      if (!video.src) video.src = VIDEO_SRC;
+      play.hidden = true;
+      video.controls = true;
+      video.play().catch(() => { play.hidden = false; video.controls = false; });
+      video.focus();
     });
-    setToggle(false);
-    if (reducedMotion() || !("IntersectionObserver" in window)) return; // no autoplay; the button still works
-    new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !videoPausedByUser) video.play().catch(() => {});
-      else if (!entry.isIntersecting) video.pause();
-    }, { threshold: 0.5 }).observe(video);
+    // When it finishes, go back to the cover and the play button.
+    video.addEventListener("ended", () => {
+      video.controls = false;
+      video.load();
+      play.hidden = false;
+      play.focus();
+    });
   }
 
   function onCity() {
