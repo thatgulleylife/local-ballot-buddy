@@ -7,7 +7,7 @@
 <meta name="description" content="Tokens and components for the Local Ballot Buddy site.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
   /* Layout for this reference page only */
@@ -50,7 +50,7 @@
     <h2>Principles</h2>
     <div class="rules">
       <div class="rule"><b>One accent.</b>Navy marks the primary action and selected states. Everything else is ink, gray, or a 5% navy tint.</div>
-      <div class="rule"><b>Bold to welcome, light to read.</b>Headings use the bold system sans (SF Pro on Apple devices, Inter elsewhere) with tight tracking. Body copy stays regular weight.</div>
+      <div class="rule"><b>Serif for the brand, bold sans for headings.</b>The logo and the "Hello" greeting use a semibold serif. Every other heading uses the bold system sans (SF Pro on Apple devices, Inter elsewhere). Body copy stays regular weight.</div>
       <div class="rule"><b>Soft, not boxed.</b>Use filled surfaces and large radii instead of borders. Keep borders for dividers.</div>
       <div class="rule"><b>Lead with the point.</b>Feature copy starts with a short bold sentence, then muted detail in the same line.</div>
       <div class="rule"><b>Never look official.</b>Keep the "student project" notice. Don't use flags, seals, or .gov styling.</div>
@@ -185,16 +185,21 @@
 
   <section class="ds-sec">
     <h2>Showcase</h2>
-    <p class="body-l">For product stories, modeled on apple.com/apple-news: a gray band, a bold two-line statement in the system sans, then white cards that pair a short headline and gray copy with a device screen cropped at the bottom. Alternate sides with <code>.flip</code>. Label any sample content "Sample" and never credit invented stories to a real outlet.</p>
+    <p class="body-l">For product stories, modeled on apple.com/apple-news: a gray band, a bold two-line statement in the system sans, then white cards that pair a short headline and gray copy with a phone cropped at the bottom. Screens show the assistant as a chat that messages first (scheduled roundups, deadline alerts as notifications, memory you can see), in the style of today's AI chat apps, without copying any company's logo or name. Alternate sides with <code>.flip</code>. Label any sample content "Sample" and never credit invented stories to a real outlet.</p>
     <div class="showcase" style="padding-top:64px">
       <h3 class="showcase-title" style="font-size:52px;margin-bottom:40px"><span>Nonpartisan by design.</span> <span>Personalized for you.</span></h3>
       <article class="showcase-card" style="min-height:440px">
         <div class="showcase-copy"><h3>Straight from official sources.</h3><p>Every date and rule links to Arizona.Vote, the Secretary of State, or your county.</p></div>
-        <div class="device" aria-hidden="true"><div class="screen" style="height:340px">
-          <div class="m-status"><span>9:41</span><span>Deadlines</span></div>
-          <div class="m-head"><div><div class="m-kicker">Coming up</div><b>2028 general election</b></div><span class="m-sample">Sample</span></div>
-          <div class="m-row"><div class="m-txt" style="padding:0"><b>Register or update your address <span class="m-pill">Official</span></b><i>By Monday, October 9</i></div><div></div></div>
-          <div class="m-row"><div class="m-txt" style="padding:0"><b>Early voting starts <span class="m-pill warn">Expected</span></b><i>Wednesday, October 11</i></div><div></div></div>
+        <div class="device" aria-hidden="true"><div class="screen" style="height:360px">
+          <div class="island"></div>
+          <div class="sb"><span>9:41</span><span></span></div>
+          <div class="ch-head"><span></span><div class="ch-title"><b><span class="ch-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ballot Buddy</b><small>Deadline alert</small></div><span class="ch-sample">Sample</span></div>
+          <div class="ch-body">
+            <span class="ch-task">Reminder · 7 days left</span>
+            <p class="ch-ai">Heads up: the deadline to register or update your address is <b>Monday, October 9</b>.</p>
+            <div class="ch-cites"><span class="ch-cite">azsos.gov</span><span class="ch-cite">my.arizona.vote</span></div>
+          </div>
+          <div class="ch-compose"><span>Message Ballot Buddy</span><span class="ch-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
         </div></div>
       </article>
     </div>

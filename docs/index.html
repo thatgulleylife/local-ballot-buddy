@@ -7,7 +7,7 @@
 <meta name="description" content="Election reminders and a plain-language local news roundup for young adults anywhere in Arizona.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -214,20 +214,24 @@
       <article class="showcase-card">
         <div class="showcase-copy">
           <h3>Stay close to what's happening close to home.</h3>
-          <p>Your roundup pulls from the local outlets you pick, on the topics you care about, on your schedule.</p>
+          <p>Your assistant messages you first, on your schedule, with local news on the topics you picked.</p>
         </div>
         <div class="device" aria-hidden="true">
           <div class="screen">
-            <div class="m-status"><span>9:41</span><span>Mon, 8:00 a.m.</span></div>
-            <div class="m-tabs"><span>Today</span><span class="on">Local</span><span>Elections</span><span>Saved</span></div>
-            <div class="m-head"><div><div class="m-kicker">Your roundup</div><b class="city-name">Arizona</b></div><span class="m-sample">Sample</span></div>
-            <div class="m-card m-hero">
-              <div class="m-img"></div>
-              <div class="m-txt"><div class="m-src">Your local paper</div><b>City council takes public comment on new bus routes</b><i>Act by Tuesday · City</i></div>
+            <div class="island"></div>
+            <div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3C13.3 1.5 10.8.4 8 .4S2.7 1.5.8 3.3L2 4.6c1.6-1.5 3.7-2.4 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3L12.6 6C11.4 4.8 9.8 4.1 8 4.1S4.6 4.8 3.4 6l1.2 1.1c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.6-1.6a2.3 2.3 0 0 0-3.2 0z"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="22" height="11" rx="3"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="currentColor" stroke="none"/><path d="M24.5 4v4" stroke-linecap="round"/></svg></span></div>
+            <div class="ch-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div class="ch-title"><b><span class="ch-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ballot Buddy</b><small>Scheduled task</small></div><span class="ch-sample">Sample</span></div>
+            <div class="ch-body">
+              <span class="ch-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Weekly roundup · Mon 8:00 a.m.</span>
+              <p class="ch-ai">Good morning! Here's what's happening in <span class="city-name">Arizona</span> this week.</p>
+              <div class="ch-list">
+                <div class="ch-item"><b>Council takes public comment on new bus routes</b><span class="ch-tag">City</span><small>Your local paper · Act by Tuesday</small></div>
+                <div class="ch-item"><b>What a proposed rent rule would change for renters</b><span class="ch-tag">State</span><small>Statewide newsroom</small></div>
+                <div class="ch-item"><b>How mail ballots get checked and counted</b><span class="ch-tag">County</span><small>Election reporters</small></div>
+              </div>
+              <p class="ch-ai">Your next election is 120 days away. Want to check your registration?</p>
             </div>
-            <div class="m-label">Picked for you</div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><div class="m-src">Statewide newsroom</div><b>What a proposed rent rule would change for renters</b></div><div class="m-thumb m-img alt"></div></div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><div class="m-src">Election reporters</div><b>How mail ballots get checked and counted</b></div><div class="m-thumb m-img"></div></div>
+            <div class="ch-compose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Message Ballot Buddy</span><span class="ch-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
           </div>
         </div>
       </article>
@@ -239,16 +243,17 @@
         </div>
         <div class="device" aria-hidden="true">
           <div class="screen">
-            <div class="m-status"><span>9:41</span><span>Ballot help</span></div>
-            <div class="m-head"><div><div class="m-kicker">On your ballot</div><b>Ballot measure</b></div><span class="m-sample">Sample</span></div>
-            <div class="m-split">
-              <div><b>A yes vote</b>Would raise the cap on how much the city can borrow for parks.</div>
-              <div><b>A no vote</b>Would keep the current cap the same.</div>
+            <div class="island"></div>
+            <div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3C13.3 1.5 10.8.4 8 .4S2.7 1.5.8 3.3L2 4.6c1.6-1.5 3.7-2.4 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3L12.6 6C11.4 4.8 9.8 4.1 8 4.1S4.6 4.8 3.4 6l1.2 1.1c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.6-1.6a2.3 2.3 0 0 0-3.2 0z"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="22" height="11" rx="3"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="currentColor" stroke="none"/><path d="M24.5 4v4" stroke-linecap="round"/></svg></span></div>
+            <div class="ch-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div class="ch-title"><b><span class="ch-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ballot Buddy</b><small>Ballot help</small></div><span class="ch-sample">Sample</span></div>
+            <div class="ch-body">
+              <div class="ch-me">Who should I vote for on the parks measure?</div>
+              <p class="ch-ai">That's your call, and I won't pick for you. Here's what each vote would do:</p>
+              <div class="ch-split"><div><b>Yes</b>Raises the cap on how much the city can borrow for parks.</div><div><b>No</b>Keeps the current borrowing cap.</div></div>
+              <p class="ch-ai">I can also pull the arguments for and against from the official voter pamphlet.</p>
+              <div class="ch-chips"><span class="ch-chip">Show both sides</span><span class="ch-chip">What's a bond?</span></div>
             </div>
-            <div class="m-bubble you">Who should I vote for?</div>
-            <div class="m-bubble bot">That's your call. Here's how each candidate describes their housing plan, in their own words, with links.</div>
-            <div class="m-bubble you">What does the county recorder do?</div>
-            <div class="m-bubble bot">The recorder runs voter registration and mail ballots in your county.</div>
+            <div class="ch-compose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Message Ballot Buddy</span><span class="ch-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
           </div>
         </div>
       </article>
@@ -256,16 +261,22 @@
       <article class="showcase-card">
         <div class="showcase-copy">
           <h3>Straight from official sources.</h3>
-          <p>Every date and rule links to Arizona.Vote, the Secretary of State, or your county. No guessing.</p>
+          <p>Deadline alerts arrive on their own, and every date links to Arizona.Vote, the Secretary of State, or your county.</p>
         </div>
         <div class="device" aria-hidden="true">
-          <div class="screen">
-            <div class="m-status"><span>9:41</span><span>Deadlines</span></div>
-            <div class="m-head"><div><div class="m-kicker">Coming up</div><b>2028 general election</b></div></div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><b>Register or update your address <span class="m-pill">Official</span></b><i>By Monday, October 9 · azsos.gov</i></div><div></div></div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><b>Request a mail ballot <span class="m-pill">Official</span></b><i>By Friday, October 27 at 5 p.m. · my.arizona.vote</i></div><div></div></div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><b>Early voting starts <span class="m-pill warn">Expected</span></b><i>Wednesday, October 11 · your county</i></div><div></div></div>
-            <div class="m-row"><div class="m-txt" style="padding:0"><b>Election day <span class="m-pill">Official</span></b><i>Tuesday, November 7 · polls open 6 a.m. to 7 p.m.</i></div><div></div></div>
+          <div class="screen has-note">
+            <div class="island"></div>
+            <div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3C13.3 1.5 10.8.4 8 .4S2.7 1.5.8 3.3L2 4.6c1.6-1.5 3.7-2.4 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3L12.6 6C11.4 4.8 9.8 4.1 8 4.1S4.6 4.8 3.4 6l1.2 1.1c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.6-1.6a2.3 2.3 0 0 0-3.2 0z"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="22" height="11" rx="3"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="currentColor" stroke="none"/><path d="M24.5 4v4" stroke-linecap="round"/></svg></span></div>
+            <div class="ios-note"><span class="app"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><div><b>Ballot Buddy<span>now</span></b><p>Registration closes in 7 days. Moved recently?</p></div></div>
+            <div class="ch-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div class="ch-title"><b><span class="ch-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ballot Buddy</b><small>Deadline alert</small></div><span class="ch-sample">Sample</span></div>
+            <div class="ch-body">
+              <span class="ch-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>Reminder · 7 days left</span>
+              <p class="ch-ai">Heads up: the deadline to register or update your address for the November 7 general election is <b>Monday, October 9</b>.</p>
+              <div class="ch-cites"><span class="ch-cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>azsos.gov</span><span class="ch-cite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18"/></svg>my.arizona.vote</span></div>
+              <p class="ch-ai">Moved since the last election? Updating online takes a few minutes.</p>
+              <div class="ch-chips"><span class="ch-chip">Check my registration</span><span class="ch-chip">Remind me Friday</span></div>
+            </div>
+            <div class="ch-compose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Message Ballot Buddy</span><span class="ch-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
           </div>
         </div>
       </article>
@@ -273,18 +284,24 @@
       <article class="showcase-card flip">
         <div class="showcase-copy">
           <h3>Your answers stay with you.</h3>
-          <p>No account and no address. Your profile lives in this browser, and you can turn reminders off anytime.</p>
+          <p>No account and no address. See what it remembers, and pause any reminder by just asking.</p>
         </div>
         <div class="device" aria-hidden="true">
           <div class="screen">
-            <div class="m-status"><span>9:41</span><span>Settings</span></div>
-            <div class="m-lock"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><div><b>Stored on this device only</b><br><i style="font-style:normal;color:#86868b">City, topics, sources, schedule</i></div></div>
-            <div class="m-row"><div><b>News roundup</b><br><i style="font-style:normal;color:#86868b">Every Monday at 8 a.m.</i></div><div class="m-switch"></div></div>
-            <div class="m-row"><div><b>Election deadline reminders</b><br><i style="font-style:normal;color:#86868b">From your county calendar</i></div><div class="m-switch"></div></div>
-            <div class="m-row"><div><b>Never asks how you voted</b><br><i style="font-style:normal;color:#86868b">And won't remember if you say</i></div><div></div></div>
+            <div class="island"></div>
+            <div class="sb"><span>9:41</span><span><svg viewBox="0 0 18 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="10" y="2.5" width="3" height="8.5" rx="1"/><rect x="15" y="0" width="3" height="11" rx="1"/></svg><svg viewBox="0 0 16 11" fill="currentColor"><path d="M8 2.2c2.3 0 4.4.9 6 2.4l1.2-1.3C13.3 1.5 10.8.4 8 .4S2.7 1.5.8 3.3L2 4.6c1.6-1.5 3.7-2.4 6-2.4zm0 3.6c1.3 0 2.5.5 3.4 1.3L12.6 6C11.4 4.8 9.8 4.1 8 4.1S4.6 4.8 3.4 6l1.2 1.1c.9-.8 2.1-1.3 3.4-1.3zM8 9.4l1.6-1.6a2.3 2.3 0 0 0-3.2 0z"/></svg><svg viewBox="0 0 26 12" fill="none" stroke="currentColor"><rect x="0.5" y="0.5" width="22" height="11" rx="3"/><rect x="2" y="2" width="17" height="8" rx="1.5" fill="currentColor" stroke="none"/><path d="M24.5 4v4" stroke-linecap="round"/></svg></span></div>
+            <div class="ch-head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div class="ch-title"><b><span class="ch-avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ballot Buddy</b><small>Memory</small></div><span class="ch-sample">Sample</span></div>
+            <div class="ch-body">
+              <p class="ch-ai">Here's everything I remember about you:</p>
+              <div class="ch-memory"><div><dt>Where</dt><dd style="margin:0"><span class="city-name">Arizona</span></dd></div><div><dt>Topics</dt><dd style="margin:0">Rent and housing, transit</dd></div><div><dt>Roundup</dt><dd style="margin:0">Mondays at 8 a.m.</dd></div><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Never your address, birth date, or ID.</p></div>
+              <div class="ch-me">Pause my weekly roundup.</div>
+              <p class="ch-ai">Done. Your roundup is paused. Deadline reminders stay on, and you can turn them off anytime.</p>
+            </div>
+            <div class="ch-compose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span>Message Ballot Buddy</span><span class="ch-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
           </div>
         </div>
       </article>
+
     </div>
   </section>
 
