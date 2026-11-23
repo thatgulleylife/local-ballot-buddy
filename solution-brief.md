@@ -34,6 +34,9 @@ Tomorrow I'll show it to coworkers who fit the 18 to 24 audience, since one test
 - **Reminders may not ring.** Google Calendar ignores alerts built into subscribed calendars, and Apple Calendar can drop them. The events appear on the right day, but a user who never opens their calendar might not get a nudge.
 - **Voters outside the three cities get less.** Someone in Flagstaff or a rural area gets statewide dates and links to their county, but not their local races. That's the group with the least local news coverage already.
 - **The news top 10 is only as good as its sources.** I removed outlets that block AI tools, which leaves gaps in some areas. Sol says when news is thin instead of padding the list, but a short list can still read as "nothing is happening."
+- **Keeping the content current.** When officials confirm a date or a race changes, I have to update the election calendar file, rebuild the calendars, and push the site. Right now that depends on me remembering to check. I need a regular routine, such as checking the county and state election pages once a month, so the site doesn't go stale.
+- **Making sure Sol and the prompt keep working.** AI tools change their features and limits often, and the setup prompt could stop working the same way in ChatGPT, Claude, or Gemini. I need to retest the prompt in each tool on a schedule and after any big update.
+- **Getting ongoing feedback.** Right now feedback only comes from people I show it to in person. I plan to add a short feedback form to the site that sends responses to a document I can review, so I can keep refining Sol after the pitch.
 - **Not everyone has an AI tool.** The setup prompt assumes the user has a ChatGPT, Claude, or Gemini account. The calendar works without one, but the ballot walkthrough doesn't.
 
 **Protecting people's information.** Voting plans and political interests are sensitive. Here's what I did and what's left:
@@ -51,4 +54,4 @@ It also tried to link users to a custom GPT that didn't exist. That taught me to
 
 ## 5. What I want feedback on (optional)
 
-[Optional. Example: "Is the four-question setup on the homepage clear enough that someone could finish it without help?"]
+When you first land on the site, is it clear what Sol is? Sol isn't an app or a chatbot on the site. It's a free setup you paste into the AI tool you already use, plus phone calendar reminders. I want to know if that comes across in the first few seconds, or where you got confused, so I can fix the homepage before I record my pitch.
