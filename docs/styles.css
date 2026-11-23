@@ -450,19 +450,33 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .summary-list dt { color: var(--ink-3); }
 .summary-list dd { margin: 0; }
 
-/* ---------- 14. Election timeline ---------- */
-.election { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 28px 0; border-top: 1px solid var(--line); }
-.election:first-child { border-top: 0; }
-.el-when { font-weight: 600; font-size: var(--body-s); color: var(--ink-2); display: grid; gap: 8px; align-content: start; }
-.election h3 { font-family: var(--font-display); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+/* ---------- 14. Election accordions (Coming up) ---------- */
+/* Same accordion as Your plan, with a date tile in place of the step number. */
+.election-step summary { grid-template-columns: 60px 1fr 32px; }
+.date-tile { width: 60px; height: 64px; border-radius: var(--r-s); background: var(--tint); display: grid; place-content: center; text-align: center; line-height: 1; }
+.dt-mon { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--navy); }
+.dt-day { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-top: 4px; }
+.dt-day.dt-tbd { font-size: 17px; }
+.el-head { display: grid; gap: 8px; min-width: 0; }
+.el-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: var(--body-s); color: var(--ink-2); }
+.election-step .plan-content { padding-left: 80px; }
+.key-dates { display: grid; grid-template-columns: auto 1fr; gap: 10px 24px; margin: 0 0 22px; font-size: 15px; }
+.key-dates dt { color: var(--ink-2); }
+.key-dates dd { margin: 0; font-weight: 600; }
 .badge { justify-self: start; font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: var(--r-pill); background: var(--warn-soft); color: var(--warn); }
 .badge.ok { background: var(--ok-soft); color: var(--ok); }
-.races { list-style: none; padding: 0; margin: 12px 0 0; }
+.races { list-style: none; padding: 0; margin: 0 0 22px; }
 .races li { display: flex; gap: 12px; padding: 4px 0; font-size: 15px; }
 .lvl { flex: 0 0 116px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); padding-top: 3px; }
-.deadlines { font-size: var(--body-s); color: var(--ink-2); margin: 14px 0 0; }
-.deadlines b { color: var(--ink); font-weight: 600; }
-@media (max-width: 640px) { .election { grid-template-columns: 1fr; gap: 8px; } .lvl { flex-basis: 86px; } }
+@media (max-width: 640px) {
+  .election-step summary { grid-template-columns: 48px 1fr 28px; }
+  .date-tile { width: 48px; height: 54px; }
+  .dt-day { font-size: 21px; }
+  .election-step .plan-content { padding-left: 0; }
+  .key-dates { grid-template-columns: 1fr; gap: 2px; }
+  .key-dates dd { margin-bottom: 10px; }
+  .lvl { flex-basis: 86px; }
+}
 
 /* ---------- 15. Coming soon banner ---------- */
 .banner { background: var(--tint); border-radius: var(--r-xl); padding: 72px 32px; text-align: center; }

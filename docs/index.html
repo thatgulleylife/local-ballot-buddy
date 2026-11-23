@@ -149,7 +149,7 @@
     </div>
 
     <div id="plan-body" hidden>
-      <details class="plan-step" open>
+      <details class="plan-step" id="plan-step-1" open>
         <summary><span class="num">1</span><h3 class="heading-m">Add election deadlines to your calendar</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
         <div class="plan-content">
           <p id="cal-desc">Registration, mail ballot, early voting, and election day reminders. When a date changes, your calendar updates on its own.</p>
@@ -952,6 +952,17 @@
     const [y, m, d] = iso.split("-").map(Number);
     return new Date(y, m - 1, d).toLocaleDateString("en-US", { weekday: "short", month: "long", day: "numeric", year: "numeric" });
   }
+  // "Add to your calendar" jumps to Your plan and opens step 1 (or the locked notice if the quiz isn't done).
+  function goToCalendarStep(ev) {
+    ev.preventDefault();
+    const step1 = $("plan-step-1");
+    const target = profile && step1 ? step1 : $("plan");
+    if (profile && step1) {
+      document.querySelectorAll("#plan-body .plan-step").forEach((d) => { d.open = d === step1; });
+    }
+    $("plan").classList.add("in");
+    target.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
   function renderElections() {
     const box = $("elections");
     box.replaceChildren();
@@ -964,36 +975,61 @@
     electionData.elections
       .filter((e) => !e.past && applies(e) && key(e) >= today)
       .sort((a, b) => (key(a) < key(b) ? -1 : 1))
-      .forEach((e) => {
-        const item = el("div", { class: "election" });
-        const when = el("div", { class: "el-when" });
-        when.append(el("span", {}, e.date ? fmtDate(e.date) : (e.approx_label || "Date not set yet")));
-        when.append(el("span", { class: "badge" + (e.status === "confirmed" ? " ok" : "") }, e.status === "confirmed" ? "Official date" : "Expected"));
-        const body = el("div");
-        body.append(el("h3", {}, e.name));
-        item.append(when, body);
+      .forEach((e, idx) => {
+        // Each election is an accordion: date tile and name up top, critical dates and a calendar CTA inside.
+        const item = el("details", { class: "plan-step election-step" });
+        if (idx === 0) item.open = true;
+        const sum = el("summary");
+        const tile = el("span", { class: "date-tile", "aria-hidden": "true" });
+        if (e.date) {
+          const [y, m, d] = e.date.split("-").map(Number);
+          const dt = new Date(y, m - 1, d);
+          tile.append(el("span", { class: "dt-mon" }, dt.toLocaleDateString("en-US", { month: "short" })), el("span", { class: "dt-day" }, String(d)));
+        } else {
+          tile.append(el("span", { class: "dt-mon" }, "Date"), el("span", { class: "dt-day dt-tbd" }, "TBD"));
+        }
+        const head = el("span", { class: "el-head" });
+        head.append(el("h3", { class: "heading-m" }, e.name));
+        const meta = el("span", { class: "el-meta" });
+        meta.append(
+          document.createTextNode(e.date ? fmtDate(e.date) : (e.approx_label || "Date not set yet")),
+          el("span", { class: "badge" + (e.status === "confirmed" ? " ok" : "") }, e.status === "confirmed" ? "Official date" : "Expected"));
+        head.append(meta);
+        sum.append(tile, head, el("span", { class: "chev", "aria-hidden": "true" }));
+        sum.lastChild.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';
+        item.append(sum);
+
+        const content = el("div", { class: "plan-content" });
+        const dl = e.deadlines || {};
+        const dates = [];
+        if (dl.registration) dates.push(["Register to vote by", dl.registration.date]);
+        if (dl.early_ballot_request) dates.push(["Request a mail ballot by", dl.early_ballot_request.date]);
+        if (dl.early_voting_starts) dates.push(["Early voting starts", dl.early_voting_starts.date]);
+        if (e.date) dates.push(["Election day", e.date]);
+        if (dates.length) {
+          const list = el("dl", { class: "key-dates" });
+          dates.forEach(([l, d]) => list.append(el("dt", {}, l), el("dd", {}, fmtDate(d))));
+          content.append(list);
+        } else {
+          content.append(el("p", {}, "Deadlines aren't set yet. Add the calendar and they'll appear when the state announces them."));
+        }
         const races = (e.races || []).filter(applies).sort((a, b) => LEVELS.indexOf(a.level) - LEVELS.indexOf(b.level));
         if (races.length) {
+          content.append(el("p", { class: "group-label" }, "On the ballot"));
           const ul = el("ul", { class: "races" });
           races.forEach((r) => {
             const li = el("li");
             li.append(el("span", { class: "lvl" }, LEVEL_LABEL[r.level]), el("span", {}, r.office + (r.status === "confirm" ? " (expected)" : "")));
             ul.append(li);
           });
-          body.append(ul);
+          content.append(ul);
         }
-        const dl = e.deadlines || {};
-        const parts = [];
-        if (dl.registration) parts.push(["Register by", dl.registration.date]);
-        if (dl.early_ballot_request) parts.push(["Request a mail ballot by", dl.early_ballot_request.date]);
-        if (parts.length) {
-          const p = el("p", { class: "deadlines" });
-          parts.forEach(([l, d], i) => {
-            if (i) p.append(document.createTextNode(" · "));
-            p.append(document.createTextNode(l + " "), el("b", {}, fmtDate(d)));
-          });
-          body.append(p);
-        }
+        const btns = el("div", { class: "btns" });
+        const cta = el("a", { class: "btn btn-primary", href: "#plan" }, "Add to your calendar");
+        cta.addEventListener("click", goToCalendarStep);
+        btns.append(cta);
+        content.append(btns);
+        item.append(content);
         box.append(item);
       });
 
