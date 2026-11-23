@@ -754,8 +754,8 @@ body.has-countdown { padding-bottom: 96px; }
 .gc-screen .sb { position: relative; z-index: 2; }
 
 /* Play button over the hero video cover */
-.video-play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; padding: 0; background: rgba(0, 12, 31, 0.08); cursor: pointer; transition: background var(--dur) var(--ease); }
-.video-play:hover { background: rgba(0, 12, 31, 0.16); }
+.video-play { position: absolute; inset: 0; display: grid; place-items: center; border: 0; padding: 0; background: transparent; cursor: pointer; transition: background var(--dur) var(--ease); }
+.video-play:hover { background: rgba(0, 12, 31, 0.06); }
 .video-play .play-mark { width: 96px; height: 96px; transition: transform var(--dur) var(--ease); box-shadow: var(--shadow-1); }
 .video-play:hover .play-mark { transform: scale(1.06); }
 .video-play:focus-visible { outline: none; }
@@ -766,3 +766,5 @@ body.has-countdown { padding-bottom: 96px; }
 .video-play:hover .play-mark { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.36), 0 16px 40px rgba(0, 12, 31, 0.4), 0 2px 6px rgba(0, 12, 31, 0.2); }
 .video-play .play-mark svg { width: 46px; height: 46px; margin-left: 6px; }
 .video-play:focus-visible .play-mark { outline-color: #fff; }
+/* A white ring around the video so it stands apart from the hero background. */
+.hero-media { box-shadow: 0 0 0 6px #fff, var(--shadow-1); }
