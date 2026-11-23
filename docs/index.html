@@ -354,6 +354,10 @@
   <div class="cd-clock" id="cd-clock" aria-live="off"></div>
   <button type="button" class="cd-close" id="cd-close" aria-label="Hide countdown"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
 </aside>
+<button type="button" class="cd-reopen" id="cd-reopen" aria-label="Show the countdown to the next statewide election" hidden>
+  <img src="media/sol-icon.png" alt="" width="28" height="28">
+  <span id="cd-reopen-days"></span>
+</button>
 
 <script>
   // ---------- Settings ----------
@@ -985,9 +989,8 @@
   // Counts down to 6 a.m. Arizona time on election day, when polls open. Arizona has no daylight saving time.
   function startCountdown() {
     const bar = $("countdown");
-    let hiddenByUser = false;
-    try { hiddenByUser = sessionStorage.getItem("lbb-cd-hidden") === "1"; } catch (_) {}
-    if (!electionData || hiddenByUser) return;
+    const pill = $("cd-reopen");
+    if (!electionData) return;
     const now = Date.now();
     const next = electionData.elections
       .filter((e) => e.date && !e.past && (e.applies_to || []).includes("all"))
@@ -1006,16 +1009,24 @@
       const m = Math.floor(ms / 6e4);
       clock.replaceChildren(unit(d, d === 1 ? "day" : "days"), unit(h, "hrs"), unit(m, "min"));
       clock.setAttribute("aria-label", `${d} days, ${h} hours, and ${m} minutes until polls open`);
+      $("cd-reopen-days").textContent = `${d} ${d === 1 ? "day" : "days"}`;
     };
     tick();
-    const timer = setInterval(tick, 30000);
-    bar.hidden = false;
-    document.body.classList.add("has-countdown");
-    $("cd-close").addEventListener("click", () => {
-      bar.hidden = true; clearInterval(timer);
-      document.body.classList.remove("has-countdown");
-      try { sessionStorage.setItem("lbb-cd-hidden", "1"); } catch (_) {}
-    });
+    setInterval(tick, 30000);
+
+    // Hiding the bar leaves a small button in the bottom right corner that brings it back.
+    const show = (open, focus) => {
+      bar.hidden = !open;
+      pill.hidden = open;
+      document.body.classList.toggle("has-countdown", open);
+      try { sessionStorage.setItem("lbb-cd-hidden", open ? "0" : "1"); } catch (_) {}
+      if (focus) (open ? $("cd-close") : pill).focus();
+    };
+    let hiddenByUser = false;
+    try { hiddenByUser = sessionStorage.getItem("lbb-cd-hidden") === "1"; } catch (_) {}
+    show(!hiddenByUser, false);
+    $("cd-close").addEventListener("click", () => show(false, true));
+    pill.addEventListener("click", () => show(true, true));
   }
   function renderElections() {
     const box = $("elections");
