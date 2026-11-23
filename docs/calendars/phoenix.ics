@@ -18,7 +18,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-prep@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20270705
 DTEND;VALUE=DATE:20270706
 SUMMARY:Get ready: Nov 2027 local election in 120 days
@@ -27,13 +27,13 @@ DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any
  istrict bond and budget override measures\, if any districts call them (ex
  pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
  te\n\nTap the link to check your address\, see your ballot\, and make a pl
- an.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20
- ready%20for%20the%20Maricopa%20County%20jurisdictional%20election%20on%202
- 027-11-02.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.go
- v/elections\nCheck your registration: https://my.arizona.vote
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
- ady%20for%20the%20Maricopa%20County%20jurisdictional%20election%20on%20202
- 7-11-02.%20I%20live%20in%20Phoenix.
+ an.\nhttps://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Maricopa
+ %20County%20jurisdictional%20election%20on%202027-11-02.%20I%20live%20in%2
+ 0Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your regi
+ stration: https://my.arizona.vote
+URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Maricopa%2
+ 0County%20jurisdictional%20election%20on%202027-11-02.%20I%20live%20in%20P
+ hoenix.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -43,7 +43,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-reg@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271004
 DTEND;VALUE=DATE:20271005
 SUMMARY:Register or update address by midnight: Nov 2027 local election (da
@@ -69,7 +69,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-early@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271006
 DTEND;VALUE=DATE:20271007
 SUMMARY:Early voting starts: Nov 2027 local election (date expected)
@@ -86,7 +86,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-req@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271022
 DTEND;VALUE=DATE:20271023
 SUMMARY:Mail ballot request due 5 p.m.: Nov 2027 local election (date expec
@@ -111,7 +111,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-maricopa-2027-11-day@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271102
 DTEND;VALUE=DATE:20271103
 SUMMARY:Election day: Nov 2027 local election (date expected)
@@ -121,11 +121,10 @@ DESCRIPTION:On the ballot:\n- City: City bond or charter measures\, if any
  pected\, not yet official)\nSee your exact ballot at https://my.arizona.vo
  te\n\nPolls are open 6 a.m. to 7 p.m. Find where to vote through Maricopa 
  County elections: https://elections.maricopa.gov\nNeed a plan? https://cha
- tgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=It%27s%20almost%20election%20day%2
- 0for%20the%20Maricopa%20County%20jurisdictional%20election.%20Help%20me%20
- finish%20my%20plan%20to%20vote.%20I%20live%20in%20Phoenix.\n\nCity info: h
- ttps://www.phoenix.gov/elections\nCheck your registration: https://my.ariz
- ona.vote
+ tgpt.com/?q=It%27s%20almost%20election%20day%20for%20the%20Maricopa%20Coun
+ ty%20jurisdictional%20election.%20Help%20me%20finish%20my%20plan%20to%20vo
+ te.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/elect
+ ions\nCheck your registration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -141,7 +140,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-prep@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271122
 DTEND;VALUE=DATE:20271123
 SUMMARY:Get ready: Presidential preference election in 120 days
@@ -149,13 +148,13 @@ DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
   voters registered with a participating party) (expected\, not yet officia
  l)\nSee your exact ballot at https://my.arizona.vote\n\nTap the link to ch
  eck your address\, see your ballot\, and make a plan.\nhttps://chatgpt.com
- /g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20ready%20for%20the%20Ariz
- ona%20presidential%20preference%20election%20on%202028-03-21.%20I%20live%2
- 0in%20Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your
-  registration: https://my.arizona.vote
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
- ady%20for%20the%20Arizona%20presidential%20preference%20election%20on%2020
- 28-03-21.%20I%20live%20in%20Phoenix.
+ /?q=Help%20me%20get%20ready%20for%20the%20Arizona%20presidential%20prefere
+ nce%20election%20on%202028-03-21.%20I%20live%20in%20Phoenix.\n\nCity info:
+  https://www.phoenix.gov/elections\nCheck your registration: https://my.ar
+ izona.vote
+URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Arizona%20
+ presidential%20preference%20election%20on%202028-03-21.%20I%20live%20in%20
+ Phoenix.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -165,7 +164,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-reg@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280221
 DTEND;VALUE=DATE:20280222
 SUMMARY:Register or update address by midnight: Presidential preference ele
@@ -191,7 +190,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-req@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280310
 DTEND;VALUE=DATE:20280311
 SUMMARY:Mail ballot request due 5 p.m.: Presidential preference election (d
@@ -216,7 +215,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-03-ppe-day@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280321
 DTEND;VALUE=DATE:20280322
 SUMMARY:Election day: Presidential preference election (date expected)
@@ -224,11 +223,11 @@ DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
   voters registered with a participating party) (expected\, not yet officia
  l)\nSee your exact ballot at https://my.arizona.vote\n\nPolls are open 6 a
  .m. to 7 p.m. Find where to vote through Maricopa County elections: https:
- //elections.maricopa.gov\nNeed a plan? https://chatgpt.com/g/REPLACE-WITH-
- YOUR-GPT-LINK?q=It%27s%20almost%20election%20day%20for%20the%20Arizona%20p
- residential%20preference%20election.%20Help%20me%20finish%20my%20plan%20to
- %20vote.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/
- elections\nCheck your registration: https://my.arizona.vote
+ //elections.maricopa.gov\nNeed a plan? https://chatgpt.com/?q=It%27s%20alm
+ ost%20election%20day%20for%20the%20Arizona%20presidential%20preference%20e
+ lection.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20in%20P
+ hoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your regist
+ ration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM
@@ -244,7 +243,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-prep@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280710
 DTEND;VALUE=DATE:20280711
 SUMMARY:Get ready: 2028 general election in 120 days
@@ -258,13 +257,12 @@ DESCRIPTION:On the ballot:\n- City: Phoenix mayor and odd-numbered council
   not yet official)\n- Federal: President\n- Federal: U.S. Senate (the seat
   Mark Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact b
  allot at https://my.arizona.vote\n\nTap the link to check your address\, s
- ee your ballot\, and make a plan.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR
- -GPT-LINK?q=Help%20me%20get%20ready%20for%20the%20General%20election%20on%
- 202028-11-07.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix
- .gov/elections\nCheck your registration: https://my.arizona.vote
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
- ady%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20in%20
- Phoenix.
+ ee your ballot\, and make a plan.\nhttps://chatgpt.com/?q=Help%20me%20get%
+ 20ready%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20i
+ n%20Phoenix.\n\nCity info: https://www.phoenix.gov/elections\nCheck your r
+ egistration: https://my.arizona.vote
+URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20General%20
+ election%20on%202028-11-07.%20I%20live%20in%20Phoenix.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -274,7 +272,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-reg@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281009
 DTEND;VALUE=DATE:20281010
 SUMMARY:Register or update address by midnight: 2028 general election
@@ -296,7 +294,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-early@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281011
 DTEND;VALUE=DATE:20281012
 SUMMARY:Early voting starts: 2028 general election (date expected)
@@ -313,7 +311,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-req@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281027
 DTEND;VALUE=DATE:20281028
 SUMMARY:Mail ballot request due 5 p.m.: 2028 general election
@@ -335,7 +333,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:phoenix-az-2028-11-day@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281107
 DTEND;VALUE=DATE:20281108
 SUMMARY:Election day: 2028 general election
@@ -350,11 +348,10 @@ DESCRIPTION:On the ballot:\n- City: Phoenix mayor and odd-numbered council
   Mark Kelly holds)\n- Federal: All nine U.S. House seats\nSee your exact b
  allot at https://my.arizona.vote\n\nPolls are open 6 a.m. to 7 p.m. Find w
  here to vote through Maricopa County elections: https://elections.maricopa
- .gov\nNeed a plan? https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=It%2
- 7s%20almost%20election%20day%20for%20the%20General%20election.%20Help%20me
- %20finish%20my%20plan%20to%20vote.%20I%20live%20in%20Phoenix.\n\nCity info
- : https://www.phoenix.gov/elections\nCheck your registration: https://my.a
- rizona.vote
+ .gov\nNeed a plan? https://chatgpt.com/?q=It%27s%20almost%20election%20day
+ %20for%20the%20General%20election.%20Help%20me%20finish%20my%20plan%20to%2
+ 0vote.%20I%20live%20in%20Phoenix.\n\nCity info: https://www.phoenix.gov/el
+ ections\nCheck your registration: https://my.arizona.vote
 URL:https://elections.maricopa.gov
 TRANSP:TRANSPARENT
 BEGIN:VALARM

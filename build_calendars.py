@@ -17,8 +17,8 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import quote
 
-# Replace with your custom GPT's share link once it exists.
-GPT_URL = "https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK"
+# Calendar links open ChatGPT with the question filled in. Swap in a custom GPT link here if you make one.
+GPT_URL = "https://chatgpt.com/"
 
 HERE = Path(__file__).parent
 SITE = HERE / "docs"

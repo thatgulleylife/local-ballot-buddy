@@ -18,18 +18,17 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:tempe-top10-weekly@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;TZID=America/Phoenix:20270103T100000
 DURATION:PT15M
 RRULE:FREQ=WEEKLY
 SUMMARY:Your Tempe top 10
 DESCRIPTION:Tap for city\, county\, state\, and national news in plain lang
- uage\, from trusted sources only.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR
- -GPT-LINK?q=Give%20me%20my%20Tempe%20top%2010%3A%20city%2C%20county%2C%20s
- tate%2C%20and%20national%20news%20that%20affects%20me.
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Give%20me%20my%20Tem
- pe%20top%2010%3A%20city%2C%20county%2C%20state%2C%20and%20national%20news%
- 20that%20affects%20me.
+ uage\, from trusted sources only.\nhttps://chatgpt.com/?q=Give%20me%20my%2
+ 0Tempe%20top%2010%3A%20city%2C%20county%2C%20state%2C%20and%20national%20n
+ ews%20that%20affects%20me.
+URL:https://chatgpt.com/?q=Give%20me%20my%20Tempe%20top%2010%3A%20city%2C%2
+ 0county%2C%20state%2C%20and%20national%20news%20that%20affects%20me.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY

@@ -18,7 +18,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:arizona-az-2028-03-ppe-prep@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20271122
 DTEND;VALUE=DATE:20271123
 SUMMARY:Get ready: Presidential preference election in 120 days
@@ -26,14 +26,13 @@ DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
   voters registered with a participating party) (expected\, not yet officia
  l)\nSee your exact ballot at https://my.arizona.vote\n\nTap the link to ch
  eck your address\, see your ballot\, and make a plan.\nhttps://chatgpt.com
- /g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20ready%20for%20the%20Ariz
- ona%20presidential%20preference%20election%20on%202028-03-21.%20I%20live%2
- 0in%20Arizona.\n\nFind your county elections office: https://azsos.gov/ele
- ctions/about-elections/county-election-contact-info\nCheck your registrati
- on: https://my.arizona.vote
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
- ady%20for%20the%20Arizona%20presidential%20preference%20election%20on%2020
- 28-03-21.%20I%20live%20in%20Arizona.
+ /?q=Help%20me%20get%20ready%20for%20the%20Arizona%20presidential%20prefere
+ nce%20election%20on%202028-03-21.%20I%20live%20in%20Arizona.\n\nFind your 
+ county elections office: https://azsos.gov/elections/about-elections/count
+ y-election-contact-info\nCheck your registration: https://my.arizona.vote
+URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20Arizona%20
+ presidential%20preference%20election%20on%202028-03-21.%20I%20live%20in%20
+ Arizona.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -43,7 +42,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-03-ppe-reg@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280221
 DTEND;VALUE=DATE:20280222
 SUMMARY:Register or update address by midnight: Presidential preference ele
@@ -69,7 +68,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-03-ppe-req@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280310
 DTEND;VALUE=DATE:20280311
 SUMMARY:Mail ballot request due 5 p.m.: Presidential preference election (d
@@ -96,7 +95,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-03-ppe-day@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280321
 DTEND;VALUE=DATE:20280322
 SUMMARY:Election day: Presidential preference election (date expected)
@@ -105,12 +104,11 @@ DESCRIPTION:On the ballot:\n- Federal: Party presidential nominee (only for
  l)\nSee your exact ballot at https://my.arizona.vote\n\nPolls are open 6 a
  .m. to 7 p.m. Find where to vote through your county elections: https://az
  sos.gov/elections/about-elections/county-election-contact-info\nNeed a pla
- n? https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=It%27s%20almost%20el
- ection%20day%20for%20the%20Arizona%20presidential%20preference%20election.
- %20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20in%20Arizona.\
- n\nFind your county elections office: https://azsos.gov/elections/about-el
- ections/county-election-contact-info\nCheck your registration: https://my.
- arizona.vote
+ n? https://chatgpt.com/?q=It%27s%20almost%20election%20day%20for%20the%20A
+ rizona%20presidential%20preference%20election.%20Help%20me%20finish%20my%2
+ 0plan%20to%20vote.%20I%20live%20in%20Arizona.\n\nFind your county election
+ s office: https://azsos.gov/elections/about-elections/county-election-cont
+ act-info\nCheck your registration: https://my.arizona.vote
 URL:https://azsos.gov/elections/about-elections/county-election-contact-inf
  o
 TRANSP:TRANSPARENT
@@ -127,7 +125,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-11-prep@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20280710
 DTEND;VALUE=DATE:20280711
 SUMMARY:Get ready: 2028 general election in 120 days
@@ -140,14 +138,13 @@ DESCRIPTION:On the ballot:\n- School district: School board seats and any d
  ial)\n- Federal: President\n- Federal: U.S. Senate (the seat Mark Kelly ho
  lds)\n- Federal: All nine U.S. House seats\nSee your exact ballot at https
  ://my.arizona.vote\n\nTap the link to check your address\, see your ballot
- \, and make a plan.\nhttps://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=He
- lp%20me%20get%20ready%20for%20the%20General%20election%20on%202028-11-07.%
- 20I%20live%20in%20Arizona.\n\nFind your county elections office: https://a
- zsos.gov/elections/about-elections/county-election-contact-info\nCheck you
- r registration: https://my.arizona.vote
-URL:https://chatgpt.com/g/REPLACE-WITH-YOUR-GPT-LINK?q=Help%20me%20get%20re
- ady%20for%20the%20General%20election%20on%202028-11-07.%20I%20live%20in%20
- Arizona.
+ \, and make a plan.\nhttps://chatgpt.com/?q=Help%20me%20get%20ready%20for%
+ 20the%20General%20election%20on%202028-11-07.%20I%20live%20in%20Arizona.\n
+ \nFind your county elections office: https://azsos.gov/elections/about-ele
+ ctions/county-election-contact-info\nCheck your registration: https://my.a
+ rizona.vote
+URL:https://chatgpt.com/?q=Help%20me%20get%20ready%20for%20the%20General%20
+ election%20on%202028-11-07.%20I%20live%20in%20Arizona.
 TRANSP:TRANSPARENT
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -157,7 +154,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-11-reg@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281009
 DTEND;VALUE=DATE:20281010
 SUMMARY:Register or update address by midnight: 2028 general election
@@ -179,7 +176,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-11-early@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281011
 DTEND;VALUE=DATE:20281012
 SUMMARY:Early voting starts: 2028 general election (date expected)
@@ -197,7 +194,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-11-req@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281027
 DTEND;VALUE=DATE:20281028
 SUMMARY:Mail ballot request due 5 p.m.: 2028 general election
@@ -221,7 +218,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:arizona-az-2028-11-day@local-ballot-buddy
-DTSTAMP:20261123T001718Z
+DTSTAMP:20261123T004223Z
 DTSTART;VALUE=DATE:20281107
 DTEND;VALUE=DATE:20281108
 SUMMARY:Election day: 2028 general election
@@ -235,12 +232,11 @@ DESCRIPTION:On the ballot:\n- School district: School board seats and any d
  lds)\n- Federal: All nine U.S. House seats\nSee your exact ballot at https
  ://my.arizona.vote\n\nPolls are open 6 a.m. to 7 p.m. Find where to vote t
  hrough your county elections: https://azsos.gov/elections/about-elections/
- county-election-contact-info\nNeed a plan? https://chatgpt.com/g/REPLACE-W
- ITH-YOUR-GPT-LINK?q=It%27s%20almost%20election%20day%20for%20the%20General
- %20election.%20Help%20me%20finish%20my%20plan%20to%20vote.%20I%20live%20in
- %20Arizona.\n\nFind your county elections office: https://azsos.gov/electi
- ons/about-elections/county-election-contact-info\nCheck your registration:
-  https://my.arizona.vote
+ county-election-contact-info\nNeed a plan? https://chatgpt.com/?q=It%27s%2
+ 0almost%20election%20day%20for%20the%20General%20election.%20Help%20me%20f
+ inish%20my%20plan%20to%20vote.%20I%20live%20in%20Arizona.\n\nFind your cou
+ nty elections office: https://azsos.gov/elections/about-elections/county-e
+ lection-contact-info\nCheck your registration: https://my.arizona.vote
 URL:https://azsos.gov/elections/about-elections/county-election-contact-inf
  o
 TRANSP:TRANSPARENT
