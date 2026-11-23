@@ -395,10 +395,24 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 }
 
 /* ---------- 12. Plan steps ---------- */
-.plan-step { display: grid; grid-template-columns: 44px 1fr; gap: 20px; padding: 36px 0; border-top: 1px solid var(--line); }
-.plan-step:first-child { border-top: 0; padding-top: 0; }
+/* Each plan step is an accordion (<details>); the first starts open */
+.plan-step { border-top: 1px solid var(--line); }
+.plan-step:first-child { border-top: 0; }
+.plan-step summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: 44px 1fr 32px; gap: 20px; align-items: center;
+  padding: 26px 0; border-radius: var(--r-s);
+}
+.plan-step summary::-webkit-details-marker { display: none; }
+.plan-step summary:hover .heading-m { color: var(--navy); }
+.plan-step summary .heading-m { margin: 0; font-size: 22px; transition: color var(--dur) var(--ease); }
 .num { width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: var(--on-navy); display: grid; place-items: center; font-weight: 600; }
-.plan-step .heading-m { font-size: 24px; margin: 6px 0 8px; }
+.chev { width: 32px; height: 32px; border-radius: 50%; background: var(--tint); display: grid; place-items: center; color: var(--ink); transition: transform var(--dur) var(--ease), background var(--dur) var(--ease); }
+.chev svg { width: 16px; height: 16px; }
+.plan-step[open] .chev { transform: rotate(180deg); }
+.plan-step summary:hover .chev { background: var(--tint-2); }
+.plan-content { padding: 0 0 32px 64px; }
+.plan-step[open] .plan-content { animation: plan-open .28s var(--ease); }
+@keyframes plan-open { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
 .plan-step p { margin: 0 0 16px; color: var(--ink-2); font-size: var(--body-m); }
 .btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .howto { margin: 0 0 18px; padding-left: 20px; color: var(--ink-2); }
@@ -407,7 +421,7 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .status { font-size: var(--body-s); color: var(--ok); }
 .locked { background: var(--surface); border-radius: var(--r-l); padding: 32px; text-align: center; }
 .locked p { margin: 0 auto 18px; color: var(--ink-2); max-width: 46ch; }
-@media (max-width: 640px) { .plan-step { grid-template-columns: 1fr; gap: 12px; } }
+@media (max-width: 640px) { .plan-step summary { grid-template-columns: 36px 1fr 28px; gap: 12px; } .num { width: 36px; height: 36px; } .plan-content { padding-left: 0; } .plan-step summary .heading-m { font-size: 18px; } }
 
 /* ---------- 13. Summary list ---------- */
 .summary-list { display: grid; grid-template-columns: auto 1fr; gap: 8px 20px; margin: 0 0 24px; font-size: 15px; }

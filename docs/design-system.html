@@ -206,13 +206,17 @@
   </section>
 
   <section class="ds-sec">
-    <h2>Numbered steps</h2>
-    <p class="body-l">For a short sequence the visitor works through, like the plan.</p>
+    <h2>Step accordion</h2>
+    <p class="body-l">For a short sequence the visitor works through, like the plan. Each step is a native <code>&lt;details&gt;</code> element, so it opens with a click, Enter, or Space. Open the first step by default.</p>
     <div class="ds-box">
-      <div class="plan-step">
-        <div class="num">1</div>
-        <div><h3 class="heading-m">Add election deadlines to your calendar</h3><p>When a date changes, your calendar updates on its own.</p><div class="btns"><button class="btn btn-primary">Apple or Outlook</button><button class="btn btn-secondary">Google Calendar</button></div></div>
-      </div>
+      <details class="plan-step" open>
+        <summary><span class="num">1</span><h3 class="heading-m">Add election deadlines to your calendar</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <div class="plan-content"><p>When a date changes, your calendar updates on its own.</p><div class="btns"><button class="btn btn-primary">Apple or Outlook</button><button class="btn btn-secondary">Google Calendar</button></div></div>
+      </details>
+      <details class="plan-step">
+        <summary><span class="num">2</span><h3 class="heading-m">Get nudged by your AI tool</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <div class="plan-content"><p>Copy your setup prompt and paste it into the tool you use.</p></div>
+      </details>
     </div>
   </section>
 

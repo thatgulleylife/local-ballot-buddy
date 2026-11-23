@@ -159,10 +159,9 @@
     </div>
 
     <div id="plan-body" hidden>
-      <div class="plan-step">
-        <div class="num">1</div>
-        <div>
-          <h3 class="heading-m">Add election deadlines to your calendar</h3>
+      <details class="plan-step" open>
+        <summary><span class="num">1</span><h3 class="heading-m">Add election deadlines to your calendar</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <div class="plan-content">
           <p id="cal-desc">Registration, mail ballot, early voting, and election day reminders. When a date changes, your calendar updates on its own.</p>
           <div class="btns">
             <a class="btn btn-primary" id="el-apple" href="#">Apple or Outlook</a>
@@ -170,12 +169,11 @@
           </div>
           <p class="caption" style="margin-top:14px">Using Google Calendar? Check that your default alerts are on, since Google uses your settings instead of ours.</p>
         </div>
-      </div>
+      </details>
 
-      <div class="plan-step">
-        <div class="num">2</div>
-        <div>
-          <h3 class="heading-m">Get nudged by your AI tool</h3>
+      <details class="plan-step">
+        <summary><span class="num">2</span><h3 class="heading-m">Get nudged by your AI tool</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <div class="plan-content">
           <p>Pick the tool you use. Copy your setup prompt and paste it in. It has your city, topics, sources, and schedule, plus rules so the tool stays nonpartisan and sticks to trusted sources.</p>
           <div class="chips" role="tablist" aria-label="AI tool" id="tool-tabs"></div>
           <ol class="howto" id="tool-howto"></ol>
@@ -187,18 +185,17 @@
             <span class="status" id="copied" role="status"></span>
           </div>
         </div>
-      </div>
+      </details>
 
-      <div class="plan-step">
-        <div class="num">3</div>
-        <div>
-          <h3 class="heading-m">No scheduling in your tool? Use a calendar reminder.</h3>
+      <details class="plan-step">
+        <summary><span class="num">3</span><h3 class="heading-m">No scheduling in your tool? Use a calendar reminder.</h3><span class="chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span></summary>
+        <div class="plan-content">
           <p id="remind-desc">Some AI tools can't run on a schedule. This adds a repeating reminder to your calendar on your timetable. Tap it to open your tool and get your roundup.</p>
           <div class="btns">
             <button type="button" class="btn btn-secondary" id="dl-reminder">Add roundup reminder</button>
           </div>
         </div>
-      </div>
+      </details>
     </div>
   </section>
 
