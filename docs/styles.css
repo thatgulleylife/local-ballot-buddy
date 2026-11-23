@@ -162,7 +162,6 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .nav-link:hover { color: var(--ink-2); }
 .site-nav .btn svg { width: 14px; height: 14px; }
 .cta-short { display: none; }
-.wordmark .cactus { width: 24px; height: 24px; color: var(--navy); margin-left: -2px; }
 .site-nav .wordmark { white-space: nowrap; }
 @media (max-width: 560px) {
   .site-nav-inner { height: 62px; }
@@ -208,6 +207,10 @@ html { scroll-padding-top: 84px; }   /* anchor jumps land below the sticky bar *
 .media-toggle:hover { background: rgba(0, 0, 0, 0.65); }
 .media-toggle svg { width: 18px; height: 18px; }
 .anchor { scroll-margin-top: 24px; }
+/* Quiz intro: introduces the questions after the video */
+.quiz-head { padding-top: 96px; margin-bottom: 40px; }
+.quiz-head .body-l { color: var(--flat-muted); }
+@media (max-width: 640px) { .quiz-head { padding-top: 64px; margin-bottom: 28px; } }
 /* Reserve two lines on small screens so the cycling city names never shift the page */
 /* Reserve two lines so the cycling city names never shift the page */
 .hero-copy h1 { min-height: 2.04em; }
