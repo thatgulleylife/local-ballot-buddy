@@ -160,6 +160,9 @@ a { color: inherit; }
 .mark svg { width: 18px; height: 18px; }
 .hero-copy { text-align: center; padding: 64px 0 40px; }
 .hero-copy .body-l { margin: 20px auto 0; max-width: 40ch; font-size: clamp(17px, 2vw, 20px); }
+/* Blinking caret while the greeting types out the visitor's city */
+.caret::after { content: ""; display: inline-block; width: 0.05em; height: 0.78em; margin-left: 0.04em; background: currentColor; vertical-align: -0.04em; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
 .notice { text-align: center; font-size: var(--caption); color: var(--ink-3); padding: 10px 16px; margin: 0; }
 @media (max-width: 640px) { .hero { border-radius: 0 0 32px 32px; padding: 18px 16px 32px; } .hero-copy { padding: 40px 0 28px; } .wordmark { font-size: 21px; } }
 

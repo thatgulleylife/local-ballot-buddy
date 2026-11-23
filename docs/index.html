@@ -416,8 +416,7 @@
     $("f-city").addEventListener("change", onCity);
     $("f-city").addEventListener("input", () => {
       const name = cleanName($("f-city").value);
-      // Only greet a complete place name; anything else waits until they leave the field.
-      if (TOWNS[name]) onCity(); else if (!name) greet("");
+      if (TOWNS[name]) onCity();
     });
     $("f-county").addEventListener("change", () => { draft.county = $("f-county").value; });
     $("f-day").addEventListener("change", () => (draft.day = $("f-day").value));
@@ -446,15 +445,29 @@
     document.querySelectorAll("#f-freq .chip").forEach((b) => b.setAttribute("aria-pressed", String(draft.freq === b.dataset.key)));
   }
 
-  // Greet the visitor by city as soon as they type or pick one.
-  function greet(name) {
-    document.querySelector(".hero .city-name").textContent = name || "Arizona";
+  // After step 1, retype the greeting with the visitor's city, like someone typing it.
+  let typeTimer = null;
+  function typeCity(name) {
+    const span = document.querySelector(".hero .city-name");
+    if (!name || span.textContent === name) return;
+    clearTimeout(typeTimer);
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { span.textContent = name; return; }
+    const h1 = span.closest("h1");
+    h1.setAttribute("aria-label", `Hello, ${name}`); // screen readers hear the final text once
+    span.textContent = "";
+    span.classList.add("caret");
+    let i = 0;
+    const tick = () => {
+      span.textContent = name.slice(0, ++i);
+      if (i < name.length) typeTimer = setTimeout(tick, 70 + Math.random() * 60);
+      else typeTimer = setTimeout(() => span.classList.remove("caret"), 1200);
+    };
+    typeTimer = setTimeout(tick, 250);
   }
 
   function onCity() {
     const name = cleanName($("f-city").value);
     draft.city = name;
-    greet(name);
     const counties = TOWNS[name];
     const note = $("county-note");
     if (!counties) { note.textContent = name ? "We don't have that place on our list. Choose your county below." : ""; return; }
@@ -523,6 +536,7 @@
     if (step === 1) { draft.city = cleanName($("f-city").value); draft.county = $("f-county").value; }
     const problem = validate();
     if (problem) { $("wiz-err").textContent = problem; return; }
+    if (step === 1) typeCity(draft.city);
     if (step < 4) { go(step + 1); return; }
     // Keep only sources still offered for this region.
     const region = (COUNTIES[draft.county] || {}).region;
