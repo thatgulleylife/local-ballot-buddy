@@ -12,6 +12,8 @@ A civic assistant for 18 to 24 year olds in Tempe, Phoenix, and Mesa. It covers 
 | `build_calendars.py` | Turns the JSON into calendar files. Run `python3 build_calendars.py`. It skips any election without a date. |
 | `worker/` | The on-page chat: a Cloudflare Worker that calls the Claude API with the key hidden. See `worker/README.md` to deploy it. |
 | `docs/` | The website. Upload this whole folder to host it. The builder fills it in, so edit the files above, not the copies in here. |
+| `docs/styles.css` | The design system: color, type, shape, shadow, and spacing tokens, plus every component (buttons, chips, fields, panel, stepper, link card carousel, feature grid, timeline, banner, chat). Modeled on america.gov's How it works page, without its government branding. |
+| `docs/design-system.html` | A reference page that renders each token and component, with usage principles. |
 | `docs/index.html` | The page. Visitors answer four questions (city and county, topics, news sources, schedule). The page then gives them quick links, an election calendar to subscribe to, a personalized setup prompt for ChatGPT, Claude, Gemini, or another AI tool, and a downloadable repeating reminder. Answers stay in the visitor's browser. It reads `election-calendar.json` to list upcoming elections. |
 | `docs/calendars/<city>.ics` | Deadlines and election days for each city. Each election day event lists the races for that city, closest to home first. |
 | `docs/calendars/<city>-top10-<cadence>.ics` | A recurring reminder (weekly, every two weeks, or monthly) that opens the GPT and asks for the top 10. |
